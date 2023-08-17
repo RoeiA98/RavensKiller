@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.idle_left = pygame.image.load('Graphics/Player/PlayerIdleLeft.png').convert_alpha()
         self.rect = self.image.get_rect(midbottom=(500, self.PLAYER_GROUND_POS))
         self.shooting_speed = 0.5
+        self.player_damage = 50
 
     def player_load_sprites(self):
         # player running sprites

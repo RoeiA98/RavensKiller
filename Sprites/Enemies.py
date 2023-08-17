@@ -7,6 +7,8 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+        self.enemy_frames_left = None
+        self.enemy_frames_right = None
         self.enemy_frames = []
         self.enemy_speed = 0
         self.enemy_health = None
@@ -22,9 +24,16 @@ class Enemy(pygame.sprite.Sprite):
             self.enemy_animation_index = 0
         self.image = self.enemy_frames[int(self.enemy_animation_index)]
 
+    def draw_health(self):
+        pass
+
     def update(self):
         self.enemy_animation()
-        self.rect.x += self.enemy_speed
+        if self.enemy_direction:
+            self.rect.x += self.enemy_speed
+        else:
+            self.rect.x -= self.enemy_speed
+        self.draw_health()
         self.remove_enemy()
 
     def remove_enemy(self):
@@ -36,18 +45,16 @@ class FlyRaven(Enemy):
     def __init__(self):
         super().__init__()
 
-        self.enemy_frames_left = None
-        self.enemy_frames_right = None
+        self.enemy_health = 100
+        self.enemy_speed = 6
         self.load_sprites()
         self.enemy_height_pos = randint(250, 300)
 
         if self.enemy_direction:
             self.enemy_width_pos = randint(-500, -100)
-            self.enemy_speed += 6
             self.enemy_frames = self.enemy_frames_right
         else:
             self.enemy_width_pos = randint(1100, 1300)
-            self.enemy_speed -= 6
             self.enemy_frames = self.enemy_frames_left
 
         self.image = self.enemy_frames[self.enemy_animation_index]
@@ -84,23 +91,22 @@ class FlyRaven(Enemy):
 
 
 class GroundRaven(Enemy):
-    def __init__(self):
+    def __init__(self, health, screen):
         super().__init__()
 
-        self.enemy_frames_left = None
-        self.enemy_frames_right = None
-        self.gr_health = 100
-
+        self.screen = screen
+        self.health = health
+        self.starting_health = health
+        self.enemy_speed = 3
         self.load_sprites()
         self.enemy_height_pos = 450
+        self.health_settings = None
 
         if self.enemy_direction:
             self.enemy_width_pos = randint(-500, -100)
-            self.enemy_speed += 3
             self.enemy_frames = self.enemy_frames_right
         else:
             self.enemy_width_pos = randint(1100, 1300)
-            self.enemy_speed -= 3
             self.enemy_frames = self.enemy_frames_left
 
         self.image = self.enemy_frames[self.enemy_animation_index]
@@ -142,3 +148,10 @@ class GroundRaven(Enemy):
                                   ground_raven_left6,
                                   ground_raven_left7,
                                   ground_raven_left8]
+
+    def draw_health(self):
+        if self.enemy_direction:    # right direction
+            self.health_settings = EnemyHealth(self.health, self.starting_health, self.rect.x + 35, self.rect.y - 15)
+        else:                       # left direction
+            self.health_settings = EnemyHealth(self.health, self.starting_health, self.rect.x, self.rect.y - 15)
+        self.health_settings.draw(self.screen)
