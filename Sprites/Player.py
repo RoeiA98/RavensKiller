@@ -3,29 +3,40 @@ from Sprites.Bullet import *
 from UI.Health import *
 
 
+def shoot_bullet(player_x, player_y, direction):
+    if direction:
+        return Bullet(player_x, player_y+15, direction)
+    return Bullet(player_x+50, player_y+15, direction)
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+        # General
         self.SCREEN_WIDTH = 1000
         self.SCREEN_HEIGHT = 550
+        self.PLAYER_GROUND_POS = 450
+
+        # Player Attributes
         self.player_index = 0
         self.player_shoot_index = 0
-        self.PLAYER_GROUND_POS = 450
         self.gravity = 0
         self.player_speed = 3
+        self.shooting_speed = 0.5
+        self.player_damage = 50
         self.player_current_direction = 0  # 0 = right, 1 = left
         self.player_run_right = None
         self.player_run_left = None
         self.player_shoot_right = None
         self.player_shoot_left = None
+
+        # Sprites
         self.player_load_sprites()
         self.image = pygame.image.load('Graphics/Player/PlayerIdleRight.png').convert_alpha()
         self.idle_right = pygame.image.load('Graphics/Player/PlayerIdleRight.png').convert_alpha()
         self.idle_left = pygame.image.load('Graphics/Player/PlayerIdleLeft.png').convert_alpha()
         self.rect = self.image.get_rect(midbottom=(500, self.PLAYER_GROUND_POS))
-        self.shooting_speed = 0.5
-        self.player_damage = 50
 
     def player_load_sprites(self):
         # player running sprites
@@ -140,11 +151,6 @@ class Player(pygame.sprite.Sprite):
             self.image = self.player_shoot_left[int(self.player_shoot_index)]
         else:
             self.player_shoot_index = 0
-
-    def shoot_bullet(self, player_x, player_y, direction):
-        if direction:
-            return Bullet(player_x, player_y+15, direction)
-        return Bullet(player_x+50, player_y+15, direction)
 
     def player_gravity(self):
         self.gravity += 1

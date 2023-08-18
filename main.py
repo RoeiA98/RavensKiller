@@ -1,4 +1,4 @@
-from Source.Game import *
+from Game.Levels import *
 
 if __name__ == "__main__":
 
