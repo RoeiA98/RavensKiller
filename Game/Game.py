@@ -1,7 +1,6 @@
 import pygame
 
 from Sprites.Collision import CollisionsHandler
-from Sprites.Player import Player
 from Sprites.Scenes import GameScenes
 from Sprites.Spawns import Spawns
 from UI.Health import PlayerHealth
@@ -54,7 +53,6 @@ class Game:
 
         """ Player Attributes """
         self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player())
         self.player_health = PlayerHealth(100, 100)
         self.bullet = pygame.sprite.Group()
 

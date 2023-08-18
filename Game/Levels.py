@@ -1,6 +1,7 @@
 import pygame
 
 from Game.Modes import GameModes
+from Sprites.Player import Player
 from Sprites.Spawns import set_spawn_rate
 from UI.Levels import *
 
@@ -10,6 +11,7 @@ class GameLevels(GameModes):
     def game_run(self):
 
         self.game_active_status = self.game_scenes.game_intro()
+        self.player.add(Player())  # player draw
 
         while self.game_running:
             if self.game_active_status:
