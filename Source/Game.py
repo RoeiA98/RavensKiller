@@ -3,6 +3,7 @@ from UI import Levels
 from Sprites.Scenes import *
 from Sprites.Enemies import *
 from Sprites.Player import *
+from Sprites.Collision import *
 from sys import exit
 from UI.Score import *
 
@@ -11,8 +12,6 @@ class Game:
     def __init__(self):
 
         """" General Attributes """
-        self.last_ground_raven_spawn_time = 0
-        self.last_fly_raven_spawn_time = 0
         self.MAX_FPS = 60
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
@@ -31,15 +30,17 @@ class Game:
 
         """ Enemy Attributes """
         self.hits = None
-        self.ground_raven_damage = 0
-        self.fly_raven_damage = 0
         self.all_enemies = pygame.sprite.Group()
         self.fly_raven_group = pygame.sprite.Group()
         self.ground_raven_group = pygame.sprite.Group()
+        self.deadly_raven_group = pygame.sprite.Group()
         self.ground_raven_hp = 0
-        self.spawn_rate = 100
         self.fly_raven_spawn = 0
         self.ground_raven_spawn = 0
+        self.deadly_raven_spawn = 0
+        self.last_ground_raven_spawn_time = 0
+        self.last_fly_raven_spawn_time = 0
+        self.last_deadly_raven_spawn_time = 0
 
         """" ------------------------------------------------- """
 
@@ -62,6 +63,13 @@ class Game:
         self.bullet = pygame.sprite.Group()
 
         """" ------------------------------------------------- """
+
+        self.collisions = CollisionsHandler(self.player,
+                                            self.player_health,
+                                            self.fly_raven_group,
+                                            self.ground_raven_group,
+                                            self.deadly_raven_group,
+                                            self.all_enemies)
 
     def events_handler(self):
 
@@ -92,24 +100,32 @@ class Game:
             else:
                 # End game and reset levels
                 self.game_over()
-                for intro_event in pygame.event.get():
-                    if intro_event.type == pygame.QUIT:
-                        pygame.quit()
-                        exit()
-                    if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_SPACE:
-                        self.game_reset()
+                self.game_restart()
 
             pygame.display.update()
             self.clock.tick(self.MAX_FPS)  # MAX 60 FPS
 
     def game_reset(self):
+        # Deleting enemies
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
+        self.deadly_raven_group.empty()
         self.all_enemies.empty()
+        # Resetting player
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
         self.player_health.hp = 100
+        # Resetting score
         self.game_current_level.level_score = 0
+
         self.game_active_status = True
+
+    def game_restart(self):
+        for intro_event in pygame.event.get():
+            if intro_event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_SPACE:
+                self.game_reset()
 
     def game_next_level(self):
         self.levels_manager += 1
@@ -119,12 +135,13 @@ class Game:
         # Deleting enemies
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
+        self.deadly_raven_group.empty()
         self.all_enemies.empty()
         # Resetting player position
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
         # Game over scene
         self.display_player_score.current_score = 0
-        self.game_scenes.game_over(self.display_player_score.current_score)
+        self.game_scenes.game_over(self.game_current_level.level_score)
         self.levels_manager = 1
         self.game_current_level = self.game_levels[self.levels_manager]
         self.game_active_status = False
@@ -150,13 +167,14 @@ class Game:
         self.all_enemies.draw(self.game_screen)
         self.spawn_fly_raven()
         self.spawn_ground_raven()
+        self.spawn_deadly_raven()
 
         # Bullet
         self.bullet.draw(self.game_screen)
         self.bullet.update()
 
         # Collision
-        self.game_active_status = self.player_collision()
+        self.game_active_status = self.collisions.detect_collision()
         # self.game_active_status = True  # for testings without collision
 
     def spawn_fly_raven(self):
@@ -175,39 +193,33 @@ class Game:
             self.ground_raven_group.add(new_ground_raven)
             self.all_enemies.add(new_ground_raven)
 
+    def spawn_deadly_raven(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_deadly_raven_spawn_time > self.deadly_raven_spawn:
+            self.last_deadly_raven_spawn_time = current_time
+            new_deadly_raven = DeadlyFlyRaven()
+            self.deadly_raven_group.add(new_deadly_raven)
+            self.all_enemies.add(new_deadly_raven)
+
     def fl_rav_spawn_rate(self, from_, to_):
         self.fly_raven_spawn = randint(from_, to_)
 
     def gr_rav_spawn_rate(self, from_, to_):
         self.ground_raven_spawn = randint(from_, to_)
 
-    def player_collision(self):
-
-        # Ground raven hit
-        if pygame.sprite.spritecollide(self.player.sprite, self.fly_raven_group, True):
-            self.player_health.hp -= self.fly_raven_damage
-            if self.player_health.hp <= 0:
-                self.all_enemies.empty()
-                return False
-
-        # Fly raven hit
-        if pygame.sprite.spritecollide(self.player.sprite, self.ground_raven_group, True):
-            self.player_health.hp -= self.ground_raven_damage
-            if self.player_health.hp <= 0:
-                self.all_enemies.empty()
-                return False
-
-        return True
+    def deadly_fl_rav_spawn_rate(self, from_, to_):
+        self.deadly_raven_spawn = randint(from_, to_)
 
     def level_one(self):
 
         """Level settings:"""
         self.ground_raven_hp = 100
-        self.ground_raven_damage = 25
-        self.fly_raven_damage = 30
+        self.collisions.fly_raven_damage = 30
+        self.collisions.ground_raven_damage = 25
 
         self.gr_rav_spawn_rate(1300, 2100)
         self.fl_rav_spawn_rate(1000, 2000)
+        self.deadly_fl_rav_spawn_rate(4000, 15000)
         self.events_handler()
 
         """Level display:"""
@@ -239,11 +251,12 @@ class Game:
 
         """Level settings:"""
         self.ground_raven_hp = 150
-        self.ground_raven_damage = 25
-        self.fly_raven_damage = 30
+        self.collisions.fly_raven_damage = 30
+        self.collisions.ground_raven_damage = 25
 
-        self.gr_rav_spawn_rate(500, 800)
-        self.fl_rav_spawn_rate(1000, 2000)
+        self.gr_rav_spawn_rate(1200, 2100)
+        self.fl_rav_spawn_rate(1000, 1200)
+        self.deadly_fl_rav_spawn_rate(3000, 15000)
         self.events_handler()
 
         """Level display:"""
