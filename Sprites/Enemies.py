@@ -95,7 +95,7 @@ class DeadlyFlyRaven(Enemy):
         super().__init__()
 
         self.enemy_health = 100
-        self.enemy_speed = 6
+        self.enemy_speed = 7.5
         self.load_sprites()
         self.enemy_height_pos = randint(410, 430)
 
