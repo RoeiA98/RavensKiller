@@ -7,7 +7,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.PLAYER_GROUND_POS = 450
+        self.PLAYER_GROUND_POS = 510
         self.enemy_frames_left = None
         self.enemy_frames_right = None
         self.enemy_frames = []

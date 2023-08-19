@@ -51,7 +51,7 @@ class LevelOne(Levels):
         bg = pygame.Surface((300, 100))  # the size of your rect
         bg.set_alpha(128)  # alpha level
         bg.fill('black')  # this fills the entire surface
-        screen.blit(bg, (650, 30))  # (0,0) are the top-left coordinates
+        screen.blit(bg, (650, 30))  # coordinates
 
         # Draw
         screen.blit(self.level_text, self.level_text_rect)
