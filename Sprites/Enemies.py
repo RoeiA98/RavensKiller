@@ -7,6 +7,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+        self.PLAYER_GROUND_POS = 450
         self.enemy_frames_left = None
         self.enemy_frames_right = None
         self.enemy_frames = []
@@ -18,17 +19,14 @@ class Enemy(pygame.sprite.Sprite):
         self.image = None
         self.rect = None
 
-    def enemy_animation(self):
-        self.enemy_animation_index += 0.1
-        if self.enemy_animation_index >= len(self.enemy_frames):
-            self.enemy_animation_index = 0
-        self.image = self.enemy_frames[int(self.enemy_animation_index)]
+    def enemy_sprite_speed(self):
+        pass
 
     def draw_health(self):
         pass
 
     def update(self):
-        self.enemy_animation()
+        self.enemy_sprite_speed()
         if self.enemy_direction:
             self.rect.x += self.enemy_speed
         else:
@@ -47,8 +45,9 @@ class FlyRaven(Enemy):
 
         self.enemy_health = 100
         self.enemy_speed = 6
+        self.sprites_speed = 0.1
         self.load_sprites()
-        self.enemy_height_pos = randint(250, 300)
+        self.enemy_height_pos = randint(self.PLAYER_GROUND_POS-200, self.PLAYER_GROUND_POS-150)
 
         if self.enemy_direction:
             self.enemy_width_pos = randint(-500, -100)
@@ -59,6 +58,12 @@ class FlyRaven(Enemy):
 
         self.image = self.enemy_frames[self.enemy_animation_index]
         self.rect = self.image.get_rect(midbottom=(self.enemy_width_pos, self.enemy_height_pos))
+
+    def enemy_sprite_speed(self):
+        self.enemy_animation_index += self.sprites_speed
+        if self.enemy_animation_index >= len(self.enemy_frames):
+            self.enemy_animation_index = 0
+        self.image = self.enemy_frames[int(self.enemy_animation_index)]
 
     def load_sprites(self):
         # fly raven animation right
@@ -96,8 +101,9 @@ class DeadlyFlyRaven(Enemy):
 
         self.enemy_health = 100
         self.enemy_speed = 7.5
+        self.sprites_speed = 0.4
         self.load_sprites()
-        self.enemy_height_pos = randint(410, 430)
+        self.enemy_height_pos = randint(self.PLAYER_GROUND_POS-40, self.PLAYER_GROUND_POS-20)
 
         if self.enemy_direction:
             self.enemy_width_pos = randint(-500, -100)
@@ -108,6 +114,12 @@ class DeadlyFlyRaven(Enemy):
 
         self.image = self.enemy_frames[self.enemy_animation_index]
         self.rect = self.image.get_rect(midbottom=(self.enemy_width_pos, self.enemy_height_pos))
+
+    def enemy_sprite_speed(self):
+        self.enemy_animation_index += self.sprites_speed
+        if self.enemy_animation_index >= len(self.enemy_frames):
+            self.enemy_animation_index = 0
+        self.image = self.enemy_frames[int(self.enemy_animation_index)]
 
     def load_sprites(self):
         # fly raven animation right
@@ -147,8 +159,9 @@ class GroundRaven(Enemy):
         self.health = health
         self.starting_health = health
         self.enemy_speed = 3
+        self.sprites_speed = 0.2
         self.load_sprites()
-        self.enemy_height_pos = 450
+        self.enemy_height_pos = self.PLAYER_GROUND_POS
         self.health_settings = None
 
         if self.enemy_direction:
@@ -160,6 +173,12 @@ class GroundRaven(Enemy):
 
         self.image = self.enemy_frames[self.enemy_animation_index]
         self.rect = self.image.get_rect(midbottom=(self.enemy_width_pos, self.enemy_height_pos))
+
+    def enemy_sprite_speed(self):
+        self.enemy_animation_index += self.sprites_speed
+        if self.enemy_animation_index >= len(self.enemy_frames):
+            self.enemy_animation_index = 0
+        self.image = self.enemy_frames[int(self.enemy_animation_index)]
 
     def load_sprites(self):
         # ground raven animation right

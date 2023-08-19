@@ -37,7 +37,7 @@ class GameLevels(GameModes):
         self.collisions.ground_raven_damage = 25
 
         self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
-        self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
+        self.spawns.fly_raven_spawn = set_spawn_rate(2400, 3000)
         self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
 
         self.events_handler()

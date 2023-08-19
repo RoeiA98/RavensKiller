@@ -92,5 +92,5 @@ class GameModes(Game):
         self.bullet.update()
 
         # Collision
-        self.game_active_status = self.collisions.detect_collision()
-        # self.game_active_status = True  # for testings without collision
+        # self.game_active_status = self.collisions.detect_collision()
+        self.game_active_status = True  # for testings without collision
