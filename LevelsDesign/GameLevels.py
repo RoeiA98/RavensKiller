@@ -2,7 +2,7 @@ import pygame
 
 from Game.Modes import GameModes
 from Sprites.Player import Player
-from Sprites.Spawns import set_spawn_rate
+from Game.Spawns import set_spawn_rate
 from UI.Levels import *
 
 

@@ -1,7 +1,7 @@
 from Game.Game import Game
-from Sprites.GameScenes import *
+from UI.GameScenes import *
 from Sprites.Player import *
-from Sprites.Spawns import *
+from Game.Spawns import *
 from sys import exit
 from UI.Score import *
 

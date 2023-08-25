@@ -1,8 +1,8 @@
 import pygame
 from Sprites.Collision import CollisionsHandler
-from Sprites.GameScenes import GameScenes
+from UI.GameScenes import GameScenes
 from UI.LevelScenes import Level1Scene, Level2Scene, Level3Scene
-from Sprites.Spawns import Spawns
+from Game.Spawns import Spawns
 from UI.Health import PlayerHealth
 from UI.Levels import *
 from UI.Score import Score
