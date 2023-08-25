@@ -1,7 +1,7 @@
 import pygame
-
 from Sprites.Collision import CollisionsHandler
-from Sprites.Scenes import GameScenes
+from Sprites.GameScenes import GameScenes
+from UI.LevelScenes import Level1Scene, Level2Scene, Level3Scene
 from Sprites.Spawns import Spawns
 from UI.Health import PlayerHealth
 from UI.Levels import *
@@ -25,6 +25,8 @@ class Game:
 
         """ Game Attributes """
         self.active_game_score = 0
+        self.ground_raven_kills = 0
+        self.fly_ravens_kills = 0
         self.display_player_score = Score(self.active_game_score)
 
         """" ------------------------------------------------- """
@@ -42,12 +44,15 @@ class Game:
         """ Scenes Attributes """
         self.levels_manager = 1
         self.game_scenes = GameScenes()
-        self.game_levels = [  # level correlates with index
+        self.game_level_scenes = [  # level correlates with index
             None,
-            LevelOne(self.active_game_score),
-            LevelTwo(self.active_game_score)
+            Level1Scene.LevelOneScene(self.active_game_score),
+            Level2Scene.LevelTwoScene(self.active_game_score),
+            Level3Scene.LevelThreeScene(self.active_game_score,
+                                        self.ground_raven_kills,
+                                        self.fly_ravens_kills)
         ]
-        self.game_current_level = self.game_levels[self.levels_manager]
+        self.game_current_level_scene = self.game_level_scenes[self.levels_manager]
 
         """" ------------------------------------------------- """
 

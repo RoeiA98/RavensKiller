@@ -7,17 +7,26 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.PLAYER_GROUND_POS = 510
+        self.PLAYER_GROUND_POS = 470
         self.enemy_frames_left = None
         self.enemy_frames_right = None
         self.enemy_frames = []
         self.enemy_speed = 0
         self.enemy_health = None
+        self.enemy_width_pos = 0
         # direction: 1 = right, 0 = left
         self.enemy_direction = randint(0, 1)
         self.enemy_animation_index = 0
         self.image = None
         self.rect = None
+
+    def enemy_spawn_coordinates(self, direction):
+        if direction:
+            self.enemy_width_pos = randint(-500, -100)
+            self.enemy_frames = self.enemy_frames_right
+        else:
+            self.enemy_width_pos = randint(1100, 1300)
+            self.enemy_frames = self.enemy_frames_left
 
     def enemy_sprite_speed(self):
         pass
@@ -49,12 +58,7 @@ class FlyRaven(Enemy):
         self.load_sprites()
         self.enemy_height_pos = randint(self.PLAYER_GROUND_POS-200, self.PLAYER_GROUND_POS-150)
 
-        if self.enemy_direction:
-            self.enemy_width_pos = randint(-500, -100)
-            self.enemy_frames = self.enemy_frames_right
-        else:
-            self.enemy_width_pos = randint(1100, 1300)
-            self.enemy_frames = self.enemy_frames_left
+        self.enemy_spawn_coordinates(self.enemy_direction)
 
         self.image = self.enemy_frames[self.enemy_animation_index]
         self.rect = self.image.get_rect(midbottom=(self.enemy_width_pos, self.enemy_height_pos))
@@ -105,12 +109,7 @@ class DeadlyFlyRaven(Enemy):
         self.load_sprites()
         self.enemy_height_pos = randint(self.PLAYER_GROUND_POS-40, self.PLAYER_GROUND_POS-20)
 
-        if self.enemy_direction:
-            self.enemy_width_pos = randint(-500, -100)
-            self.enemy_frames = self.enemy_frames_right
-        else:
-            self.enemy_width_pos = randint(1100, 1300)
-            self.enemy_frames = self.enemy_frames_left
+        self.enemy_spawn_coordinates(self.enemy_direction)
 
         self.image = self.enemy_frames[self.enemy_animation_index]
         self.rect = self.image.get_rect(midbottom=(self.enemy_width_pos, self.enemy_height_pos))
@@ -164,12 +163,7 @@ class GroundRaven(Enemy):
         self.enemy_height_pos = self.PLAYER_GROUND_POS
         self.health_settings = None
 
-        if self.enemy_direction:
-            self.enemy_width_pos = randint(-500, -100)
-            self.enemy_frames = self.enemy_frames_right
-        else:
-            self.enemy_width_pos = randint(1100, 1300)
-            self.enemy_frames = self.enemy_frames_left
+        self.enemy_spawn_coordinates(self.enemy_direction)
 
         self.image = self.enemy_frames[self.enemy_animation_index]
         self.rect = self.image.get_rect(midbottom=(self.enemy_width_pos, self.enemy_height_pos))

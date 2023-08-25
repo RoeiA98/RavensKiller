@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         # General
         self.SCREEN_WIDTH = 1000
         self.SCREEN_HEIGHT = 550
-        self.PLAYER_GROUND_POS = 510
+        self.PLAYER_GROUND_POS = 470
 
         # Player Attributes
         self.player_index = 0
