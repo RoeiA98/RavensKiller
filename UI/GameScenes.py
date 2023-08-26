@@ -88,7 +88,7 @@ class GameScenes(pygame.sprite.Sprite):
 
     def game_over(self, final_score):
 
-        pygame.display.set_caption("Game Over")
+        pygame.display.set_caption("GameOrigin Over")
         # Text
         gameover_text = self.game_font.render(
             f"GAME OVER!",

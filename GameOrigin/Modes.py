@@ -1,7 +1,7 @@
-from Game.Game import Game
+from GameOrigin.Game import *
 from UI.GameScenes import *
 from Sprites.Player import *
-from Game.Spawns import *
+from GameOrigin.Spawns import *
 from sys import exit
 from UI.Score import *
 
@@ -48,8 +48,8 @@ class GameModes(Game):
                 self.display_player_score.current_score = 0
 
     def game_next_level(self):
-        self.levels_manager += 1
-        self.game_current_level_scene = self.game_level_scenes[self.levels_manager]
+        self.current_level += 1
+        self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
     def game_over(self):
         # Deleting enemies
@@ -59,10 +59,10 @@ class GameModes(Game):
         self.all_enemies.empty()
         # Resetting player position
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
-        # Game over scene
+        # GameOrigin over scene
         self.game_scenes.game_over(self.display_player_score.current_score)
-        self.levels_manager = 1
-        self.game_current_level_scene = self.game_level_scenes[self.levels_manager]
+        self.current_level = 1
+        self.game_current_level_scene = self.game_level_scenes[self.current_level]
         self.game_active_status = False
 
     def game_active(self):

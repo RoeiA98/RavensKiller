@@ -1,8 +1,8 @@
 import pygame
 
-from Game.Modes import GameModes
+from GameOrigin.Modes import GameModes
+from GameOrigin.Spawns import set_spawn_rate
 from Sprites.Player import Player
-from Game.Spawns import set_spawn_rate
 from UI.Levels import *
 
 
@@ -11,29 +11,16 @@ class GameLevels(GameModes):
     def __init__(self):
         super().__init__()
 
-    def run(self):
-
         self.game_active_status = self.game_scenes.game_intro()
         self.player.add(Player())  # player draw
 
-        while self.game_running:
-            if self.game_active_status:
-                # level logic
-                if self.levels_manager == 1:
-                    self.level_one()
-
-                if self.levels_manager == 2:
-                    self.level_two()
-
-                if self.levels_manager == 3:
-                    self.level_three()
-            else:
-                # End game and reset levels
-                self.game_over()
-                self.game_restart()
-
-            pygame.display.update()
-            self.clock.tick(self.MAX_FPS)  # MAX 60 FPS
+    def levels_handler(self):
+        if self.current_level == 1:
+            self.level_one()
+        elif self.current_level == 2:
+            self.level_two()
+        elif self.current_level == 3:
+            self.level_three()
 
     def level_one(self):
         """
@@ -72,7 +59,6 @@ class GameLevels(GameModes):
             self.game_next_level()
             self.game_active_status = self.game_scenes.next_level()
             self.game_reset()
-            return False
 
     def level_two(self):
         """
@@ -111,7 +97,6 @@ class GameLevels(GameModes):
             self.game_next_level()
             self.game_active_status = self.game_scenes.next_level()
             self.game_reset()
-            return False
 
     def level_three(self):
         """
@@ -161,4 +146,3 @@ class GameLevels(GameModes):
             self.game_next_level()
             self.game_active_status = self.game_scenes.next_level()
             self.game_reset()
-            return False
