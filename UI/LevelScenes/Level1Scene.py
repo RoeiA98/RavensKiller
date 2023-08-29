@@ -3,9 +3,10 @@ from UI.Levels import Levels
 
 
 class LevelOneScene(Levels):
-    def __init__(self, level_score):
+    def __init__(self, level_score, gr_kills):
         super().__init__()
         self.level_score = level_score
+        self.gr_kills = gr_kills
 
     def display_level(self, screen):
         pygame.display.set_caption("Level 1")
@@ -24,7 +25,7 @@ class LevelOneScene(Levels):
         self.objective_text_rect = self.objective_text.get_rect(center=(780, 100))
 
         self.progress_text = self.game_font.render(
-            f"Ground Ravens Killed: {self.level_score}",
+            f"Ground Ravens Killed: {self.gr_kills}",
             True,
             'Black').convert_alpha()
         self.progress_text_rect = self.progress_text.get_rect(center=(800, 150))

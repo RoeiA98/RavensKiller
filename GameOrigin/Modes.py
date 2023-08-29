@@ -1,5 +1,3 @@
-import pygame
-
 from GameOrigin.Game import *
 from UI.GameScenes import *
 from Sprites.Player import *
@@ -36,8 +34,10 @@ class GameModes(Game):
         self.bullet.empty()
         # Resetting score
         self.game_current_level_scene.level_score = 0
-        self.ground_raven_kills = 0
+        self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
+        self.game_current_level_scene.fl_kills = 0
+        self.game_current_level_scene.gr_kills = 0
 
         self.game_active_status = True
 
@@ -51,6 +51,12 @@ class GameModes(Game):
                 self.display_player_score.current_score = 0
 
     def game_over(self):
+        # Reset score
+        self.game_current_level_scene.level_score = 0
+        self.ground_ravens_kills = 0
+        self.fly_ravens_kills = 0
+        self.game_current_level_scene.fl_kills = 0
+        self.game_current_level_scene.gr_kills = 0
         # Deleting enemies
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
@@ -59,7 +65,7 @@ class GameModes(Game):
         self.bullet.empty()
         # Resetting player position
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
-        # GameOrigin over scene
+        # Game over scene
         self.game_scenes.game_over(self.display_player_score.current_score)
         self.current_level = 1
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
@@ -92,5 +98,5 @@ class GameModes(Game):
         self.bullet.update()
 
         # Collision
-        # self.game_active_status = self.collisions.detect_collision()
-        self.game_active_status = True  # for testings without collision
+        self.game_active_status = self.collisions.detect_collision()
+        # self.game_active_status = True  # for testings without collision

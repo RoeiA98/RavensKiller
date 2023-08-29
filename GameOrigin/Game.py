@@ -22,9 +22,9 @@ class Game:
 
         """" ------------------------------------------------- """
 
-        """ GameOrigin Attributes """
+        """ Game Attributes """
         self.active_game_score = 0
-        self.ground_raven_kills = 0
+        self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
         self.display_player_score = Score(self.active_game_score)
 
@@ -41,14 +41,16 @@ class Game:
         """" ------------------------------------------------- """
 
         """ Scenes Attributes """
-        self.current_level = 4
+        self.current_level = 1
         self.game_scenes = GameScenes()
         self.game_level_scenes = [  # level correlates with index
             None,
-            Level1Scene.LevelOneScene(self.active_game_score),
-            Level2Scene.LevelTwoScene(self.active_game_score),
+            Level1Scene.LevelOneScene(self.active_game_score,
+                                      self.ground_ravens_kills),
+            Level2Scene.LevelTwoScene(self.active_game_score,
+                                      self.ground_ravens_kills),
             Level3Scene.LevelThreeScene(self.active_game_score,
-                                        self.ground_raven_kills,
+                                        self.ground_ravens_kills,
                                         self.fly_ravens_kills),
             Level4Scene.LevelFourScene(self.active_game_score,
                                        self.fly_ravens_kills)

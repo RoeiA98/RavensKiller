@@ -16,25 +16,30 @@ class GameLevels(GameModes):
 
     def next_level(self):
 
+        self.game_reset()
         self.current_level += 1
 
         if self.current_level >= len(self.game_level_scenes):
             self.game_active_status = self.game_scenes.final_scene(self.display_player_score.current_score)
-            self.current_level = 1
             self.display_player_score.current_score = 0
-            self.game_reset()
-            self.game_current_level_scene = self.game_level_scenes[self.current_level]
+            self.current_level = 1
         else:
-            self.game_current_level_scene = self.game_level_scenes[self.current_level]
             self.game_active_status = self.game_scenes.next_level()
-            self.game_reset()
+
+        self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
     def levels_handler(self):
         if self.current_level == 1:
+            print(f"global var: {self.ground_ravens_kills}")
+            print(f"local var: {self.game_current_level_scene.gr_kills}")
             self.level_one()
         elif self.current_level == 2:
+            print(f"global var: {self.ground_ravens_kills}")
+            print(f"local var: {self.game_current_level_scene.gr_kills}")
             self.level_two()
         elif self.current_level == 3:
+            print(f"global var: {self.ground_ravens_kills}")
+            print(f"local var: {self.game_current_level_scene.gr_kills}")
             self.level_three()
         elif self.current_level == 4:
             self.level_four()
@@ -68,11 +73,12 @@ class GameLevels(GameModes):
                     enemy.kill()
                     self.display_player_score.current_score += 1
                     self.game_current_level_scene.level_score += 1
+                    self.game_current_level_scene.gr_kills += 1
 
         if pygame.sprite.groupcollide(self.bullet, self.fly_raven_group, True, True):
             self.display_player_score.current_score += 1
 
-        if self.game_current_level_scene.level_score == 5:
+        if self.game_current_level_scene.gr_kills == 5:
             self.next_level()
 
     def level_two(self):
@@ -103,12 +109,12 @@ class GameLevels(GameModes):
                 if enemy.health <= 0:
                     enemy.kill()
                     self.display_player_score.current_score += 1
-                    self.game_current_level_scene.level_score += 1
+                    self.game_current_level_scene.gr_kills += 1
 
         if pygame.sprite.groupcollide(self.bullet, self.fly_raven_group, True, True):
             self.display_player_score.current_score += 1
 
-        if self.game_current_level_scene.level_score == 15:
+        if self.game_current_level_scene.gr_kills == 15:
             self.next_level()
 
     def level_three(self):
@@ -180,5 +186,47 @@ class GameLevels(GameModes):
             self.display_player_score.current_score += 1
             self.game_current_level_scene.fl_kills += 1
 
-        if self.game_current_level_scene.fl_kills == 1:
+        if self.game_current_level_scene.fl_kills == 5:
+            self.next_level()
+
+    def level_five(self):
+        """
+        Level logic:
+            Objective:  - Kill 10 Ground Ravens
+
+        """
+
+        """Level settings:"""
+        self.ground_raven_hp = 200
+        self.collisions.fly_raven_damage = 35
+        self.collisions.ground_raven_damage = 30
+
+        self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
+        self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
+        self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
+
+        self.events_handler()
+
+        """Level display:"""
+        self.game_active()
+
+        self.hits = pygame.sprite.groupcollide(self.bullet, self.ground_raven_group, True, False)
+        for bullet, hit_enemies in self.hits.items():
+            for enemy in hit_enemies:
+                enemy.health -= self.player.sprite.player_damage
+                if enemy.health <= 0:
+                    enemy.kill()
+                    self.display_player_score.current_score += 1
+                    self.game_current_level_scene.level_score += 1
+
+                    if self.game_current_level_scene.gr_kills < 10:
+                        self.game_current_level_scene.gr_kills += 1
+
+        if pygame.sprite.groupcollide(self.bullet, self.fly_raven_group, True, True):
+            self.display_player_score.current_score += 1
+            if self.game_current_level_scene.fl_kills < 3:
+                self.game_current_level_scene.fl_kills += 1
+
+        if self.game_current_level_scene.gr_kills == 10 \
+                and self.game_current_level_scene.fl_kills == 3:
             self.next_level()
