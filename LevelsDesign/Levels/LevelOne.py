@@ -41,5 +41,5 @@ class LevelOne(GameLevels):
             self.display_player_score.current_score += 1
 
         if self.game_current_level_scene.level_score == 5:
-            self.game_next_level()
+            self.next_level()
             self.game_active_status = self.game_scenes.next_level()

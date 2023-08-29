@@ -14,6 +14,21 @@ class GameLevels(GameModes):
         self.game_active_status = self.game_scenes.game_intro()
         self.player.add(Player())  # player draw
 
+    def next_level(self):
+
+        self.current_level += 1
+
+        if self.current_level >= len(self.game_level_scenes):
+            self.game_active_status = self.game_scenes.final_scene(self.display_player_score.current_score)
+            self.current_level = 1
+            self.display_player_score.current_score = 0
+            self.game_reset()
+            self.game_current_level_scene = self.game_level_scenes[self.current_level]
+        else:
+            self.game_current_level_scene = self.game_level_scenes[self.current_level]
+            self.game_active_status = self.game_scenes.next_level()
+            self.game_reset()
+
     def levels_handler(self):
         if self.current_level == 1:
             self.level_one()
@@ -21,6 +36,8 @@ class GameLevels(GameModes):
             self.level_two()
         elif self.current_level == 3:
             self.level_three()
+        elif self.current_level == 4:
+            self.level_four()
 
     def level_one(self):
         """
@@ -56,9 +73,7 @@ class GameLevels(GameModes):
             self.display_player_score.current_score += 1
 
         if self.game_current_level_scene.level_score == 5:
-            self.game_next_level()
-            self.game_active_status = self.game_scenes.next_level()
-            self.game_reset()
+            self.next_level()
 
     def level_two(self):
         """
@@ -94,9 +109,7 @@ class GameLevels(GameModes):
             self.display_player_score.current_score += 1
 
         if self.game_current_level_scene.level_score == 15:
-            self.game_next_level()
-            self.game_active_status = self.game_scenes.next_level()
-            self.game_reset()
+            self.next_level()
 
     def level_three(self):
         """
@@ -143,6 +156,29 @@ class GameLevels(GameModes):
 
         if self.game_current_level_scene.gr_kills == 10 \
                 and self.game_current_level_scene.fl_kills == 3:
-            self.game_next_level()
-            self.game_active_status = self.game_scenes.next_level()
-            self.game_reset()
+            self.next_level()
+
+    def level_four(self):
+        """
+        Level logic:
+            Objective:  - Kill 5 fly ravens without taking damage
+
+        """
+
+        """Level settings:"""
+        self.collisions.fly_raven_damage = 100
+
+        self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
+        self.spawns.deadly_raven_spawn = set_spawn_rate(10000, 15000)
+
+        self.events_handler()
+
+        """Level display:"""
+        self.game_active()
+
+        if pygame.sprite.groupcollide(self.bullet, self.fly_raven_group, True, True):
+            self.display_player_score.current_score += 1
+            self.game_current_level_scene.fl_kills += 1
+
+        if self.game_current_level_scene.fl_kills == 1:
+            self.next_level()

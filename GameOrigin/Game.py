@@ -1,7 +1,7 @@
 from GameOrigin.Spawns import *
 from Sprites.Collision import CollisionsHandler
 from UI.GameScenes import GameScenes
-from UI.LevelScenes import Level1Scene, Level2Scene, Level3Scene
+from UI.LevelScenes import Level1Scene, Level2Scene, Level3Scene, Level4Scene
 from UI.Health import PlayerHealth
 from UI.Levels import *
 from UI.Score import Score
@@ -41,7 +41,7 @@ class Game:
         """" ------------------------------------------------- """
 
         """ Scenes Attributes """
-        self.current_level = 1
+        self.current_level = 4
         self.game_scenes = GameScenes()
         self.game_level_scenes = [  # level correlates with index
             None,
@@ -49,7 +49,9 @@ class Game:
             Level2Scene.LevelTwoScene(self.active_game_score),
             Level3Scene.LevelThreeScene(self.active_game_score,
                                         self.ground_raven_kills,
-                                        self.fly_ravens_kills)
+                                        self.fly_ravens_kills),
+            Level4Scene.LevelFourScene(self.active_game_score,
+                                       self.fly_ravens_kills)
         ]
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 

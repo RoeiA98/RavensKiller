@@ -1,3 +1,5 @@
+import pygame
+
 from GameOrigin.Game import *
 from UI.GameScenes import *
 from Sprites.Player import *
@@ -31,6 +33,7 @@ class GameModes(Game):
         # Resetting player
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
         self.player_health.hp = 100
+        self.bullet.empty()
         # Resetting score
         self.game_current_level_scene.level_score = 0
         self.ground_raven_kills = 0
@@ -43,13 +46,9 @@ class GameModes(Game):
             if intro_event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_SPACE:
+            if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
                 self.game_reset()
                 self.display_player_score.current_score = 0
-
-    def game_next_level(self):
-        self.current_level += 1
-        self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
     def game_over(self):
         # Deleting enemies
@@ -57,6 +56,7 @@ class GameModes(Game):
         self.ground_raven_group.empty()
         self.deadly_raven_group.empty()
         self.all_enemies.empty()
+        self.bullet.empty()
         # Resetting player position
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
         # GameOrigin over scene
