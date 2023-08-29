@@ -41,7 +41,7 @@ class Game:
         """" ------------------------------------------------- """
 
         """ Scenes Attributes """
-        self.current_level = 1
+        self.current_level = 4
         self.game_scenes = GameScenes()
         self.game_level_scenes = [  # level correlates with index
             None,
