@@ -30,16 +30,10 @@ class GameLevels(GameModes):
 
     def levels_handler(self):
         if self.current_level == 1:
-            print(f"global var: {self.ground_ravens_kills}")
-            print(f"local var: {self.game_current_level_scene.gr_kills}")
             self.level_one()
         elif self.current_level == 2:
-            print(f"global var: {self.ground_ravens_kills}")
-            print(f"local var: {self.game_current_level_scene.gr_kills}")
             self.level_two()
         elif self.current_level == 3:
-            print(f"global var: {self.ground_ravens_kills}")
-            print(f"local var: {self.game_current_level_scene.gr_kills}")
             self.level_three()
         elif self.current_level == 4:
             self.level_four()
@@ -174,8 +168,9 @@ class GameLevels(GameModes):
         """Level settings:"""
         self.collisions.fly_raven_damage = 100
 
+        self.spawns.deadly_raven_spawn = 0
+        self.spawns.ground_raven_spawn = 0
         self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
-        self.spawns.deadly_raven_spawn = set_spawn_rate(10000, 15000)
 
         self.events_handler()
 

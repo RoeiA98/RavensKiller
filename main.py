@@ -1,4 +1,6 @@
-from LevelsDesign.GameLevels import *
+import pygame
+
+from LevelsDesign.GameLevels import GameLevels
 
 
 def main():
