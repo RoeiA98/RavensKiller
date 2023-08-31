@@ -1,5 +1,5 @@
 import pygame.sprite
-from Sprites.Enemies import *
+from Sprites.Enemy import *
 
 
 class GameScenes(pygame.sprite.Sprite):
