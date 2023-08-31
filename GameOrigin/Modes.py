@@ -8,6 +8,11 @@ from UI.Score import *
 
 class GameModes(Game):
 
+    def __init__(self):
+        super().__init__()
+
+        self.continue_screen = None
+
     def events_handler(self):
 
         for event in pygame.event.get():

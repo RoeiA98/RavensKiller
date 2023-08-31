@@ -1,5 +1,5 @@
 import pygame.sprite
-from Sprites.Enemies import *
+from Sprites.Enemy import *
 
 
 class GameScenes(pygame.sprite.Sprite):
@@ -20,7 +20,7 @@ class GameScenes(pygame.sprite.Sprite):
 
         self.game_intro_status = True
         while self.game_intro_status:
-            pygame.display.update()
+
             pygame.display.set_caption("Welcome")
             # Text
             welcome_text = self.game_font.render(
@@ -40,6 +40,8 @@ class GameScenes(pygame.sprite.Sprite):
             self.game_screen.blit(welcome_text, welcome_text_rect)
             self.game_screen.blit(start_game_text, start_game_text_rect)
 
+            pygame.display.update()
+
             for intro_event in pygame.event.get():
                 if intro_event.type == pygame.QUIT:
                     pygame.quit()
@@ -55,37 +57,25 @@ class GameScenes(pygame.sprite.Sprite):
 
     def next_level(self):
 
-        self.continue_screen = True
         pygame.display.set_caption("Next Level")
+        pygame.display.update()
+        # Text
+        congrats_text = self.game_font.render(
+            f"Great Job!",
+            True,
+            'Black').convert_alpha()
+        congrats_text_rect = congrats_text.get_rect(center=(500, 200))
 
-        while self.continue_screen:
-            pygame.display.update()
-            # Text
-            congrats_text = self.game_font.render(
-                f"Great Job!",
-                True,
-                'Black').convert_alpha()
-            congrats_text_rect = congrats_text.get_rect(center=(500, 200))
+        continue_text = self.game_font.render(
+            f"Press Enter for the Next Level!",
+            True,
+            'Black').convert_alpha()
+        continue_text_rect = continue_text.get_rect(center=(500, 250))
 
-            continue_text = self.game_font.render(
-                f"Press Enter for the Next Level!",
-                True,
-                'Black').convert_alpha()
-            continue_text_rect = continue_text.get_rect(center=(500, 250))
-
-            # Draw
-            self.game_screen.blit(self.image, (0, 0))
-            self.game_screen.blit(congrats_text, congrats_text_rect)
-            self.game_screen.blit(continue_text, continue_text_rect)
-
-            for intro_event in pygame.event.get():
-                if intro_event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
-                    self.continue_screen = False
-
-        return True
+        # Draw
+        self.game_screen.blit(self.image, (0, 0))
+        self.game_screen.blit(congrats_text, congrats_text_rect)
+        self.game_screen.blit(continue_text, continue_text_rect)
 
     def game_over(self, final_score):
 

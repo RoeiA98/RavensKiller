@@ -2,7 +2,9 @@ import pygame
 
 from GameOrigin.Modes import GameModes
 from GameOrigin.Spawns import set_spawn_rate
+import asyncio
 from Sprites.Player import Player
+from UI.FPS import FPS
 from UI.Levels import *
 
 
@@ -13,7 +15,7 @@ class GameLevels(GameModes):
 
         self.game_active_status = self.game_scenes.game_intro()
         self.player.add(Player())  # player draw
-
+        self.keys = pygame.key.get_pressed()
         self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)
         self.level_text = None
         self.objective_text = None
@@ -23,15 +25,26 @@ class GameLevels(GameModes):
         self.level_text_rect = None
         self.objective2_text = None
         self.objective2_text_rect = None
+        self.continue_screen = False
+        self.fps = FPS()
 
-    def display_level(self, screen):
-        pass
+    async def run_game(self):
+        while self.game_running:
+            if self.game_active_status:
+                self.levels_handler()
+            else:
+                # End game and reset levels
+                self.game_over()
+                self.game_restart()
 
-    def update(self, screen):
-        self.display_level(screen)
+            self.fps.render(self.game_screen)
+            pygame.display.update()
+            self.fps.clock.tick(self.MAX_FPS)
+            await asyncio.sleep(0)
 
     def next_level(self):
 
+        self.continue_screen = True
         self.game_reset()
         self.current_level += 1
 
@@ -39,8 +52,13 @@ class GameLevels(GameModes):
             self.game_active_status = self.game_scenes.final_scene(self.display_player_score.current_score)
             self.display_player_score.current_score = 0
             self.current_level = 1
+            self.continue_screen = False
         else:
-            self.game_active_status = self.game_scenes.next_level()
+            while self.continue_screen:
+                self.game_scenes.next_level()
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                        self.continue_screen = False
 
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 

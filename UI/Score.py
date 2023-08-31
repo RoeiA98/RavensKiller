@@ -1,4 +1,4 @@
-import pygame.sprite
+import pygame
 
 
 class Score(pygame.sprite.Sprite):

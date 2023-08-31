@@ -1,5 +1,9 @@
 import pygame
-from Sprites.Enemies import *
+
+from Sprites.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
+from Sprites.Enemies.FlyRavens import FlyRaven
+from Sprites.Enemies.GroundRavens import GroundRaven
+from Sprites.Enemy import *
 
 
 def set_spawn_rate(from_, to_):
