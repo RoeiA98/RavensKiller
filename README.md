@@ -12,12 +12,12 @@ Here's some pictures:
 
 ![start](https://i.imgur.com/DplUxOP.png)
 
-![levelshow3](https://github.com/RoeiA98/RavensKiller/assets/79267303/9730fd4d-bff3-45ad-a5bd-391a87ac6d73)
+![levelshow3](https://i.imgur.com/lQI5dg6.png)
 
-![levelshow1](https://github.com/RoeiA98/RavensKiller/assets/79267303/417dd8b9-8c61-4bac-860c-12757a64322b)
+![levelshow1](https://i.imgur.com/lpuDtLe.png)
 
-![nextlevel](https://github.com/RoeiA98/RavensKiller/assets/79267303/9207ff61-3979-4088-8a25-fb3a8b1695fe)
+![nextlevel](https://i.imgur.com/QVT3QVU.png)
 
-![levelshow2](https://github.com/RoeiA98/RavensKiller/assets/79267303/04738d2c-6212-4292-8fd3-30c7863a503c)
+![levelshow2](https://i.imgur.com/P3F6uNs.png)
 
-![gameover](https://github.com/RoeiA98/RavensKiller/assets/79267303/8baf9d32-1f11-4277-853a-155714f67bf7)
+![gameover](https://i.imgur.com/yAfrszF.png)
