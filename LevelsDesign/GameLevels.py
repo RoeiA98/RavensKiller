@@ -14,6 +14,22 @@ class GameLevels(GameModes):
         self.game_active_status = self.game_scenes.game_intro()
         self.player.add(Player())  # player draw
 
+        self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)
+        self.level_text = None
+        self.objective_text = None
+        self.objective_text_rect = None
+        self.progress_text = None
+        self.progress_text_rect = None
+        self.level_text_rect = None
+        self.objective2_text = None
+        self.objective2_text_rect = None
+
+    def display_level(self, screen):
+        pass
+
+    def update(self, screen):
+        self.display_level(screen)
+
     def next_level(self):
 
         self.game_reset()

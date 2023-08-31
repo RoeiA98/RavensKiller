@@ -29,7 +29,7 @@ class GameModes(Game):
         self.deadly_raven_group.empty()
         self.all_enemies.empty()
         # Resetting player
-        self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
+        self.player.sprite.player_reset_pos()
         self.player_health.hp = 100
         self.bullet.empty()
         # Resetting score
@@ -72,6 +72,7 @@ class GameModes(Game):
         self.game_active_status = False
 
     def game_active(self):
+
         # Display game
         self.game_scenes.game_active()
         self.game_current_level_scene.update(self.game_screen)

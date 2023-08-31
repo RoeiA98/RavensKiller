@@ -38,6 +38,14 @@ class Player(pygame.sprite.Sprite):
         self.idle_left = pygame.image.load('Graphics/Player/PlayerIdleLeft.png').convert_alpha()
         self.rect = self.image.get_rect(midbottom=(500, self.PLAYER_GROUND_POS))
 
+    def player_reset_pos(self):
+        self.rect = self.image.get_rect(midbottom=(500, self.PLAYER_GROUND_POS))
+        self.gravity = 0
+        if self.player_current_direction:
+            self.image = self.idle_left
+        else:
+            self.image = self.idle_right
+
     def player_load_sprites(self):
         # player running sprites
         # animation right
