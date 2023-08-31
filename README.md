@@ -8,6 +8,8 @@ In order to beat the game you need accurcy, good timing and a bit of luck.
 
 This game is my first attemp at creating 2D style games using PyGame.
 
+* The game uses free and public assets
+
 Here's some pictures:
 
 ![start](https://i.imgur.com/DplUxOP.png)
