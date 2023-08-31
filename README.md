@@ -10,7 +10,7 @@ This game is my first attemp at creating 2D style games using PyGame.
 
 Here's some pictures:
 
-![start](https://github.com/RoeiA98/RavensKiller/assets/79267303/eec74351-13f4-4466-b207-853c1bc40661)
+![start](https://i.imgur.com/DplUxOP.png)
 
 ![levelshow3](https://github.com/RoeiA98/RavensKiller/assets/79267303/9730fd4d-bff3-45ad-a5bd-391a87ac6d73)
 
