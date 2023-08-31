@@ -4,7 +4,7 @@ RavensKiller is a jump and shoot style game with 4 different levels.
 The game has 3 types of raven enemies - Ground Ravens, Fly Ravens and Deadly Fly Ravens.
 Each level of the game requires a different task to complete.
 The game gets progressively harder as you progress through the levels, meaning enemies deal more damage and have more health.
-The game requires accurcy, good timing and a bit of luck.
+In order to beat the game you need accurcy, good timing and a bit of luck.
 
 This game is my first attemp at creating 2D style games using PyGame.
 
