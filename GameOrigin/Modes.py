@@ -11,8 +11,6 @@ class GameModes(Game):
     def __init__(self):
         super().__init__()
 
-        self.continue_screen = None
-
     def events_handler(self):
 
         for event in pygame.event.get():
@@ -71,7 +69,7 @@ class GameModes(Game):
         # Resetting player position
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
         # Game over scene
-        self.game_scenes.game_over(self.display_player_score.current_score)
+        self.game_scenes.game_over_scene(self.display_player_score.current_score)
         self.current_level = 1
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
         self.game_active_status = False
@@ -104,5 +102,5 @@ class GameModes(Game):
         self.bullet.update()
 
         # Collision
-        self.game_active_status = self.collisions.detect_collision()
-        # self.game_active_status = True  # for testings without collision
+        # self.game_active_status = self.collisions.detect_collision()
+        self.game_active_status = True  # for testings without collision

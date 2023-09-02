@@ -13,8 +13,6 @@ class GameLevels(GameModes):
     def __init__(self):
         super().__init__()
 
-        self.game_active_status = self.game_scenes.game_intro()
-        self.player.add(Player())  # player draw
         self.keys = pygame.key.get_pressed()
         self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)
         self.level_text = None
@@ -25,13 +23,18 @@ class GameLevels(GameModes):
         self.level_text_rect = None
         self.objective2_text = None
         self.objective2_text_rect = None
-        self.continue_screen = False
         self.fps = FPS()
 
     async def run_game(self):
+
+        self.game_active_status = self.game_scenes.game_intro()
+        self.player.add(Player())  # player draw
+
         while self.game_running:
             if self.game_active_status:
                 self.levels_handler()
+            elif self.continue_screen:
+                self.load_next_level()
             else:
                 # End game and reset levels
                 self.game_over()
@@ -42,25 +45,28 @@ class GameLevels(GameModes):
             self.fps.clock.tick(self.MAX_FPS)
             await asyncio.sleep(0)
 
-    def next_level(self):
-
+    def stop_level(self):
         self.continue_screen = True
-        self.game_reset()
+        self.game_active_status = False
         self.current_level += 1
 
-        if self.current_level >= len(self.game_level_scenes):
-            self.game_active_status = self.game_scenes.final_scene(self.display_player_score.current_score)
-            self.display_player_score.current_score = 0
-            self.current_level = 1
-            self.continue_screen = False
-        else:
-            while self.continue_screen:
-                self.game_scenes.next_level()
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                        self.continue_screen = False
+    def load_next_level(self):
 
-        self.game_current_level_scene = self.game_level_scenes[self.current_level]
+        if self.current_level >= len(self.game_level_scenes):
+            self.game_scenes.final_scene(self.display_player_score.current_score)
+        else:
+            self.game_scenes.next_level()
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+
+                if self.current_level >= len(self.game_level_scenes):
+                    self.display_player_score.current_score = 0
+                    self.current_level = 1
+
+                self.continue_screen = False
+                self.game_current_level_scene = self.game_level_scenes[self.current_level]
+                self.game_reset()
 
     def levels_handler(self):
         if self.current_level == 1:
@@ -107,7 +113,7 @@ class GameLevels(GameModes):
             self.display_player_score.current_score += 1
 
         if self.game_current_level_scene.gr_kills == 5:
-            self.next_level()
+            self.stop_level()
 
     def level_two(self):
         """
@@ -143,7 +149,7 @@ class GameLevels(GameModes):
             self.display_player_score.current_score += 1
 
         if self.game_current_level_scene.gr_kills == 15:
-            self.next_level()
+            self.stop_level()
 
     def level_three(self):
         """
@@ -190,7 +196,7 @@ class GameLevels(GameModes):
 
         if self.game_current_level_scene.gr_kills == 10 \
                 and self.game_current_level_scene.fl_kills == 3:
-            self.next_level()
+            self.stop_level()
 
     def level_four(self):
         """
@@ -216,7 +222,7 @@ class GameLevels(GameModes):
             self.game_current_level_scene.fl_kills += 1
 
         if self.game_current_level_scene.fl_kills == 5:
-            self.next_level()
+            self.stop_level()
 
     def level_five(self):
         """
@@ -258,4 +264,4 @@ class GameLevels(GameModes):
 
         if self.game_current_level_scene.gr_kills == 10 \
                 and self.game_current_level_scene.fl_kills == 3:
-            self.next_level()
+            self.stop_level()

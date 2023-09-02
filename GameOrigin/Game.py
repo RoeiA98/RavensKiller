@@ -18,6 +18,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.game_active_status = False
         self.game_intro_status = True
+        self.continue_screen = False
         self.game_running = True
 
         """" ------------------------------------------------- """

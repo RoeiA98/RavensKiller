@@ -77,7 +77,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
 
-    def game_over(self, final_score):
+    def game_over_scene(self, final_score):
 
         pygame.display.set_caption("Game Over")
         # Text
@@ -106,41 +106,30 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(restart_text, restart_text_rect)
 
     def final_scene(self, final_score):
-        self.final_screen = True
         pygame.display.set_caption("Final")
 
-        while self.final_screen:
-            pygame.display.update()
-            # Text
-            congrats_text = self.game_font.render(
-                f"Congratulations, you beat the game!",
-                True,
-                'Black').convert_alpha()
-            congrats_text_rect = congrats_text.get_rect(center=(500, 100))
+        pygame.display.update()
+        # Text
+        congrats_text = self.game_font.render(
+            f"Congratulations, you beat the game!",
+            True,
+            'Black').convert_alpha()
+        congrats_text_rect = congrats_text.get_rect(center=(500, 100))
 
-            continue_text = self.game_font.render(
-                f"Your final score: {final_score}",
-                True,
-                'Black').convert_alpha()
-            continue_text_rect = continue_text.get_rect(center=(500, 150))
+        continue_text = self.game_font.render(
+            f"Your final score: {final_score}",
+            True,
+            'Black').convert_alpha()
+        continue_text_rect = continue_text.get_rect(center=(500, 150))
 
-            restart_text = self.game_font.render(
-                f"Press Enter to Restart!",
-                True,
-                'Black').convert_alpha()
-            restart_text_rect = restart_text.get_rect(center=(500, 250))
+        restart_text = self.game_font.render(
+            f"Press Enter to Restart!",
+            True,
+            'Black').convert_alpha()
+        restart_text_rect = restart_text.get_rect(center=(500, 250))
 
-            # Draw
-            self.game_screen.blit(self.image, (0, 0))
-            self.game_screen.blit(congrats_text, congrats_text_rect)
-            self.game_screen.blit(continue_text, continue_text_rect)
-            self.game_screen.blit(restart_text, restart_text_rect)
-
-            for intro_event in pygame.event.get():
-                if intro_event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
-                    self.final_screen = False
-
-        return True
+        # Draw
+        self.game_screen.blit(self.image, (0, 0))
+        self.game_screen.blit(congrats_text, congrats_text_rect)
+        self.game_screen.blit(continue_text, continue_text_rect)
+        self.game_screen.blit(restart_text, restart_text_rect)
