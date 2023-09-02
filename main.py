@@ -1,8 +1,6 @@
 import asyncio
 import pygame
-
 from LevelsDesign.GameLevels import GameLevels
-
 
 # async def main():
 #
@@ -22,7 +20,6 @@ from LevelsDesign.GameLevels import GameLevels
 #         pygame.display.update()
 #         fps.clock.tick(60)
 #         await asyncio.sleep(0)
-
 
 if __name__ == "__main__":
     pygame.init()
