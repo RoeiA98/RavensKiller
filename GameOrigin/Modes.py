@@ -25,6 +25,14 @@ class GameModes(Game):
                                                  self.player.sprite.rect.y,
                                                  self.player.sprite.player_current_direction))
 
+    def game_start(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                return True
+
     def game_reset(self):
         # Deleting enemies
         self.fly_raven_group.empty()
@@ -102,5 +110,5 @@ class GameModes(Game):
         self.bullet.update()
 
         # Collision
-        # self.game_active_status = self.collisions.detect_collision()
-        self.game_active_status = True  # for testings without collision
+        self.game_active_status = self.collisions.detect_collision()
+        # self.game_active_status = True  # for testings without collision

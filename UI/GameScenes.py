@@ -18,38 +18,25 @@ class GameScenes(pygame.sprite.Sprite):
 
     def game_intro(self):
 
-        self.game_intro_status = True
-        while self.game_intro_status:
+        pygame.display.set_caption("Welcome")
+        pygame.display.update()
+        # Text
+        welcome_text = self.game_font.render(
+            f"Welcome to RavensKiller",
+            True,
+            'Black').convert_alpha()
+        welcome_text_rect = welcome_text.get_rect(center=(500, 200))
 
-            pygame.display.set_caption("Welcome")
-            # Text
-            welcome_text = self.game_font.render(
-                f"Welcome to RavensKiller",
-                True,
-                'Black').convert_alpha()
-            welcome_text_rect = welcome_text.get_rect(center=(500, 200))
+        start_game_text = self.game_font.render(
+            f"Press Enter to Start!",
+            True,
+            'Black').convert_alpha()
+        start_game_text_rect = start_game_text.get_rect(center=(500, 250))
 
-            start_game_text = self.game_font.render(
-                f"Press Enter to Start!",
-                True,
-                'Black').convert_alpha()
-            start_game_text_rect = start_game_text.get_rect(center=(500, 250))
-
-            # Draw
-            self.game_screen.blit(self.image, (0, 0))
-            self.game_screen.blit(welcome_text, welcome_text_rect)
-            self.game_screen.blit(start_game_text, start_game_text_rect)
-
-            pygame.display.update()
-
-            for intro_event in pygame.event.get():
-                if intro_event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
-                    self.game_intro_status = False
-
-        return True
+        # Draw
+        self.game_screen.blit(self.image, (0, 0))
+        self.game_screen.blit(welcome_text, welcome_text_rect)
+        self.game_screen.blit(start_game_text, start_game_text_rect)
 
     def game_active(self):
         pygame.display.set_caption("Ravens Killer")

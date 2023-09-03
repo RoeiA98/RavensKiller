@@ -27,7 +27,13 @@ class GameLevels(GameModes):
 
     async def run_game(self):
 
-        self.game_active_status = self.game_scenes.game_intro()
+        while not self.game_running:
+            self.game_scenes.game_intro()
+            self.game_running = self.game_start()
+            pygame.display.update()
+            await asyncio.sleep(0)
+
+        self.game_active_status = True
         self.player.add(Player())  # player draw
 
         while self.game_running:

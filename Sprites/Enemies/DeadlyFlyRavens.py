@@ -52,4 +52,3 @@ class DeadlyFlyRaven(Enemy):
                                   fly_raven_left4,
                                   fly_raven_left5,
                                   fly_raven_left6]
-
