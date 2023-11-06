@@ -64,6 +64,28 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
 
+    def pause_screen(self):
+
+        pygame.display.set_caption("Pause")
+        pygame.display.update()
+        # Text
+        congrats_text = self.game_font.render(
+            f"GAME PAUSED!",
+            True,
+            'Black').convert_alpha()
+        congrats_text_rect = congrats_text.get_rect(center=(500, 200))
+
+        continue_text = self.game_font.render(
+            f"Press ESC to continue",
+            True,
+            'Black').convert_alpha()
+        continue_text_rect = continue_text.get_rect(center=(500, 250))
+
+        # Draw
+        self.game_screen.blit(self.image, (0, 0))
+        self.game_screen.blit(congrats_text, congrats_text_rect)
+        self.game_screen.blit(continue_text, continue_text_rect)
+
     def game_over_scene(self, final_score):
 
         pygame.display.set_caption("Game Over")

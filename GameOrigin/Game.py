@@ -29,6 +29,9 @@ class Game:
         self.fly_ravens_kills = 0
         self.display_player_score = Score(self.active_game_score)
 
+        # pause experiment
+        self.game_pause = False
+
         """" ------------------------------------------------- """
 
         """ Enemy Attributes """

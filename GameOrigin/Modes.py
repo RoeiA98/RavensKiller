@@ -1,3 +1,5 @@
+import pygame
+
 from GameOrigin.Game import *
 from UI.GameScenes import *
 from Sprites.Player import *
@@ -20,10 +22,18 @@ class GameModes(Game):
 
             if self.game_active_status:
                 # bullets shoot
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and not self.game_pause:
                     self.bullet.add(shoot_bullet(self.player.sprite.rect.x,
                                                  self.player.sprite.rect.y,
                                                  self.player.sprite.player_current_direction))
+
+                # Pause logic
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    if self.game_pause:
+                        self.game_pause = False
+                    else:
+                        self.game_pause = True
+                        self.game_scenes.pause_screen()
 
     def game_start(self):
         for event in pygame.event.get():
@@ -84,31 +94,32 @@ class GameModes(Game):
 
     def game_active(self):
 
-        # Display game
-        self.game_scenes.game_active()
-        self.game_current_level_scene.update(self.game_screen)
+        if not self.game_pause:
+            # Display game
+            self.game_scenes.game_active()
+            self.game_current_level_scene.update(self.game_screen)
 
-        # Score
-        self.display_player_score.update(self.game_screen)
+            # Score
+            self.display_player_score.update(self.game_screen)
 
-        # Player
-        self.player.draw(self.game_screen)
-        self.player.update()
-        self.player_health.draw(self.game_screen)
-        self.player_health.draw_hp_text(self.game_screen)
+            # Player
+            self.player.draw(self.game_screen)
+            self.player.update()
+            self.player_health.draw(self.game_screen)
+            self.player_health.draw_hp_text(self.game_screen)
 
-        # Enemy
-        self.all_enemies.update()
-        self.all_enemies.draw(self.game_screen)
+            # Enemy
+            self.all_enemies.update()
+            self.all_enemies.draw(self.game_screen)
 
-        self.spawns.spawn_fly_raven()
-        self.spawns.spawn_deadly_raven()
-        self.spawns.spawn_ground_raven(self.ground_raven_hp)
+            self.spawns.spawn_fly_raven()
+            self.spawns.spawn_deadly_raven()
+            self.spawns.spawn_ground_raven(self.ground_raven_hp)
 
-        # Bullet
-        self.bullet.draw(self.game_screen)
-        self.bullet.update()
+            # Bullet
+            self.bullet.draw(self.game_screen)
+            self.bullet.update()
 
-        # Collision
-        self.game_active_status = self.collisions.detect_collision()
-        # self.game_active_status = True  # for testings without collision
+            # Collision
+            self.game_active_status = self.collisions.detect_collision()
+            # self.game_active_status = True  # for testings without collision
