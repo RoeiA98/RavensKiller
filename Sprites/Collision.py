@@ -21,13 +21,14 @@ class CollisionsHandler:
         self.ground_raven_damage = 0
 
     def detect_collision(self):
+        # Fly raven hit
         if pygame.sprite.spritecollide(self.player.sprite, self.fly_raven_group, True):
             self.player_health.hp -= self.fly_raven_damage
             if self.player_health.hp <= 0:
                 self.all_enemies.empty()
                 return False
 
-        # Fly raven hit
+        # Ground raven hit
         if pygame.sprite.spritecollide(self.player.sprite, self.ground_raven_group, True):
             self.player_health.hp -= self.ground_raven_damage
             if self.player_health.hp <= 0:
