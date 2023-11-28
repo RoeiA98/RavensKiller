@@ -1,5 +1,3 @@
-import pygame
-
 from GameOrigin.Game import *
 from UI.GameScenes import *
 from Sprites.Player import *

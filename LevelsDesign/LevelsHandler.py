@@ -9,7 +9,7 @@ from Sprites.Player import Player
 from UI.Levels import *
 
 
-class LevelsHandler(LevelOne, LevelTwo, LevelThree, LevelFour):
+class LevelsHandler(GameLevels):
 
     def __init__(self):
         super().__init__()

@@ -1,9 +1,6 @@
 import pygame
 
 from GameOrigin.Modes import GameModes
-from GameOrigin.Spawns import set_spawn_rate
-import asyncio
-from Sprites.Player import Player
 from UI.FPS import FPS
 from UI.Levels import *
 
@@ -24,9 +21,6 @@ class GameLevels(GameModes):
         self.objective2_text = None
         self.objective2_text_rect = None
         self.fps = FPS()
-
-        self.test = 0
-        self.collisions.ground_raven_damage = self.test
 
     def stop_level(self):
         self.continue_screen = True
