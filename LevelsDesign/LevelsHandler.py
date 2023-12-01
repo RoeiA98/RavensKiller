@@ -38,7 +38,7 @@ class LevelsHandler(GameLevels):
 
         while self.game_running:
             if self.game_active_status:
-                print(self.collisions.ground_raven_damage)
+                # print(self.collisions.ground_raven_damage)
                 self.handler()
             elif self.continue_screen:
                 self.load_next_level()
@@ -47,7 +47,7 @@ class LevelsHandler(GameLevels):
                 self.game_over()
                 self.game_restart()
 
-            if not self.game_pause:
+            if not self.game_pause: 
                 self.fps.render(self.game_screen)
             pygame.display.update()
             self.fps.clock.tick(self.MAX_FPS)
