@@ -32,11 +32,12 @@ class GameLevels(GameModes):
         if self.current_level >= len(self.game_level_scenes):
             self.game_scenes.final_scene(self.display_player_score.current_score)
         else:
-            self.game_scenes.next_level()
+            self.game_scenes.next_level(self.current_level)
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-
+                
+                # restarting to level 1
                 if self.current_level >= len(self.game_level_scenes):
                     self.display_player_score.current_score = 0
                     self.current_level = 1

@@ -11,7 +11,7 @@ class Game:
 
     def __init__(self):
 
-        """" General Attributes """
+        """ General Attributes """
         self.MAX_FPS = 60
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
@@ -21,7 +21,7 @@ class Game:
         self.continue_screen = False
         self.game_running = False
 
-        """" ------------------------------------------------- """
+        """ ------------------------------------------------- """
 
         """ Game Attributes """
         self.active_game_score = 0
@@ -32,7 +32,7 @@ class Game:
         # pause experiment
         self.game_pause = False
 
-        """" ------------------------------------------------- """
+        """ ------------------------------------------------- """
 
         """ Enemy Attributes """
         self.hits = None
