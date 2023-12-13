@@ -28,41 +28,28 @@ class GroundRaven(Enemy):
         self.image = self.enemy_frames[int(self.enemy_animation_index)]
 
     def load_sprites(self):
-        # ground raven animation right
-        ground_raven_right1 = pygame.image.load('Graphics/Raven/RunRight1.png').convert_alpha()
-        ground_raven_right2 = pygame.image.load('Graphics/Raven/RunRight2.png').convert_alpha()
-        ground_raven_right3 = pygame.image.load('Graphics/Raven/RunRight3.png').convert_alpha()
-        ground_raven_right4 = pygame.image.load('Graphics/Raven/RunRight4.png').convert_alpha()
-        ground_raven_right5 = pygame.image.load('Graphics/Raven/RunRight5.png').convert_alpha()
-        ground_raven_right6 = pygame.image.load('Graphics/Raven/RunRight6.png').convert_alpha()
-        ground_raven_right7 = pygame.image.load('Graphics/Raven/RunRight7.png').convert_alpha()
-        ground_raven_right8 = pygame.image.load('Graphics/Raven/RunRight8.png').convert_alpha()
-        self.enemy_frames_right = [ground_raven_right1,
-                                   ground_raven_right2,
-                                   ground_raven_right3,
-                                   ground_raven_right4,
-                                   ground_raven_right5,
-                                   ground_raven_right6,
-                                   ground_raven_right7,
-                                   ground_raven_right8]
 
-        # ground raven animation left
-        ground_raven_left1 = pygame.image.load('Graphics/Raven/RunLeft1.png').convert_alpha()
-        ground_raven_left2 = pygame.image.load('Graphics/Raven/RunLeft2.png').convert_alpha()
-        ground_raven_left3 = pygame.image.load('Graphics/Raven/RunLeft3.png').convert_alpha()
-        ground_raven_left4 = pygame.image.load('Graphics/Raven/RunLeft4.png').convert_alpha()
-        ground_raven_left5 = pygame.image.load('Graphics/Raven/RunLeft5.png').convert_alpha()
-        ground_raven_left6 = pygame.image.load('Graphics/Raven/RunLeft6.png').convert_alpha()
-        ground_raven_left7 = pygame.image.load('Graphics/Raven/RunLeft7.png').convert_alpha()
-        ground_raven_left8 = pygame.image.load('Graphics/Raven/RunLeft8.png').convert_alpha()
-        self.enemy_frames_left = [ground_raven_left1,
-                                  ground_raven_left2,
-                                  ground_raven_left3,
-                                  ground_raven_left4,
-                                  ground_raven_left5,
-                                  ground_raven_left6,
-                                  ground_raven_left7,
-                                  ground_raven_left8]
+        self.enemy_frames_right = [
+            pygame.image.load('Graphics/Raven/RunRight1.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight2.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight3.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight4.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight5.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight6.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight7.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunRight8.png').convert_alpha()
+        ]
+
+        self.enemy_frames_left = [
+            pygame.image.load('Graphics/Raven/RunLeft1.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft2.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft3.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft4.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft5.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft6.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft7.png').convert_alpha(),
+            pygame.image.load('Graphics/Raven/RunLeft8.png').convert_alpha() 
+        ]
 
     def draw_health(self):
         if self.enemy_direction:    # right direction

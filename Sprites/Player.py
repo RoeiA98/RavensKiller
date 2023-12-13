@@ -48,74 +48,49 @@ class Player(pygame.sprite.Sprite):
 
     def player_load_sprites(self):
         # player running sprites
-        # animation right
-        player_run1_right = pygame.image.load('Graphics/Player/RunRightF1.png')
-        player_run2_right = pygame.image.load('Graphics/Player/RunRightF2.png')
-        player_run3_right = pygame.image.load('Graphics/Player/RunRightF3.png')
-        player_run4_right = pygame.image.load('Graphics/Player/RunRightF4.png')
-        player_run5_right = pygame.image.load('Graphics/Player/RunRightF5.png')
-        player_run6_right = pygame.image.load('Graphics/Player/RunRightF6.png')
-        player_run7_right = pygame.image.load('Graphics/Player/RunRightF7.png')
-        player_run8_right = pygame.image.load('Graphics/Player/RunRightF8.png')
-        self.player_run_right = [player_run1_right,
-                                 player_run2_right,
-                                 player_run3_right,
-                                 player_run4_right,
-                                 player_run5_right,
-                                 player_run6_right,
-                                 player_run7_right,
-                                 player_run8_right]
+        self.player_run_right = [
+            pygame.image.load('Graphics/Player/RunRightF1.png'),
+            pygame.image.load('Graphics/Player/RunRightF2.png'),
+            pygame.image.load('Graphics/Player/RunRightF3.png'),
+            pygame.image.load('Graphics/Player/RunRightF4.png'),
+            pygame.image.load('Graphics/Player/RunRightF5.png'),
+            pygame.image.load('Graphics/Player/RunRightF6.png'),
+            pygame.image.load('Graphics/Player/RunRightF7.png'),
+            pygame.image.load('Graphics/Player/RunRightF8.png')
+        ]
 
-        # animation left
-        player_run1_left = pygame.image.load('Graphics/Player/RunLeftF1.png')
-        player_run2_left = pygame.image.load('Graphics/Player/RunLeftF2.png')
-        player_run3_left = pygame.image.load('Graphics/Player/RunLeftF3.png')
-        player_run4_left = pygame.image.load('Graphics/Player/RunLeftF4.png')
-        player_run5_left = pygame.image.load('Graphics/Player/RunLeftF5.png')
-        player_run6_left = pygame.image.load('Graphics/Player/RunLeftF6.png')
-        player_run7_left = pygame.image.load('Graphics/Player/RunLeftF7.png')
-        player_run8_left = pygame.image.load('Graphics/Player/RunLeftF8.png')
-        self.player_run_left = [player_run1_left,
-                                player_run2_left,
-                                player_run3_left,
-                                player_run4_left,
-                                player_run5_left,
-                                player_run6_left,
-                                player_run7_left,
-                                player_run8_left]
+        self.player_run_left = [
+            pygame.image.load('Graphics/Player/RunLeftF1.png'),
+            pygame.image.load('Graphics/Player/RunLeftF2.png'),
+            pygame.image.load('Graphics/Player/RunLeftF3.png'),
+            pygame.image.load('Graphics/Player/RunLeftF4.png'),
+            pygame.image.load('Graphics/Player/RunLeftF5.png'),
+            pygame.image.load('Graphics/Player/RunLeftF6.png'),
+            pygame.image.load('Graphics/Player/RunLeftF7.png'),
+            pygame.image.load('Graphics/Player/RunLeftF8.png')
+        ]
 
         # player shooting sprites
-        # animation right
-        player_shoot1_right = pygame.image.load('Graphics/Player/ShootRight1.png')
-        player_shoot2_right = pygame.image.load('Graphics/Player/ShootRight2.png')
-        player_shoot3_right = pygame.image.load('Graphics/Player/ShootRight3.png')
-        player_shoot4_right = pygame.image.load('Graphics/Player/ShootRight4.png')
-        player_shoot5_right = pygame.image.load('Graphics/Player/ShootRight5.png')
-        player_shoot6_right = pygame.image.load('Graphics/Player/ShootRight6.png')
-        self.player_shoot_right = [player_shoot1_right,
-                                   player_shoot2_right,
-                                   player_shoot3_right,
-                                   player_shoot4_right,
-                                   player_shoot5_right,
-                                   player_shoot6_right]
+        self.player_shoot_right = [
+            pygame.image.load('Graphics/Player/ShootRight1.png'),
+            pygame.image.load('Graphics/Player/ShootRight2.png'),
+            pygame.image.load('Graphics/Player/ShootRight3.png'),
+            pygame.image.load('Graphics/Player/ShootRight4.png'),
+            pygame.image.load('Graphics/Player/ShootRight5.png'),
+            pygame.image.load('Graphics/Player/ShootRight6.png')
+        ]
 
-        # animation left
-        player_shoot1_left = pygame.image.load('Graphics/Player/ShootLeft1.png')
-        player_shoot2_left = pygame.image.load('Graphics/Player/ShootLeft2.png')
-        player_shoot3_left = pygame.image.load('Graphics/Player/ShootLeft3.png')
-        player_shoot4_left = pygame.image.load('Graphics/Player/ShootLeft4.png')
-        player_shoot5_left = pygame.image.load('Graphics/Player/ShootLeft5.png')
-        player_shoot6_left = pygame.image.load('Graphics/Player/ShootLeft6.png')
-        self.player_shoot_left = [player_shoot1_left,
-                                  player_shoot2_left,
-                                  player_shoot3_left,
-                                  player_shoot4_left,
-                                  player_shoot5_left,
-                                  player_shoot6_left]
+        self.player_shoot_left = [
+            pygame.image.load('Graphics/Player/ShootLeft1.png'),
+            pygame.image.load('Graphics/Player/ShootLeft2.png'),
+            pygame.image.load('Graphics/Player/ShootLeft3.png'),
+            pygame.image.load('Graphics/Player/ShootLeft4.png'),
+            pygame.image.load('Graphics/Player/ShootLeft5.png'),
+            pygame.image.load('Graphics/Player/ShootLeft6.png')
+        ]
 
     def player_running_animation(self):
         keys = pygame.key.get_pressed()
-
         if not keys[pygame.K_SPACE]:
             if keys[pygame.K_RIGHT]:
                 self.player_index += 0.2
