@@ -42,7 +42,7 @@ class GameScenes(pygame.sprite.Sprite):
         pygame.display.set_caption("Ravens Killer")
         self.game_screen.blit(self.image, (0, 0))
 
-    def next_level(self, current_level):
+    def next_level(self, current_level, num_of_levels):
 
         pygame.display.set_caption("Next Level")
         pygame.display.update()
@@ -53,10 +53,19 @@ class GameScenes(pygame.sprite.Sprite):
             'Black').convert_alpha()
         congrats_text_rect = congrats_text.get_rect(center=(500, 200))
 
-        continue_text = self.game_font.render(
+        if current_level == num_of_levels - 1:
+            continue_text = self.game_font.render(
+            f"Press Enter to play level the final level!",
+            True,
+            'Black'
+        ).convert_alpha()
+        else:
+            continue_text = self.game_font.render(
             f"Press Enter to play level {current_level}!",
             True,
-            'Black').convert_alpha()
+            'Black'
+        ).convert_alpha()
+        
         continue_text_rect = continue_text.get_rect(center=(500, 250))
 
         # Draw
