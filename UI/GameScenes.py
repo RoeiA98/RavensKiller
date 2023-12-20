@@ -20,22 +20,29 @@ class GameScenes(pygame.sprite.Sprite):
 
         pygame.display.set_caption("Welcome")
         pygame.display.update()
-        # Text
+        
         welcome_text = self.game_font.render(
             f"Welcome to RavensKiller",
             True,
             'Black').convert_alpha()
-        welcome_text_rect = welcome_text.get_rect(center=(500, 200))
+        welcome_text_rect = welcome_text.get_rect(center=(500, 100))
+
+        instructions_text = self.game_font.render(
+            f"Use arrows to move around, SPACE to shoot and ESC to pause",
+            True,
+            'Black').convert_alpha()
+        instructions_text_rect = welcome_text.get_rect(center=(280, 150))
 
         start_game_text = self.game_font.render(
             f"Press Enter to Start!",
             True,
             'Black').convert_alpha()
-        start_game_text_rect = start_game_text.get_rect(center=(500, 250))
+        start_game_text_rect = start_game_text.get_rect(center=(500, 230))
 
-        # Draw
+        
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(welcome_text, welcome_text_rect)
+        self.game_screen.blit(instructions_text, instructions_text_rect)
         self.game_screen.blit(start_game_text, start_game_text_rect)
 
     def game_active(self):
@@ -46,7 +53,7 @@ class GameScenes(pygame.sprite.Sprite):
 
         pygame.display.set_caption("Next Level")
         pygame.display.update()
-        # Text
+        
         congrats_text = self.game_font.render(
             f"Great Job!",
             True,
@@ -68,7 +75,6 @@ class GameScenes(pygame.sprite.Sprite):
         
         continue_text_rect = continue_text.get_rect(center=(500, 250))
 
-        # Draw
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
@@ -77,7 +83,7 @@ class GameScenes(pygame.sprite.Sprite):
 
         pygame.display.set_caption("Pause")
         pygame.display.update()
-        # Text
+
         congrats_text = self.game_font.render(
             f"GAME PAUSED!",
             True,
@@ -90,7 +96,6 @@ class GameScenes(pygame.sprite.Sprite):
             'Black').convert_alpha()
         continue_text_rect = continue_text.get_rect(center=(500, 250))
 
-        # Draw
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
@@ -98,7 +103,7 @@ class GameScenes(pygame.sprite.Sprite):
     def game_over_scene(self, final_score):
 
         pygame.display.set_caption("Game Over")
-        # Text
+
         gameover_text = self.game_font.render(
             f"GAME OVER!",
             True,
@@ -117,17 +122,16 @@ class GameScenes(pygame.sprite.Sprite):
             'Black').convert_alpha()
         restart_text_rect = gameover_text.get_rect(center=(430, 200))
 
-        # Draw
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(gameover_text, gameover_text_rect)
         self.game_screen.blit(gameover_score, gameover_score_rect)
         self.game_screen.blit(restart_text, restart_text_rect)
 
     def final_scene(self, final_score):
-        pygame.display.set_caption("Final")
 
+        pygame.display.set_caption("Final")
         pygame.display.update()
-        # Text
+
         congrats_text = self.game_font.render(
             f"Congratulations, you beat the game!",
             True,
@@ -146,7 +150,6 @@ class GameScenes(pygame.sprite.Sprite):
             'Black').convert_alpha()
         restart_text_rect = restart_text.get_rect(center=(500, 250))
 
-        # Draw
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)

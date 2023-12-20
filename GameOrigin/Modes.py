@@ -96,6 +96,7 @@ class GameModes(Game):
             # Display game
             self.game_scenes.game_active()
             self.game_current_level_scene.update(self.game_screen)
+            self.fps.render(self.game_screen)
 
             # Score
             self.display_player_score.update(self.game_screen)

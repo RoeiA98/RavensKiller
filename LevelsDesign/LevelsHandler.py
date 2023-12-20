@@ -47,8 +47,6 @@ class LevelsHandler(GameLevels):
                 self.game_over()
                 self.game_restart()
 
-            if not self.game_pause: 
-                self.fps.render(self.game_screen)
             pygame.display.update()
             self.fps.clock.tick(self.MAX_FPS)
             await asyncio.sleep(0)

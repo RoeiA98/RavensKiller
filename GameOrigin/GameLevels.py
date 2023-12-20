@@ -30,6 +30,7 @@ class GameLevels(GameModes):
     def load_next_level(self):
 
         if self.current_level >= len(self.game_level_scenes):
+            self.final_level = True
             self.game_scenes.final_scene(self.display_player_score.current_score)
         else:
             self.game_scenes.next_level(self.current_level, len(self.game_level_scenes))
@@ -41,6 +42,7 @@ class GameLevels(GameModes):
                 if self.current_level >= len(self.game_level_scenes):
                     self.display_player_score.current_score = 0
                     self.current_level = 1
+                    self.final_level = False
 
                 self.continue_screen = False
                 self.game_current_level_scene = self.game_level_scenes[self.current_level]

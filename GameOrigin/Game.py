@@ -20,6 +20,7 @@ class Game:
         self.game_intro_status = True
         self.continue_screen = False
         self.game_running = False
+        self.final_level = False
 
         """ ------------------------------------------------- """
 
