@@ -8,7 +8,7 @@ Each level of the game requires a different task to complete.
 The game gets progressively harder as you advance through the levels, meaning enemies deal more damage and have more health.
 In order to beat the game you need accuracy, good timing and a bit of luck.
 
-This game is my first attemp at creating 2D style games using PyGame.
+This game is my first attemp at creating 2D style game using PyGame.
 
 The game uses free and public 2D assets
 
