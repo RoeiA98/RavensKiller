@@ -1,6 +1,6 @@
 import pygame
 
-from UI.Levels import Levels
+from UI.levels import Levels
 
 
 class LevelTwoScene(Levels):

@@ -1,5 +1,5 @@
 import pygame.sprite
-from Sprites.Enemy import *
+from SpritesLogic.enemy import *
 
 
 class GameScenes(pygame.sprite.Sprite):
@@ -12,7 +12,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 50)
-        self.image = pygame.image.load('Graphics/gameBG3.png').convert()
+        self.image = pygame.image.load('assets/gameBG3.png').convert()
         self.rect = None
         self.keys = pygame.key.get_pressed()
 

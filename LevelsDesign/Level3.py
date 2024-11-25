@@ -1,10 +1,10 @@
 import pygame
 
-from GameOrigin.Spawns import set_spawn_rate
-from GameOrigin.GameLevels import GameLevels
+from Game.spawns import set_spawn_rate
+from Game.levels import GameLevels
 
 
-class LevelThree(GameLevels):
+class Level3(GameLevels):
 
     def __init__(self):
         super().__init__()
