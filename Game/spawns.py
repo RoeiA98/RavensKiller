@@ -1,5 +1,6 @@
-import pygame
+import pygame # type: ignore
 
+from random import randint
 from SpritesLogic.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
 from SpritesLogic.Enemies.FlyRavens import FlyRaven
 from SpritesLogic.Enemies.GroundRavens import GroundRaven
