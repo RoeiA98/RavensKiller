@@ -21,7 +21,8 @@ class Game(pygame.sprite.Sprite):
         self.game_running = False
         self.final_level = False
         self.fps = FPS()
-        self.game_level_scenes = []
+        self.levels = []  # Initialize with None for index 0
+        self.game_level_scenes = [None]
 
         """ ------------------------------------------------- """
 

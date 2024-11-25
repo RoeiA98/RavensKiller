@@ -15,28 +15,20 @@ class LevelsHandler(Game):
     def __init__(self):
         super().__init__()
         
-        self.levels = [None]  # Initialize with None for index 0
-        levels_dict = {}
-
-        # Dynamically import all modules in the LevelsDesign folder
+        # Dynamically import all modules in the Levels folder
         levels_path = os.path.dirname(__file__)
-        for filename in os.listdir(levels_path):
-            if filename.endswith(".py") and filename != "__init__.py" and filename != "LevelsHandler.py" and filename != "scenes.py":
-                module_name = f"Levels.{filename[:-3]}"
-                module = importlib.import_module(module_name)
-                # Assuming each module has a class with the same name as the file
-                class_name = filename[:-3]
-                levels_dict[f"{class_name}"] = module
-        
-        sorted_dict = dict(sorted(levels_dict.items())) # Sorting levels in ascending order
-        for class_name, module in sorted_dict.items():
-            self.levels.append(getattr(module, class_name))
-        
-        self.game_level_scenes = [None]
-        
-        for i in range(1, len(self.levels)):
-            self.game_level_scenes.append(self.levels[i])
-        
+        excluded_files = {"__init__.py", "LevelsHandler.py"}
+
+        modules = {
+            f.split(".")[0]: importlib.import_module(f"Levels.{f[:-3]}")
+            for f in os.listdir(levels_path)
+            if f.endswith(".py") and f not in excluded_files
+        }
+
+        # Sort and populate levels and scenes
+        self.levels = [None] + [getattr(module, name) for name, module in sorted(modules.items())]
+        self.game_level_scenes = self.levels[1:]
+        # Setting current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
     def handler(self):
@@ -154,7 +146,6 @@ class LevelsHandler(Game):
         self.current_level += 1
 
     def load_next_level(self):
-
         if self.current_level >= len(self.game_level_scenes):
             self.final_level = True
             self.game_scenes.final_scene(self.display_player_score.current_score)
@@ -178,7 +169,6 @@ class LevelsHandler(Game):
         pass
             
     async def run_game(self):
-
         while not self.game_running:
             self.game_scenes.game_intro()
             self.game_running = self.game_start()
