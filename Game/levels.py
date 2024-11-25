@@ -1,7 +1,7 @@
-import pygame
+import pygame # type: ignore
 
 from Game.modes import GameModes
-from UI.fps import FPS
+from UI.FPS import FPS
 from UI.levels import *
 
 
