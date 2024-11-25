@@ -1,6 +1,6 @@
 import asyncio
 import pygame # type: ignore
-from LevelsDesign.LevelsHandler import LevelsHandler
+from Levels.LevelsHandler import LevelsHandler
 
 if __name__ == "__main__":
     pygame.init()

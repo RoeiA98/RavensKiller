@@ -1,3 +1,8 @@
+import pygame # type: ignore
+import asyncio
+import importlib
+import os
+from SpritesLogic.player import Player
 from Game.setup import *
 from UI.GameScenes import *
 from SpritesLogic.player import *
@@ -5,12 +10,41 @@ from Game.spawns import *
 from sys import exit
 from UI.score import *
 
-
-class GameModes(Game):
+class LevelsHandler(Game):
 
     def __init__(self):
         super().__init__()
+        
+        self.levels = [None]  # Initialize with None for index 0
+        levels_dict = {}
 
+        # Dynamically import all modules in the LevelsDesign folder
+        levels_path = os.path.dirname(__file__)
+        for filename in os.listdir(levels_path):
+            if filename.endswith(".py") and filename != "__init__.py" and filename != "LevelsHandler.py" and filename != "scenes.py":
+                module_name = f"Levels.{filename[:-3]}"
+                module = importlib.import_module(module_name)
+                # Assuming each module has a class with the same name as the file
+                class_name = filename[:-3]
+                levels_dict[f"{class_name}"] = module
+        
+        sorted_dict = dict(sorted(levels_dict.items())) # Sorting levels in ascending order
+        for class_name, module in sorted_dict.items():
+            self.levels.append(getattr(module, class_name))
+        
+        self.game_level_scenes = [None]
+        self.game_level_scenes.append(self.levels[1])
+        self.game_level_scenes.append(self.levels[2])
+        self.game_level_scenes.append(self.levels[3])
+        self.game_level_scenes.append(self.levels[4])
+        
+        
+        
+        self.game_current_level_scene = self.game_level_scenes[self.current_level]
+
+    def handler(self):
+        self.levels[self.current_level].play(self)
+        
     def events_handler(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -52,12 +86,9 @@ class GameModes(Game):
         self.player_health.hp = 100
         self.bullet.empty()
         # Resetting score
-        self.game_current_level_scene.level_score = 0
         self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
-        self.game_current_level_scene.fl_kills = 0
-        self.game_current_level_scene.gr_kills = 0
-
+        
         self.game_active_status = True
 
     def game_restart(self):
@@ -71,11 +102,8 @@ class GameModes(Game):
 
     def game_over(self):
         # Reset score
-        self.game_current_level_scene.level_score = 0
         self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
-        self.game_current_level_scene.fl_kills = 0
-        self.game_current_level_scene.gr_kills = 0
         # Deleting enemies
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
@@ -94,9 +122,10 @@ class GameModes(Game):
         if not self.game_pause:
             # Display game
             self.game_scenes.game_active()
-            self.game_current_level_scene.update(self.game_screen)
+            self.levels[self.current_level].display_level(self, self.game_screen)
+            self.game_current_level_scene.update(self, self.game_screen)
             self.fps.render(self.game_screen)
-
+        
             # Score
             self.display_player_score.update(self.game_screen)
 
@@ -121,3 +150,56 @@ class GameModes(Game):
             # Collision
             self.game_active_status = self.collisions.detect_collision()
             # self.game_active_status = True  # for testings without collision
+            
+    def stop_level(self):
+        self.continue_screen = True
+        self.game_active_status = False
+        self.current_level += 1
+
+    def load_next_level(self):
+
+        if self.current_level >= len(self.game_level_scenes):
+            self.final_level = True
+            self.game_scenes.final_scene(self.display_player_score.current_score)
+        else:
+            self.game_scenes.next_level(self.current_level, len(self.game_level_scenes))
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                
+                # restarting to level 1
+                if self.current_level >= len(self.game_level_scenes):
+                    self.display_player_score.current_score = 0
+                    self.current_level = 1
+                    self.final_level = False
+
+                self.continue_screen = False
+                self.game_current_level_scene = self.game_level_scenes[self.current_level]
+                self.game_reset()
+    
+    def display_level(self, screen):
+        pass
+            
+    async def run_game(self):
+
+        while not self.game_running:
+            self.game_scenes.game_intro()
+            self.game_running = self.game_start()
+            pygame.display.update()
+            await asyncio.sleep(0)
+
+        self.game_active_status = True
+        self.player.add(Player())  # player draw
+
+        while self.game_running:
+            if self.game_active_status:
+                self.handler()
+            elif self.continue_screen:
+                self.load_next_level()
+            else:
+                self.game_over()
+                self.game_restart()
+
+            pygame.display.update()
+            self.fps.clock.tick(self.MAX_FPS)
+            await asyncio.sleep(0)

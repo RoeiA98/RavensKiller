@@ -1,13 +1,12 @@
 from Game.spawns import *
 from SpritesLogic.collision import CollisionsHandler
 from UI.GameScenes import GameScenes
-from UI.LevelScenes import Level1, Level2, Level3, Level4
 from UI.health import PlayerHealth
-from UI.levels import *
 from UI.score import Score
+from UI.FPS import FPS
 
 
-class Game:
+class Game(pygame.sprite.Sprite):
 
     def __init__(self):
 
@@ -21,6 +20,8 @@ class Game:
         self.continue_screen = False
         self.game_running = False
         self.final_level = False
+        self.fps = FPS()
+        self.game_level_scenes = []
 
         """ ------------------------------------------------- """
 
@@ -48,14 +49,17 @@ class Game:
         """ Scenes Attributes """
         self.current_level = 1
         self.game_scenes = GameScenes()
-        self.game_level_scenes = [  # level correlates with index
-            None,
-            Level1.Scene(self.active_game_score, self.ground_ravens_kills),
-            Level2.Scene(self.active_game_score, self.ground_ravens_kills),
-            Level3.Scene(self.active_game_score, self.ground_ravens_kills, self.fly_ravens_kills),
-            Level4.Scene(self.active_game_score, self.fly_ravens_kills)
-        ]
-        self.game_current_level_scene = self.game_level_scenes[self.current_level]
+                
+        self.keys = pygame.key.get_pressed()
+        self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)
+        self.level_text = None
+        self.objective_text = None
+        self.objective_text_rect = None
+        self.progress_text = None
+        self.progress_text_rect = None
+        self.level_text_rect = None
+        self.objective2_text = None
+        self.objective2_text_rect = None
 
         """" ------------------------------------------------- """
 

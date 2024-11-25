@@ -1,8 +1,6 @@
 import pygame # type: ignore
 
-
 class FPS:
-
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Verdana", 20)
