@@ -1,6 +1,5 @@
 import pygame # type: ignore
 
-
 class Score(pygame.sprite.Sprite):
     def __init__(self, starting_score):
         super().__init__()

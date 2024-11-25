@@ -1,7 +1,6 @@
 import pygame.sprite # type: ignore
 from SpritesLogic.enemy import *
 
-
 class GameScenes(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()

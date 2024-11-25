@@ -70,6 +70,7 @@ class Game(pygame.sprite.Sprite):
 
         """" ------------------------------------------------- """
 
+        """ Initializers """
         self.collisions = CollisionsHandler(self.player,
                                             self.player_health,
                                             self.fly_raven_group,

@@ -1,6 +1,5 @@
 import pygame.sprite # type: ignore
 
-
 class Health(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
