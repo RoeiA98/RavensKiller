@@ -33,12 +33,9 @@ class LevelsHandler(Game):
             self.levels.append(getattr(module, class_name))
         
         self.game_level_scenes = [None]
-        self.game_level_scenes.append(self.levels[1])
-        self.game_level_scenes.append(self.levels[2])
-        self.game_level_scenes.append(self.levels[3])
-        self.game_level_scenes.append(self.levels[4])
         
-        
+        for i in range(1, len(self.levels)):
+            self.game_level_scenes.append(self.levels[i])
         
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
