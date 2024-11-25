@@ -1,6 +1,0 @@
-*.pyc
-*.pyo
-.venv/
-.idea/
-/shelf/
-/workspace.xml
