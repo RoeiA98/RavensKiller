@@ -1,7 +1,7 @@
 from Game.spawns import *
 from SpritesLogic.collision import CollisionsHandler
 from UI.GameScenes import GameScenes
-from UI.LevelScenes import Level1Scene, Level2Scene, Level3Scene, Level4Scene
+from UI.LevelScenes import Level1, Level2, Level3, Level4
 from UI.health import PlayerHealth
 from UI.levels import *
 from UI.score import Score
@@ -50,11 +50,10 @@ class Game:
         self.game_scenes = GameScenes()
         self.game_level_scenes = [  # level correlates with index
             None,
-            # Level1.LevelOne(self.active_game_score, self.ground_ravens_kills),
-            Level1Scene.LevelOneScene(self.active_game_score, self.ground_ravens_kills),
-            Level2Scene.LevelTwoScene(self.active_game_score, self.ground_ravens_kills),
-            Level3Scene.LevelThreeScene(self.active_game_score, self.ground_ravens_kills, self.fly_ravens_kills),
-            Level4Scene.LevelFourScene(self.active_game_score, self.fly_ravens_kills)
+            Level1.Scene(self.active_game_score, self.ground_ravens_kills),
+            Level2.Scene(self.active_game_score, self.ground_ravens_kills),
+            Level3.Scene(self.active_game_score, self.ground_ravens_kills, self.fly_ravens_kills),
+            Level4.Scene(self.active_game_score, self.fly_ravens_kills)
         ]
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 

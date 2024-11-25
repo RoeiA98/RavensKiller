@@ -1,9 +1,9 @@
-import pygame
+import pygame # type: ignore
 
 from UI.levels import Levels
 
 
-class LevelThreeScene(Levels):
+class Scene(Levels):
     def __init__(self, level_score, gr_kills, fl_kills):
         super().__init__()
 

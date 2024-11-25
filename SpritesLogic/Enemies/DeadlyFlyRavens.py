@@ -1,5 +1,5 @@
 from random import randint
-import pygame
+import pygame # type: ignore
 from SpritesLogic.enemy import Enemy
 
 

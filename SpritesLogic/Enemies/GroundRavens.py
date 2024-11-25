@@ -1,4 +1,4 @@
-import pygame
+import pygame # type: ignore
 from SpritesLogic.enemy import Enemy
 from UI.health import EnemyHealth
 

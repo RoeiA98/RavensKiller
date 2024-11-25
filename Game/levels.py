@@ -48,8 +48,3 @@ class GameLevels(GameModes):
                 self.game_current_level_scene = self.game_level_scenes[self.current_level]
                 self.game_reset()
                 
-    # def display_level(self, screen):
-    #     pass
-
-    # def update(self, screen):
-    #     self.display_level(screen)

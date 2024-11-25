@@ -1,4 +1,4 @@
-import pygame.sprite
+import pygame.sprite # type: ignore
 from SpritesLogic.bullet import *
 from UI.health import *
 

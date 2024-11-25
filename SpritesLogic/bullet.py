@@ -1,4 +1,4 @@
-import pygame.sprite
+import pygame.sprite # type: ignore
 
 
 class Bullet(pygame.sprite.Sprite):

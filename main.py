@@ -1,5 +1,5 @@
 import asyncio
-import pygame
+import pygame # type: ignore
 from LevelsDesign.LevelsHandler import LevelsHandler
 
 if __name__ == "__main__":
