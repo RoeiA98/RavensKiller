@@ -47,7 +47,7 @@ class LevelsHandler(Game):
                                                  self.player.sprite.rect.y,
                                                  self.player.sprite.player_current_direction))
 
-                # Pause logic
+                # pause logic
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     if self.game_pause:
                         self.game_pause = False
@@ -55,14 +55,19 @@ class LevelsHandler(Game):
                         self.game_pause = True
                         self.game_scenes.pause_screen()
 
+    # Game intro scene logic
     def game_start(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                pygame.time.delay(100)
-                return True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.game_scenes.start_button_rect.collidepoint(event.pos): # Start Game
+                    pygame.time.delay(100)
+                    return True
+                if self.game_scenes.quit_button_rect.collidepoint(event.pos):  # Quit Game
+                    pygame.quit()
+                    exit()
 
     def game_reset(self):
         # Deleting enemies
@@ -145,7 +150,6 @@ class LevelsHandler(Game):
         self.current_level += 1
 
     def load_next_level(self):
-        
         self.game_reset()
         if self.current_level >= len(self.game_level_scenes):
             self.final_level = True
