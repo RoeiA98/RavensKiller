@@ -16,8 +16,8 @@ class LevelsHandler(Game):
         super().__init__()
         
         # Dynamically import all modules in the Levels folder
-        levels_path = os.path.dirname(__file__)
-        excluded_files = {"__init__.py", "LevelsHandler.py"}
+        levels_path = os.path.join(os.path.dirname(__file__), '..', 'Levels')
+        excluded_files = {"__init__.py"}
 
         modules = {
             f.split(".")[0]: importlib.import_module(f"Levels.{f[:-3]}")
@@ -27,7 +27,7 @@ class LevelsHandler(Game):
 
         # Sort and populate levels and scenes
         self.levels = [None] + [getattr(module, name) for name, module in sorted(modules.items())]
-        self.game_level_scenes = self.levels[1:]
+        self.game_level_scenes = self.levels[0:]
         # Setting current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
