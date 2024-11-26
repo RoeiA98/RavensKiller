@@ -77,8 +77,6 @@ class LevelsHandler(Game):
         # Resetting score
         self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
-        
-        self.game_active_status = True
 
     def game_restart(self):
         for intro_event in pygame.event.get():
@@ -87,6 +85,7 @@ class LevelsHandler(Game):
                 exit()
             if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
                 self.game_reset()
+                self.game_active_status = True
                 self.display_player_score.current_score = 0
 
     def game_over(self):
@@ -146,6 +145,8 @@ class LevelsHandler(Game):
         self.current_level += 1
 
     def load_next_level(self):
+        
+        self.game_reset()
         if self.current_level >= len(self.game_level_scenes):
             self.final_level = True
             self.game_scenes.final_scene(self.display_player_score.current_score)
@@ -163,7 +164,7 @@ class LevelsHandler(Game):
 
                 self.continue_screen = False
                 self.game_current_level_scene = self.game_level_scenes[self.current_level]
-                self.game_reset()
+                self.game_active_status = True
     
     def display_level(self, screen):
         pass
