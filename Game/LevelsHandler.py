@@ -61,7 +61,7 @@ class LevelsHandler(Game):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # mouse left click
                 if self.game_scenes.start_button_rect.collidepoint(event.pos): # Start Game
                     pygame.time.delay(100)
                     return True
