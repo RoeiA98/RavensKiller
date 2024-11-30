@@ -10,7 +10,7 @@ sys.path.append(os.getcwd())
 import asyncio
 import pygame  # type: ignore
 import unittest
-from src.Game.LevelsHandler import LevelsHandler
+from Game.handler import Handler
 from TESTS.RunTimeTests.enemiestests import EnemiesTests
 
 async def run_tests_periodically(enemies_test):
@@ -20,7 +20,7 @@ async def run_tests_periodically(enemies_test):
 
 async def main():
     pygame.init()
-    game = LevelsHandler()
+    game = Handler()
     enemies_test = EnemiesTests(game)
     
     # Run the tests periodically

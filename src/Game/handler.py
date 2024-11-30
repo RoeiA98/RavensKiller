@@ -11,7 +11,7 @@ from src.Game.spawns import *
 from sys import exit
 from UI.score import *
 
-class LevelsHandler(Game):
+class Handler(Game):
 
     def __init__(self):
         super().__init__()

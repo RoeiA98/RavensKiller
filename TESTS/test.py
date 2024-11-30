@@ -9,20 +9,20 @@ from unittest.mock import patch, AsyncMock
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Add the root directory to the Python path
 sys.path.append(os.getcwd())
-from src.Game.LevelsHandler import LevelsHandler
+from Game.handler import Handler
 
 class TestLevelsHandler(unittest.TestCase):
 
     def setUp(self):
         pygame.init()
-        self.game = LevelsHandler()
+        self.game = Handler()
 
     def tearDown(self):
         pygame.quit()
 
     def test_initial_state(self):
         self.assertIsNotNone(self.game)
-        self.assertIsInstance(self.game, LevelsHandler)
+        self.assertIsInstance(self.game, Handler)
 
     def test_run_game(self):
         with patch('Game.LevelsHandler.LevelsHandler.run_game', new_callable=AsyncMock) as mock_run_game:
