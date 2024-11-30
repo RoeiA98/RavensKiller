@@ -1,5 +1,5 @@
 import unittest
-from Game.LevelsHandler import LevelsHandler
+from src.Game.LevelsHandler import LevelsHandler
 
 class EnemiesTests(unittest.TestCase):
     

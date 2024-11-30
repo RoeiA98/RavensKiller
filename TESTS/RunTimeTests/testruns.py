@@ -10,7 +10,7 @@ sys.path.append(os.getcwd())
 import asyncio
 import pygame  # type: ignore
 import unittest
-from Game.LevelsHandler import LevelsHandler
+from src.Game.LevelsHandler import LevelsHandler
 from TESTS.RunTimeTests.enemiestests import EnemiesTests
 
 async def run_tests_periodically(enemies_test):

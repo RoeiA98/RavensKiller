@@ -1,5 +1,5 @@
 import pygame  # type: ignore
-from UI.GameScenes import GameScenes
+from UI.scenes import GameScenes
 
 def name_input_validate(name):
         if not name or len(name) > 10:
@@ -71,19 +71,22 @@ class GameIntro(GameScenes):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+                
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_BACKSPACE:
                     self.name_input = self.name_input[:-1]
                 elif len(self.name_input) < 10 and (event.unicode.isalpha() or event.unicode.isdigit()):
                     self.name_input += event.unicode
                     
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # mouse left click
-                if self.start_button_rect.collidepoint(event.pos): # Start Game
-                    if name_input_validate(self.name_input):
-                        pygame.time.delay(100)
-                        return True
-                    else:
-                        self.invalid_name = True
-                if self.quit_button_rect.collidepoint(event.pos):  # Quit Game
-                    pygame.quit()
-                    exit()
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 
+                and self.start_button_rect.collidepoint(event.pos)) or (event.type == pygame.KEYDOWN 
+                                                                        and event.key == pygame.K_RETURN):
+                if name_input_validate(self.name_input):
+                    pygame.time.delay(100)
+                    return True
+                else:
+                    self.invalid_name = True
+                    
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.quit_button_rect.collidepoint(event.pos)):  # Quit Game
+                pygame.quit()
+                exit()
