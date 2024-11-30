@@ -16,42 +16,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.keys = pygame.key.get_pressed()
         self.start_button_rect = pygame.Rect(400, 300, 200, 65)
         self.quit_button_rect = pygame.Rect(400, 400, 200, 65)
-
-    def game_intro(self):
-        pygame.display.set_caption("Welcome")
-        pygame.display.update()
-        
-        welcome_text = self.game_font.render(
-            "Welcome to RavensKiller",
-            True,
-            'Black').convert_alpha()
-        welcome_text_rect = welcome_text.get_rect(center=(500, 100))
-
-        instructions_text = self.game_font.render(
-            "Use arrows to move around, SPACE to shoot and ESC to pause",
-            True,
-            'Black').convert_alpha()
-        instructions_text_rect = instructions_text.get_rect(center=(500, 150))
-
-        start_game_text = self.game_font.render(
-            "Start Game",
-            True,
-            'Black').convert_alpha()
-        start_game_text_rect = start_game_text.get_rect(center=self.start_button_rect.center)
-
-        quit_game_text = self.game_font.render(
-            "Quit Game",
-            True,
-            'Black').convert_alpha()
-        quit_game_text_rect = quit_game_text.get_rect(center=self.quit_button_rect.center)
-
-        self.game_screen.blit(self.image, (0, 0))
-        self.game_screen.blit(welcome_text, welcome_text_rect)
-        self.game_screen.blit(instructions_text, instructions_text_rect)
-        pygame.draw.rect(self.game_screen, 'Grey', self.start_button_rect)
-        pygame.draw.rect(self.game_screen, 'Grey', self.quit_button_rect)
-        self.game_screen.blit(start_game_text, start_game_text_rect)
-        self.game_screen.blit(quit_game_text, quit_game_text_rect)
+        self.name_input = ""
 
     def game_active(self):
         pygame.display.set_caption("Ravens Killer")

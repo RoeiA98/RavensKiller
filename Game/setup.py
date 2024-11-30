@@ -1,6 +1,7 @@
 from Game.spawns import *
 from SpritesLogic.collision import CollisionsHandler
 from UI.GameScenes import GameScenes
+from UI.intro import GameIntro
 from UI.health import PlayerHealth
 from UI.score import Score
 from UI.FPS import FPS
@@ -48,6 +49,7 @@ class Game(pygame.sprite.Sprite):
         """ Scenes Attributes """
         self.current_level = 1
         self.game_scenes = GameScenes()
+        self.game_intro = GameIntro()
                 
         self.keys = pygame.key.get_pressed()
         self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)

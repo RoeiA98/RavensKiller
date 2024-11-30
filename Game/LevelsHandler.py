@@ -5,6 +5,7 @@ import os
 from SpritesLogic.player import Player
 from Game.setup import *
 from UI.GameScenes import *
+from UI.intro import *
 from SpritesLogic.player import *
 from Game.spawns import *
 from sys import exit
@@ -55,20 +56,6 @@ class LevelsHandler(Game):
                         self.game_pause = True
                         self.game_scenes.pause_screen()
 
-    # Game intro scene logic
-    def game_start(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # mouse left click
-                if self.game_scenes.start_button_rect.collidepoint(event.pos): # Start Game
-                    pygame.time.delay(100)
-                    return True
-                if self.game_scenes.quit_button_rect.collidepoint(event.pos):  # Quit Game
-                    pygame.quit()
-                    exit()
-
     def game_reset(self):
         # Deleting enemies
         self.fly_raven_group.empty()
@@ -118,6 +105,7 @@ class LevelsHandler(Game):
             self.levels[self.current_level].display_level(self, self.game_screen)
             self.game_current_level_scene.update(self, self.game_screen)
             self.fps.render(self.game_screen)
+            self.game_intro.display_user_name()
         
             # Score
             self.display_player_score.update(self.game_screen)
@@ -141,8 +129,8 @@ class LevelsHandler(Game):
             self.bullet.update()
 
             # Collision
-            self.game_active_status = self.collisions.detect_collision()
-            # self.game_active_status = True  # for testings without collision
+            # self.game_active_status = self.collisions.detect_collision()
+            self.game_active_status = True  # for testings without collision
             
     def stop_level(self):
         self.continue_screen = True
@@ -175,8 +163,8 @@ class LevelsHandler(Game):
             
     async def run_game(self):
         while not self.game_running:
-            self.game_scenes.game_intro()
-            self.game_running = self.game_start()
+            self.game_intro.display_intro()
+            self.game_running = self.game_intro.handle_game_intro_events()
             pygame.display.update()
             await asyncio.sleep(0)
 
