@@ -134,8 +134,8 @@ class LevelsHandler(Game):
             self.bullet.update()
 
             # Collision
-            # self.game_active_status = self.collisions.detect_collision()
-            self.game_active_status = True  # for testings without collision
+            self.game_active_status = self.collisions.detect_collision()
+            # self.game_active_status = True  # for testings without collision
             
     def stop_level(self):
         self.continue_screen = True
