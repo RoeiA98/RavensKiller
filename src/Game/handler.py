@@ -1,4 +1,4 @@
-import pygame # type: ignore
+import pygame  # type: ignore
 import asyncio
 import importlib
 import os
@@ -11,6 +11,7 @@ from src.Game.spawns import *
 from sys import exit
 from UI.score import *
 from utils.utils import import_levels
+from database.handler import app, save_score
 
 class Handler(Game):
 
@@ -72,6 +73,9 @@ class Handler(Game):
                 self.display_player_score.current_score = 0
 
     def game_over(self):
+        # Saving to database
+        with app.app_context():
+            save_score(self.game_intro.name_input, self.display_player_score.current_score, "00:02:30")
         # Reset score
         self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
