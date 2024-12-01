@@ -5,10 +5,7 @@ from src.SpritesLogic.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
 from src.SpritesLogic.Enemies.FlyRavens import FlyRaven
 from src.SpritesLogic.Enemies.GroundRavens import GroundRaven
 from src.SpritesLogic.enemy import *
-
-
-def set_spawn_rate(from_, to_):
-    return randint(from_, to_)
+from utils.utils import set_spawn_rate
 
 
 class Spawns:

@@ -1,10 +1,6 @@
 import pygame  # type: ignore
 from UI.scenes import GameScenes
-
-def name_input_validate(name):
-        if not name or len(name) > 10:
-            return False
-        return all(char.isalpha() or char.isdigit() for char in name)
+from utils.utils import name_input_validate
 
 class GameIntro(GameScenes):
     def __init__(self):

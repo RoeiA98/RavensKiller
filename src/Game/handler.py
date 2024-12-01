@@ -10,31 +10,17 @@ from src.SpritesLogic.player import *
 from src.Game.spawns import *
 from sys import exit
 from UI.score import *
+from utils.utils import import_levels
 
 class Handler(Game):
 
     def __init__(self):
         super().__init__()
-        self.import_levels()
         
-    def import_levels(self):
-        # Dynamically import all modules in the Levels folder
-        levels_path = os.path.join(os.path.dirname(__file__), '..', 'Levels')
-        excluded_files = {"__init__.py"}
-
-        if not os.path.exists(levels_path):
-            raise FileNotFoundError(f"Levels directory not found: {levels_path}")
-
-        modules = {
-            f.split(".")[0]: importlib.import_module(f"src.Levels.{f[:-3]}")
-            for f in os.listdir(levels_path)
-            if f.endswith(".py") and f not in excluded_files
-        }
-
-        # Sort and populate levels and scenes
-        self.levels = [None] + [getattr(module, name) for name, module in sorted(modules.items())]
+        # import and sort levels
+        self.levels = [None] + [getattr(module, name) for name, module in sorted(import_levels("Levels").items())]
         self.game_level_scenes = self.levels[0:]
-        # Setting current level
+        # set current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
 
     def handler(self):
@@ -49,7 +35,7 @@ class Handler(Game):
             if self.game_active_status:
                 # bullets shoot
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and not self.game_pause:
-                    self.bullet.add(shoot_bullet(self.player.sprite.rect.x,
+                    self.bullet.add(Player.player_shoot_bullet(self, self.player.sprite.rect.x,
                                                  self.player.sprite.rect.y,
                                                  self.player.sprite.player_current_direction))
 

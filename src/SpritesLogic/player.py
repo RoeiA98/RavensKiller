@@ -3,12 +3,6 @@ from src.SpritesLogic.bullet import *
 from UI.health import *
 
 
-def shoot_bullet(player_x, player_y, direction):
-    if direction:
-        return Bullet(player_x, player_y+15, direction)
-    return Bullet(player_x+50, player_y+15, direction)
-
-
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -45,6 +39,11 @@ class Player(pygame.sprite.Sprite):
             self.image = self.idle_left
         else:
             self.image = self.idle_right
+    
+    def player_shoot_bullet(self, player_x, player_y, direction):
+        if direction:
+            return Bullet(player_x, player_y+15, direction)
+        return Bullet(player_x+50, player_y+15, direction)
 
     def player_load_sprites(self):
         # player running sprites
