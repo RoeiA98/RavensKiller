@@ -9,6 +9,7 @@ class EnemiesTests(unittest.TestCase):
         self.dr_group = game.deadly_raven_group
         self.fr_group = game.fly_raven_group
         self.gr_group = game.ground_raven_group
+        # self.all_enemies = game.all_enemies
         
     
     def print_current_enemies(self):
