@@ -22,8 +22,10 @@ class Level3(Game):
         
         if self.ground_ravens_kills < 10:
             self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
-        else:
+        else: # removing all ground ravens when reaching level's target
             self.spawns.ground_raven_spawn = 0
+            for gr_raven in self.ground_raven_group:
+                gr_raven.kill()
 
         self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
         self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
