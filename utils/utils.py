@@ -1,3 +1,4 @@
+from datetime import timedelta
 import importlib
 import os
 from random import randint
@@ -25,3 +26,8 @@ def name_input_validate(name):
         if not name or len(name) > 10:
             return False
         return all(char.isalpha() or char.isdigit() for char in name)
+    
+def convert_to_timedelta(time_str):
+    """Convert a time string in the format 'HH:MM:SS' to timedelta."""
+    hours, minutes, seconds = map(int, time_str.split(':'))
+    return timedelta(hours=hours, minutes=minutes, seconds=seconds)
