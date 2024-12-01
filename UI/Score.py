@@ -5,7 +5,7 @@ class Score(pygame.sprite.Sprite):
         super().__init__()
 
         self.current_score = starting_score
-        self.font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 50)
+        self.font = pygame.font.Font('fonts/Amatic-Bold.ttf', 50)
         self.score_text = None
         self.score_text_rect = None
 

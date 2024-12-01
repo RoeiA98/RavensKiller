@@ -11,7 +11,7 @@ class Health(pygame.sprite.Sprite):
         self.hp = None
         self.max_health = None
         self.ratio = 0
-        self.font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)
+        self.font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
 
     def draw(self, screen):
         self.ratio = self.hp / self.max_health

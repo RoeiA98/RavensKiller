@@ -10,7 +10,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_intro_status = None
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
-        self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 50)
+        self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 50)
         self.image = pygame.image.load('assets/gameBG3.png').convert()
         self.rect = None
         self.keys = pygame.key.get_pressed()

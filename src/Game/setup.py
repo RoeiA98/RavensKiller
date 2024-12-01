@@ -52,7 +52,7 @@ class Game(pygame.sprite.Sprite):
         self.game_intro = GameIntro()
                 
         self.keys = pygame.key.get_pressed()
-        self.game_font = pygame.font.Font('Fonts/Amatic-Bold.ttf', 40)
+        self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
         self.level_text = None
         self.objective_text = None
         self.objective_text_rect = None
