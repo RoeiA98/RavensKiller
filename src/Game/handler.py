@@ -171,7 +171,6 @@ class Handler(Game):
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                # self.save_to_db()
                 # restarting to level 1 if user beat the game
                 if self.current_level >= len(self.game_level_scenes):
                     self.save_to_db()
