@@ -1,5 +1,4 @@
 import pygame # type: ignore
-from datetime import timedelta
 
 class Timer(pygame.sprite.Sprite):
     def __init__(self):

@@ -1,6 +1,5 @@
 from datetime import timedelta
 import pygame  # type: ignore
-import asyncio
 from src.SpritesLogic.player import Player
 from src.Game.setup import *
 from UI.scenes import *

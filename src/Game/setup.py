@@ -32,7 +32,7 @@ class Game(pygame.sprite.Sprite):
         """ Game Attributes """
         self.active_game_score = 0
         self.ground_ravens_kills = 0
-        self.fly_ravens_kills = 0
+        self.fly_ravens_kills = 4
         self.display_player_score = Score(self.active_game_score)
         self.game_pause = False
 
@@ -49,7 +49,7 @@ class Game(pygame.sprite.Sprite):
         """" ------------------------------------------------- """
 
         """ Scenes Attributes """
-        self.current_level = 1
+        self.current_level = 4
         self.game_scenes = GameScenes()
         self.game_intro = GameIntro()
                 
