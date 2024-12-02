@@ -28,6 +28,29 @@ def name_input_validate(name):
         return all(char.isalpha() or char.isdigit() for char in name)
     
 def convert_to_timedelta(time_str):
-    """Convert a time string in the format 'HH:MM:SS' to timedelta."""
-    hours, minutes, seconds = map(int, time_str.split(':'))
-    return timedelta(hours=hours, minutes=minutes, seconds=seconds)
+    """Convert a time string in the format 'HH:MM:SS.ss' to timedelta, ensuring two digits for milliseconds."""
+    # Split the time string into hours, minutes, and seconds (including milliseconds)
+    
+    time_parts = time_str.split(':')
+    
+    # Check if milliseconds are included in the seconds part
+    if '.' in time_parts[2]:
+        seconds, milliseconds = time_parts[2].split('.')
+        milliseconds = milliseconds.ljust(3, '0')[:3]  # Ensure 3 digits for milliseconds
+        time_parts[2] = seconds  # Update seconds part to remove milliseconds
+
+        return timedelta(
+            hours=int(time_parts[0]),
+            minutes=int(time_parts[1]),
+            seconds=int(time_parts[2]),
+            milliseconds=int(milliseconds)
+        )
+    else:
+        # If no milliseconds, just return the timedelta with hours, minutes, and seconds
+        return timedelta(
+            hours=int(time_parts[0]),
+            minutes=int(time_parts[1]),
+            seconds=int(time_parts[2])
+        )
+
+    
