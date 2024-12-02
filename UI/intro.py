@@ -60,7 +60,7 @@ class GameIntro(GameScenes):
             
     def display_user_name(self):
         name = self.user_display_font.render(f"Player: {self.name_input}", True, "White").convert_alpha()
-        self.game_screen.blit(name, (20, 515))
+        self.game_screen.blit(name, (10, 515))
     
     def handle_game_intro_events(self):
         for event in pygame.event.get():

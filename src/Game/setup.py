@@ -5,6 +5,7 @@ from UI.intro import GameIntro
 from UI.health import PlayerHealth
 from UI.score import Score
 from UI.FPS import FPS
+from UI.timer import Timer
 
 
 class Game(pygame.sprite.Sprite):
@@ -22,6 +23,7 @@ class Game(pygame.sprite.Sprite):
         self.game_running = False
         self.final_level = False
         self.fps = FPS()
+        self.timer = Timer()
         self.levels = []
         self.game_level_scenes = [None]
 
@@ -30,7 +32,7 @@ class Game(pygame.sprite.Sprite):
         """ Game Attributes """
         self.active_game_score = 0
         self.ground_ravens_kills = 0
-        self.fly_ravens_kills = 0
+        self.fly_ravens_kills = 1
         self.display_player_score = Score(self.active_game_score)
         self.game_pause = False
 

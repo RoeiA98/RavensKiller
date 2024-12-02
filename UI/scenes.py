@@ -73,7 +73,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
 
-    def game_over_scene(self, final_score):
+    def game_over_scene(self, final_score, final_time):
 
         pygame.display.set_caption("Game Over")
 
@@ -84,7 +84,7 @@ class GameScenes(pygame.sprite.Sprite):
         gameover_text_rect = gameover_text.get_rect(center=(500, 100))
 
         gameover_score = self.game_font.render(
-            f"Final score: {final_score}",
+            f"Final score: {final_score}, Final time: {final_time[:-4]}",
             True,
             'Black').convert_alpha()
         gameover_score_rect = gameover_score.get_rect(center=(500, 150))
@@ -100,7 +100,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(gameover_score, gameover_score_rect)
         self.game_screen.blit(restart_text, restart_text_rect)
 
-    def final_scene(self, final_score):
+    def final_scene(self, final_score, final_time):
 
         pygame.display.set_caption("Final")
         pygame.display.update()
@@ -112,7 +112,7 @@ class GameScenes(pygame.sprite.Sprite):
         congrats_text_rect = congrats_text.get_rect(center=(500, 100))
 
         continue_text = self.game_font.render(
-            f"Your final score: {final_score}",
+            f"Your final score: {final_score}, Final time: {final_time[:-4]}",
             True,
             'Black').convert_alpha()
         continue_text_rect = continue_text.get_rect(center=(500, 150))
