@@ -35,7 +35,7 @@ class GameScenes(pygame.sprite.Sprite):
 
         if current_level == num_of_levels - 1:
             continue_text = self.game_font.render(
-            f"Press Enter to play level the final level!",
+            f"Press Enter to play the final level!",
             True,
             'Black'
         ).convert_alpha()
