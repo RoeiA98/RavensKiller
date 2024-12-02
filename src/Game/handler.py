@@ -112,7 +112,8 @@ class Handler(Game):
             save_score(self.game_intro.name_input, 
                         self.display_player_score.current_score, 
                         str(self.elapsed_time)[:-4], 
-                        self.current_level - 1 if self.current_level >= len(self.game_level_scenes) else self.current_level
+                        self.current_level - 1 if self.current_level >= len(self.game_level_scenes) else self.current_level,
+                        True if self.current_level >= len(self.game_level_scenes) else False
             )
 
     def game_active(self):
@@ -170,9 +171,10 @@ class Handler(Game):
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                self.save_to_db()
+                # self.save_to_db()
                 # restarting to level 1 if user beat the game
                 if self.current_level >= len(self.game_level_scenes):
+                    self.save_to_db()
                     self.display_player_score.current_score = 0
                     self.current_level = 1
                     self.final_scene = False
