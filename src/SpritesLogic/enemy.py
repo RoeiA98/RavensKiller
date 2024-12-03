@@ -21,10 +21,10 @@ class Enemy(pygame.sprite.Sprite):
 
     def enemy_spawn_coordinates(self, direction):
         if direction:
-            self.enemy_width_pos = randint(-500, -100)
+            self.enemy_width_pos = randint(-500, -400)
             self.enemy_frames = self.enemy_frames_right
         else:
-            self.enemy_width_pos = randint(1100, 1300)
+            self.enemy_width_pos = randint(1200, 1300)
             self.enemy_frames = self.enemy_frames_left
 
     def enemy_sprite_speed(self):
