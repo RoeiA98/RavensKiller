@@ -22,7 +22,6 @@ class GameRun(Handler):
 
         while self.game_running:
             
-            # print(str(self.elapsed_time)[:-4])
             if self.game_active_status:
                 self.handler()
             elif self.continue_screen:

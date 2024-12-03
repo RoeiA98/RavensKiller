@@ -1,6 +1,6 @@
 import pygame # type: ignore
 from src.Game.setup import *
-from src.Game.spawns import set_spawn_rate
+from utils.utils import set_spawn_rate
 
 class Level2(Game):
 

@@ -1,6 +1,6 @@
 import pygame # type: ignore
 from src.Game.setup import *
-from src.Game.spawns import set_spawn_rate
+from utils.utils import set_spawn_rate
 
 class Level3(Game):
 
@@ -22,7 +22,7 @@ class Level3(Game):
         
         if self.ground_ravens_kills < 10:
             self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
-        else: # removing all ground ravens when reaching level's target
+        else: # removing all ground ravens when reaching level target
             self.spawns.ground_raven_spawn = 0
             for gr_raven in self.ground_raven_group:
                 gr_raven.kill()

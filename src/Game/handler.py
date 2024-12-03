@@ -9,7 +9,7 @@ from src.Game.spawns import *
 from sys import exit
 from UI.score import *
 from utils.utils import import_levels
-from database.dbhandler import app, save_score
+from database.db_handler import app, save_score
 
 class Handler(Game):
 

@@ -1,11 +1,8 @@
 import pygame # type: ignore
-
-from random import randint
 from src.SpritesLogic.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
 from src.SpritesLogic.Enemies.FlyRavens import FlyRaven
 from src.SpritesLogic.Enemies.GroundRavens import GroundRaven
 from src.SpritesLogic.enemy import *
-from utils.utils import set_spawn_rate
 
 
 class Spawns:
