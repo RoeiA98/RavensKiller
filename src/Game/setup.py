@@ -17,7 +17,6 @@ class Game(pygame.sprite.Sprite):
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.game_active_status = False
-        self.game_intro_status = True
         self.continue_screen = False
         self.game_running = False
         self.final_level = False

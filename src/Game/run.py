@@ -12,7 +12,8 @@ class GameRun(Handler):
     async def run_game(self):
         while True:
             while not self.game_running:
-                self.game_intro.display_intro()
+                # self.game_intro.display_intro()
+                self.game_intro.intro_screen_menu()
                 self.game_running = self.game_intro.handle_game_intro_events()
                 pygame.display.update()
                 await asyncio.sleep(0)

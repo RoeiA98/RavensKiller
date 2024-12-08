@@ -12,12 +12,18 @@ class GameScenes(pygame.sprite.Sprite):
         self.image = pygame.image.load('assets/gameBG3.png').convert()
         self.rect = None
         self.keys = pygame.key.get_pressed()
+        self.name_input = ""
+        # menu screen buttons
         self.start_button_rect = pygame.Rect(400, 270, 200, 65)
         self.leaderboard_button_rect = pygame.Rect(400, 360, 200, 65)
         self.quit_button_rect = pygame.Rect(400, 450, 200, 65)
+        # pause screen buttons
         self.return_to_menu_rect = pygame.Rect(400, 360, 200, 65)
         self.pause_quit_rect = pygame.Rect(400, 450, 200, 65)
-        self.name_input = ""
+        # leaderboard screen buttons
+        self.refresh_leaderboard_rect = pygame.Rect(400, 360, 200, 65)
+        self.back_leaderboard_rect = pygame.Rect(400, 450, 200, 65)
+        
 
     def game_active(self):
         pygame.display.set_caption("Ravens Killer")

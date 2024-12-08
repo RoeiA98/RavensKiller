@@ -1,12 +1,22 @@
 import pygame  # type: ignore
 from UI.scenes import GameScenes
 from utils.utils import name_input_validate
+from UI.leaderboard import GameLeaderboard
 
 class GameIntro(GameScenes):
     def __init__(self):
         super().__init__()
         self.invalid_name = False
         self.user_display_font = pygame.font.SysFont("Verdana", 25)
+        self.intro_screen_status = True
+        self.leaderboard_screen_status = False
+        self.game_leaderboard = GameLeaderboard()
+        
+    def intro_screen_menu(self):
+        if self.intro_screen_status:
+            self.display_intro()
+        elif self.leaderboard_screen_status:
+            self.game_leaderboard.display_leaderboard()
     
     def display_intro(self):
         pygame.display.set_caption("Welcome")
@@ -43,7 +53,7 @@ class GameIntro(GameScenes):
             "Leaderboard",
             True,
             'Black').convert_alpha()
-        leaderboard_text_rect = start_game_text.get_rect(center=self.leaderboard_button_rect.center)
+        leaderboard_text_rect = leaderboard_text.get_rect(center=self.leaderboard_button_rect.center)
 
         quit_game_text = self.game_font.render(
             "Quit Game",
@@ -76,31 +86,41 @@ class GameIntro(GameScenes):
     
     def handle_game_intro_events(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+            if self.leaderboard_screen_status:
+                # press refresh button
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.refresh_leaderboard_rect.collidepoint(event.pos)):       
+                    print("refresh")
                 
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_BACKSPACE:
-                    self.name_input = self.name_input[:-1]
-                elif len(self.name_input) < 10 and (event.unicode.isalpha() or event.unicode.isdigit()):
-                    self.name_input += event.unicode
+                # press back button
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.back_leaderboard_rect.collidepoint(event.pos)):  # Quit Game
+                    print("back")
+                    self.leaderboard_screen_status = False
+                    self.intro_screen_status = True
                     
-            # press start game or hit enter
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 
-                and self.start_button_rect.collidepoint(event.pos)) or (event.type == pygame.KEYDOWN 
-                                                                        and event.key == pygame.K_RETURN):
-                if name_input_validate(self.name_input):
-                    pygame.time.delay(100)
-                    return True
-                else:
-                    self.invalid_name = True
-            
-            # press leaderboard
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.leaderboard_button_rect.collidepoint(event.pos)):       
-                pass 
-            
-            # press quit game
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.quit_button_rect.collidepoint(event.pos)):  # Quit Game
-                pygame.quit()
-                exit()
+            elif self.intro_screen_status:
+                # name input
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        self.name_input = self.name_input[:-1]
+                    elif len(self.name_input) < 10 and (event.unicode.isalpha() or event.unicode.isdigit()):
+                        self.name_input += event.unicode
+
+                # press start game or hit enter
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 
+                    and self.start_button_rect.collidepoint(event.pos)) or (event.type == pygame.KEYDOWN 
+                                                                            and event.key == pygame.K_RETURN):
+                    if name_input_validate(self.name_input):
+                        pygame.time.delay(100)
+                        return True
+                    else:
+                        self.invalid_name = True
+                        
+                # press leaderboard
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.leaderboard_button_rect.collidepoint(event.pos)):  
+                    self.intro_screen_status = False
+                    self.leaderboard_screen_status = True
+                
+                # press quit game
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.quit_button_rect.collidepoint(event.pos)):  # Quit Game
+                    pygame.quit()
+                    exit()
