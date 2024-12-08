@@ -15,7 +15,6 @@ class Handler(Game):
 
     def __init__(self):
         super().__init__()
-        
         # import and sort levels
         self.levels = [None] + [getattr(module, name) for name, module in sorted(import_levels("Levels").items())]
         self.game_level_scenes = self.levels[0:]
@@ -62,7 +61,6 @@ class Handler(Game):
                     pygame.quit()
                     exit()
                 
-    
     def game_quit_to_menu(self): 
         self.game_pause = False
         self.game_running = False 

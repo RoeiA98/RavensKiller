@@ -11,7 +11,6 @@ from UI.timer import Timer
 class Game(pygame.sprite.Sprite):
 
     def __init__(self):
-
         """ General Attributes """
         self.MAX_FPS = 60
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
@@ -52,7 +51,6 @@ class Game(pygame.sprite.Sprite):
         self.current_level = 1
         self.game_scenes = GameScenes()
         self.game_intro = GameIntro()
-                
         self.keys = pygame.key.get_pressed()
         self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
         self.level_text = None

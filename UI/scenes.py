@@ -4,7 +4,6 @@ from src.SpritesLogic.enemy import *
 class GameScenes(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-
         self.continue_screen = None
         self.final_screen = None
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550

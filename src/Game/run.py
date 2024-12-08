@@ -10,7 +10,6 @@ class GameRun(Handler):
         super().__init__()
     
     async def run_game(self):
-        
         while True:
             while not self.game_running:
                 self.game_intro.display_intro()
