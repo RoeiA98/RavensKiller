@@ -70,6 +70,7 @@ class Handler(Game):
         self.display_player_score.current_score = 0
         self.current_level = 1
         self.reset_timer()
+        self.game_intro.invalid_name = False
         
     def reset_timer(self):
         self.elapsed_time = 0
