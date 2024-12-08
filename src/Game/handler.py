@@ -21,7 +21,6 @@ class Handler(Game):
         self.game_level_scenes = self.levels[0:]
         # set current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
-        
         self.start_time = 0
         self.paused_time = 0
         self.elapsed_time = 0
@@ -53,6 +52,26 @@ class Handler(Game):
                         self.game_pause = True
                         self.last_pause_time = pygame.time.get_ticks()
                         self.game_scenes.pause_screen()
+                
+                if (self.game_pause and event.type == pygame.MOUSEBUTTONDOWN 
+                    and event.button == 1 and self.game_scenes.return_to_menu_rect.collidepoint(event.pos)):
+                    self.game_quit_to_menu()
+                
+                if (self.game_pause and event.type == pygame.MOUSEBUTTONDOWN 
+                    and event.button == 1 and self.game_scenes.pause_quit_rect.collidepoint(event.pos)):
+                    pygame.quit()
+                    exit()
+                
+    
+    def game_quit_to_menu(self): 
+        self.game_pause = False
+        self.game_running = False 
+        self.game_active_status = False     
+        self.game_reset()
+        self.game_intro.name_input = "" 
+        self.display_player_score.current_score = 0
+        self.current_level = 1
+        self.reset_timer()
         
     def reset_timer(self):
         self.elapsed_time = 0
@@ -116,7 +135,7 @@ class Handler(Game):
             )
 
     def game_active(self):
-        if not self.game_pause:
+        if not self.game_pause and self.game_active_status:
             # Display game
             self.game_scenes.game_active()
             self.levels[self.current_level].display_level(self, self.game_screen)

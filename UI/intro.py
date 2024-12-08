@@ -38,6 +38,12 @@ class GameIntro(GameScenes):
             True,
             'Black').convert_alpha()
         start_game_text_rect = start_game_text.get_rect(center=self.start_button_rect.center)
+        
+        leaderboard_text = self.game_font.render(
+            "Leaderboard",
+            True,
+            'Black').convert_alpha()
+        leaderboard_text_rect = start_game_text.get_rect(center=self.leaderboard_button_rect.center)
 
         quit_game_text = self.game_font.render(
             "Quit Game",
@@ -48,10 +54,16 @@ class GameIntro(GameScenes):
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(welcome_text, welcome_text_rect)
         self.game_screen.blit(instructions_text, instructions_text_rect)
+        # start game button
         pygame.draw.rect(self.game_screen, 'Grey', self.start_button_rect)
-        pygame.draw.rect(self.game_screen, 'Grey', self.quit_button_rect)
         self.game_screen.blit(start_game_text, start_game_text_rect)
+        # leaderboard button
+        pygame.draw.rect(self.game_screen, 'Grey', self.leaderboard_button_rect)
+        self.game_screen.blit(leaderboard_text, leaderboard_text_rect)
+        # quit game button
+        pygame.draw.rect(self.game_screen, 'Grey', self.quit_button_rect)
         self.game_screen.blit(quit_game_text, quit_game_text_rect)
+        # name input
         self.game_screen.blit(name_input_text, name_input_rect)
         self.game_screen.blit(input_surface, (455, 195))
         
@@ -74,6 +86,7 @@ class GameIntro(GameScenes):
                 elif len(self.name_input) < 10 and (event.unicode.isalpha() or event.unicode.isdigit()):
                     self.name_input += event.unicode
                     
+            # press start game or hit enter
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 
                 and self.start_button_rect.collidepoint(event.pos)) or (event.type == pygame.KEYDOWN 
                                                                         and event.key == pygame.K_RETURN):
@@ -82,7 +95,12 @@ class GameIntro(GameScenes):
                     return True
                 else:
                     self.invalid_name = True
-                    
+            
+            # press leaderboard
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.leaderboard_button_rect.collidepoint(event.pos)):       
+                pass 
+            
+            # press quit game
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.quit_button_rect.collidepoint(event.pos)):  # Quit Game
                 pygame.quit()
                 exit()
