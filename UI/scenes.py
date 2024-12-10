@@ -1,5 +1,5 @@
 import pygame  # type: ignore
-from src.SpritesLogic.enemy import *
+from src.Sprites.enemy import *
 
 class GameScenes(pygame.sprite.Sprite):
     def __init__(self):

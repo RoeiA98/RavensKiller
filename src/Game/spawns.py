@@ -1,8 +1,8 @@
 import pygame # type: ignore
-from src.SpritesLogic.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
-from src.SpritesLogic.Enemies.FlyRavens import FlyRaven
-from src.SpritesLogic.Enemies.GroundRavens import GroundRaven
-from src.SpritesLogic.enemy import *
+from src.Sprites.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
+from src.Sprites.Enemies.FlyRavens import FlyRaven
+from src.Sprites.Enemies.GroundRavens import GroundRaven
+from src.Sprites.enemy import *
 
 
 class Spawns:
@@ -49,7 +49,7 @@ class Spawns:
         if self.ground_raven_spawn:
             if current_time - self.last_ground_raven_spawn_time > self.ground_raven_spawn:
                 self.last_ground_raven_spawn_time = current_time
-                new_ground_raven = GroundRaven(ground_raven_hp, self.game_screen)
+                new_ground_raven = GroundRaven(ground_raven_hp, screen=self.game_screen)
                 self.ground_raven_group.add(new_ground_raven)
                 self.all_enemies.add(new_ground_raven)
 

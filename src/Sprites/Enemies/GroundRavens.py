@@ -1,6 +1,6 @@
 import pygame # type: ignore
-from src.SpritesLogic.enemy import Enemy
-from UI.health import EnemyHealth
+from src.Sprites.enemy import Enemy
+from UI.enemyhealh import EnemyHealth
 
 
 class GroundRaven(Enemy):

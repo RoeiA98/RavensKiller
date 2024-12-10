@@ -1,10 +1,10 @@
 from datetime import timedelta
 import pygame  # type: ignore
-from src.SpritesLogic.player import Player
+from src.Sprites.player import Player
 from src.Game.setup import *
 from UI.scenes import *
 from UI.intro import *
-from src.SpritesLogic.player import *
+from src.Sprites.player import *
 from src.Game.spawns import *
 from sys import exit
 from UI.score import *
@@ -15,6 +15,11 @@ class Handler(Game):
 
     def __init__(self):
         super().__init__()
+        self.game_active_status = False
+        self.continue_screen = False
+        self.game_running = False
+        self.final_level = False
+        self.game_pause = False
         # import and sort levels
         self.levels = [None] + [getattr(module, name) for name, module in sorted(import_levels("Levels").items())]
         self.game_level_scenes = self.levels[0:]

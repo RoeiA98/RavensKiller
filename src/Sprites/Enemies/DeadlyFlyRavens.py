@@ -1,6 +1,6 @@
 from random import randint
 import pygame # type: ignore
-from src.SpritesLogic.enemy import Enemy
+from src.Sprites.enemy import Enemy
 
 
 class DeadlyFlyRaven(Enemy):

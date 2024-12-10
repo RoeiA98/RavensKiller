@@ -1,8 +1,8 @@
 from src.Game.spawns import *
-from src.SpritesLogic.collision import CollisionsHandler
+from src.Sprites.collision import CollisionsHandler
 from UI.scenes import GameScenes
 from UI.intro import GameIntro
-from UI.health import PlayerHealth
+from UI.playerhealth import PlayerHealth
 from UI.score import Score
 from UI.FPS import FPS
 from UI.timer import Timer
@@ -15,15 +15,8 @@ class Game(pygame.sprite.Sprite):
         self.MAX_FPS = 60
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
-        self.clock = pygame.time.Clock()
-        self.game_active_status = False
-        self.continue_screen = False
-        self.game_running = False
-        self.final_level = False
         self.fps = FPS()
         self.timer = Timer()
-        self.levels = []
-        self.game_level_scenes = [None]
 
         """ ------------------------------------------------- """
 
@@ -32,12 +25,10 @@ class Game(pygame.sprite.Sprite):
         self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
         self.display_player_score = Score(self.active_game_score)
-        self.game_pause = False
 
         """ ------------------------------------------------- """
 
         """ Enemy Attributes """
-        self.hits = None
         self.all_enemies = pygame.sprite.Group()
         self.fly_raven_group = pygame.sprite.Group()
         self.ground_raven_group = pygame.sprite.Group()
@@ -50,16 +41,7 @@ class Game(pygame.sprite.Sprite):
         self.current_level = 1
         self.game_scenes = GameScenes()
         self.game_intro = GameIntro()
-        self.keys = pygame.key.get_pressed()
         self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
-        self.level_text = None
-        self.objective_text = None
-        self.objective_text_rect = None
-        self.progress_text = None
-        self.progress_text_rect = None
-        self.level_text_rect = None
-        self.objective2_text = None
-        self.objective2_text_rect = None
 
         """" ------------------------------------------------- """
 

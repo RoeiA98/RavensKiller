@@ -1,5 +1,5 @@
 import pygame.sprite # type: ignore
-from src.SpritesLogic.bullet import *
+from src.Sprites.bullet import *
 from UI.health import *
 
 

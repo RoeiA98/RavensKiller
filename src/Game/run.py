@@ -1,7 +1,7 @@
 import pygame  # type: ignore
 import asyncio
 from src.Game.handler import Handler
-from src.SpritesLogic.player import Player
+from src.Sprites.player import Player
 
 
 class GameRun(Handler):
