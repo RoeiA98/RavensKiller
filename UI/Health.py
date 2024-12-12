@@ -10,10 +10,9 @@ class Health(pygame.sprite.Sprite):
         self.pos_y = None
         self.hp = None
         self.max_health = None
-        self.ratio = 0
         self.font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
 
     def draw(self, screen):
-        self.ratio = self.hp / self.max_health
+        ratio = self.hp / self.max_health
         pygame.draw.rect(screen, "red", (self.pos_x, self.pos_y, self.width, self.height))
-        pygame.draw.rect(screen, "green", (self.pos_x, self.pos_y, self.width * self.ratio, self.height))
+        pygame.draw.rect(screen, "green", (self.pos_x, self.pos_y, self.width * ratio, self.height))

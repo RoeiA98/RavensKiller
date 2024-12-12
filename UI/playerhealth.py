@@ -2,15 +2,15 @@ import pygame.sprite # type: ignore
 from UI.health import Health
 
 class PlayerHealth(Health):
-    def __init__(self, current_health, max_health):
+    def __init__(self):
         super().__init__()
 
         self.width = 100
         self.height = 40
         self.pos_x = 50
         self.pos_y = 100
-        self.hp = current_health
-        self.max_health = max_health
+        self.hp = 100 # default starting health
+        self.max_health = 100
         self.hp_text = None
         self.hp_text_rect = None
 

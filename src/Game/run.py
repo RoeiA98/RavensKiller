@@ -1,7 +1,6 @@
 import pygame  # type: ignore
 import asyncio
 from src.Game.handler import Handler
-from src.Sprites.player import Player
 
 
 class GameRun(Handler):
@@ -19,7 +18,6 @@ class GameRun(Handler):
                 await asyncio.sleep(0)
 
             self.game_active_status = True
-            self.player.add(Player())  # player draw
             self.start_time = pygame.time.get_ticks()
 
             while self.game_running:
