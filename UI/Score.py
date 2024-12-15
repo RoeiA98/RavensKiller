@@ -8,7 +8,7 @@ class Score(pygame.sprite.Sprite):
         self.font = pygame.font.Font('fonts/Amatic-Bold.ttf', 50)
         self.score_text = None
         self.score_text_rect = None
-        self.ground_ravens_kills = 9
+        self.ground_ravens_kills = 0
         self.fly_ravens_kills = 0
 
     def update(self, screen):
