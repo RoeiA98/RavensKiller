@@ -5,7 +5,6 @@ from src.Game.setup import *
 from UI.scenes import *
 from UI.intro import *
 from src.Sprites.player import *
-from src.Game.spawns import *
 from sys import exit
 from UI.score import *
 from utils.utils import import_levels
@@ -23,13 +22,14 @@ class Handler(Game):
         # import and sort levels
         self.levels = [None] + [getattr(module, name) for name, module in sorted(import_levels("Levels").items())]
         self.game_level_scenes = self.levels[0:]
+        self.levels[self.current_level].load_settings(self)
         # set current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
         self.start_time = 0
         self.paused_time = 0
         self.elapsed_time = 0
         self.last_pause_time = 0
-        self.elapsed_time_ms = 0
+        self.elapsed_time_ms = 0 
 
     def handler(self):
         self.levels[self.current_level].play(self)
@@ -70,10 +70,10 @@ class Handler(Game):
         self.game_pause = False
         self.game_running = False 
         self.game_active_status = False     
-        self.game_reset()
         self.game_intro.name_input = "" 
-        self.display_player_score.current_score = 0
-        self.current_level = 1
+        self.game_score.current_score = 0
+        self.game_level_reset()
+        self.game_round_reset()
         self.reset_timer()
         self.game_intro.invalid_name = False
         
@@ -84,7 +84,7 @@ class Handler(Game):
         self.elapsed_time_ms = 0
         self.start_time = pygame.time.get_ticks()
 
-    def game_reset(self):
+    def game_round_reset(self):
         # Deleting enemies
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
@@ -95,8 +95,13 @@ class Handler(Game):
         self.player_health.hp = 100
         self.bullet.empty()
         # Resetting score
-        self.ground_ravens_kills = 0
-        self.fly_ravens_kills = 0
+        self.game_score.ground_ravens_kills = 0
+        self.game_score.fly_ravens_kills = 0
+        
+    def game_level_reset(self):
+        self.current_level = 1
+        self.levels[self.current_level].load_settings(self)
+        
 
     def game_restart(self):
         for intro_event in pygame.event.get():
@@ -105,16 +110,16 @@ class Handler(Game):
                 exit()
             if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
                 self.save_to_db()
-                self.game_reset()
-                self.current_level = 1
-                self.display_player_score.current_score = 0
+                self.game_level_reset()
+                self.game_score.current_score = 0
                 self.game_active_status = True
+                self.game_round_reset()
                 self.reset_timer()
 
     def game_over(self):
         # Reset score
-        self.ground_ravens_kills = 0
-        self.fly_ravens_kills = 0
+        self.game_score.ground_ravens_kills = 0
+        self.game_score.fly_ravens_kills = 0
         # Deleting enemies
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
@@ -124,7 +129,7 @@ class Handler(Game):
         # Resetting player position
         self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
         # Game over scene
-        self.game_scenes.game_over_scene(self.display_player_score.current_score, str(self.elapsed_time))
+        self.game_scenes.game_over_scene(self.game_score.current_score, str(self.elapsed_time))
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
         self.game_active_status = False
     
@@ -132,7 +137,7 @@ class Handler(Game):
         # saving to database
         with app.app_context():
             save_score(self.game_intro.name_input, 
-                        self.display_player_score.current_score, 
+                        self.game_score.current_score, 
                         str(self.elapsed_time)[:-4], 
                         self.current_level - 1 if self.current_level >= len(self.game_level_scenes) else self.current_level,
                         True if self.current_level >= len(self.game_level_scenes) else False
@@ -153,7 +158,7 @@ class Handler(Game):
             self.timer.display_timer(self.game_screen, self.elapsed_time)
         
             # Score
-            self.display_player_score.update(self.game_screen)
+            self.game_score.update(self.game_screen)
 
             # Player
             self.player.draw(self.game_screen)
@@ -167,7 +172,7 @@ class Handler(Game):
 
             self.spawns.spawn_fly_raven()
             self.spawns.spawn_deadly_raven()
-            self.spawns.spawn_ground_raven(self.ground_raven_hp)
+            self.spawns.spawn_ground_raven()
 
             # Bullet
             self.bullet.draw(self.game_screen)
@@ -182,12 +187,14 @@ class Handler(Game):
         self.last_pause_time = pygame.time.get_ticks()
         self.game_active_status = False
         self.current_level += 1
+        if self.current_level < len(self.game_level_scenes):
+            self.levels[self.current_level].load_settings(self)
 
     def load_next_level(self):
-        self.game_reset()
+        self.game_round_reset()
         if self.current_level >= len(self.game_level_scenes):
             self.final_scene = True
-            self.game_scenes.final_scene(self.display_player_score.current_score, str(self.elapsed_time))
+            self.game_scenes.final_scene(self.game_score.current_score, str(self.elapsed_time))
         else:
             self.game_scenes.next_level(self.current_level, len(self.game_level_scenes))
 
@@ -196,8 +203,8 @@ class Handler(Game):
                 # restarting to level 1 if user beat the game
                 if self.current_level >= len(self.game_level_scenes):
                     self.save_to_db()
-                    self.display_player_score.current_score = 0
-                    self.current_level = 1
+                    self.game_score.current_score = 0
+                    self.game_level_reset()
                     self.final_scene = False
                     self.reset_timer()
                 else:

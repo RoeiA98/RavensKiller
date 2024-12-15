@@ -21,9 +21,6 @@ class Game(pygame.sprite.Sprite):
         """ ------------------------------------------------- """
 
         """ Game Attributes """
-        self.active_game_score = 0
-        self.ground_ravens_kills = 0
-        self.fly_ravens_kills = 0
         self.current_level = 1
         
         """ ------------------------------------------------- """
@@ -32,7 +29,7 @@ class Game(pygame.sprite.Sprite):
         self.fps = FPS()
         self.timer = Timer()
         self.player_health = PlayerHealth()
-        self.display_player_score = Score(self.active_game_score)
+        self.game_score = Score()
 
         """ ------------------------------------------------- """
 
@@ -41,7 +38,6 @@ class Game(pygame.sprite.Sprite):
         self.fly_raven_group = pygame.sprite.Group()
         self.ground_raven_group = pygame.sprite.Group()
         self.deadly_raven_group = pygame.sprite.Group()
-        self.ground_raven_hp = 0
 
         """" ------------------------------------------------- """
 

@@ -1,6 +1,5 @@
 import pygame.sprite # type: ignore
 from src.Sprites.bullet import *
-from UI.health import *
 
 
 class Player(pygame.sprite.Sprite):

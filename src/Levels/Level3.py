@@ -6,6 +6,12 @@ class Level3(Game):
 
     def __init__(self):
         super().__init__()
+        
+    def load_settings(self):
+        """Level settings:"""
+        self.spawns.ground_raven_hp = 170
+        self.collisions.fly_raven_damage = 30
+        self.collisions.ground_raven_damage = 25
 
     def play(self):
         """
@@ -14,13 +20,8 @@ class Level3(Game):
                         - Kill 3 fly ravens
 
         """
-
-        """Level settings:"""
-        self.ground_raven_hp = 170
-        self.collisions.fly_raven_damage = 30
-        self.collisions.ground_raven_damage = 25
         
-        if self.ground_ravens_kills < 10:
+        if self.game_score.ground_ravens_kills < 10:
             self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
         else: # removing all ground ravens when reaching level target
             self.spawns.ground_raven_spawn = 0
@@ -41,42 +42,41 @@ class Level3(Game):
                 enemy.health -= self.player.sprite.player_damage
                 if enemy.health <= 0:
                     enemy.kill()
-                    self.display_player_score.current_score += 1
-                    self.active_game_score += 1
-                    if self.ground_ravens_kills < 10:
-                        self.ground_ravens_kills += 1
+                    self.game_score.current_score += 1
+                    if self.game_score.ground_ravens_kills < 10:
+                        self.game_score.ground_ravens_kills += 1
 
         if pygame.sprite.groupcollide(self.bullet, self.fly_raven_group, True, True):
-            self.display_player_score.current_score += 1
-            if self.fly_ravens_kills < 3:
-                self.fly_ravens_kills += 1
+            self.game_score.current_score += 1
+            if self.game_score.fly_ravens_kills < 3:
+                self.game_score.fly_ravens_kills += 1
 
-        if self.ground_ravens_kills == 10 \
-                and self.fly_ravens_kills == 3:
+        if self.game_score.ground_ravens_kills == 10 \
+                and self.game_score.fly_ravens_kills == 3:
             self.stop_level()
             
     def display_level(self, screen):
         pygame.display.set_caption("Level 3")
         # Text
-        self.level_text = self.game_font.render(
+        level_text = self.game_font.render(
             "Level 3",
             True,
             'Black'
         ).convert_alpha()
-        self.level_text_rect = self.level_text.get_rect(center=(800, 50))
+        level_text_rect = level_text.get_rect(center=(800, 50))
 
         # Objectives
-        self.objective_text = self.game_font.render(
-            f"- Kill 10 Ground Ravens   {self.ground_ravens_kills}/10",
+        objective_text = self.game_font.render(
+            f"- Kill 10 Ground Ravens   {self.game_score.ground_ravens_kills}/10",
             True,
-            'green' if self.ground_ravens_kills == 10 else 'black').convert_alpha()
-        self.objective_text_rect = self.objective_text.get_rect(center=(780, 100))
+            'green' if self.game_score.ground_ravens_kills == 10 else 'black').convert_alpha()
+        objective_text_rect = objective_text.get_rect(center=(780, 100))
 
-        self.objective2_text = self.game_font.render(
-            f"- Kill 3 Fly Ravens                 {self.fly_ravens_kills}/3",
+        objective2_text = self.game_font.render(
+            f"- Kill 3 Fly Ravens                 {self.game_score.fly_ravens_kills}/3",
             True,
-            'green' if self.fly_ravens_kills == 3 else 'black').convert_alpha()
-        self.objective2_text_rect = self.objective_text.get_rect(center=(780, 140))
+            'green' if self.game_score.fly_ravens_kills == 3 else 'black').convert_alpha()
+        objective2_text_rect = objective_text.get_rect(center=(780, 140))
 
         # Text BG
         bg = pygame.Surface((330, 140))  # the size of your rect
@@ -85,6 +85,6 @@ class Level3(Game):
         screen.blit(bg, (620, 30))  # (0,0) are the top-left coordinates
 
         # Draw
-        screen.blit(self.level_text, self.level_text_rect)
-        screen.blit(self.objective_text, self.objective_text_rect)
-        screen.blit(self.objective2_text, self.objective2_text_rect)
+        screen.blit(level_text, level_text_rect)
+        screen.blit(objective_text, objective_text_rect)
+        screen.blit(objective2_text, objective2_text_rect)

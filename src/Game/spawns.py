@@ -23,6 +23,7 @@ class Spawns:
         self.ground_raven_group = ground_raven_group
         self.ground_raven_spawn = 0
         self.last_ground_raven_spawn_time = 0
+        self.ground_raven_hp = 0
 
         # Deadly Ravens
         self.deadly_raven_group = deadly_raven_group
@@ -43,13 +44,13 @@ class Spawns:
                 self.fly_raven_group.add(new_fly_raven)
                 self.all_enemies.add(new_fly_raven)
 
-    def spawn_ground_raven(self, ground_raven_hp):
+    def spawn_ground_raven(self):
         current_time = pygame.time.get_ticks()
 
         if self.ground_raven_spawn:
             if current_time - self.last_ground_raven_spawn_time > self.ground_raven_spawn:
                 self.last_ground_raven_spawn_time = current_time
-                new_ground_raven = GroundRaven(ground_raven_hp, screen=self.game_screen)
+                new_ground_raven = GroundRaven(self.ground_raven_hp, screen=self.game_screen)
                 self.ground_raven_group.add(new_ground_raven)
                 self.all_enemies.add(new_ground_raven)
 
