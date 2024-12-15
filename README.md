@@ -2,7 +2,7 @@
 
 Play - https://roeia98.itch.io/ravenskiller
 
-RavensKiller is a jump and shoot style game with four different levels. 
+RavensKiller is a jump and shoot style game with five different levels. 
 The game has 3 types of raven enemies - Ground Ravens, Fly Ravens and Deadly Fly Ravens.
 Each level of the game requires a different task to complete.
 The game gets progressively harder as you advance through the levels, meaning enemies deal more damage and have more health.
