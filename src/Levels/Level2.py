@@ -12,7 +12,7 @@ class Level2(Game):
         self.spawns.ground_raven_hp = 150
         self.collisions.fly_raven_damage = 25
         self.collisions.ground_raven_damage = 20
-        self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
+        self.spawns.ground_raven_spawn = set_spawn_rate(1100, 1300)
         self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
         self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
 
