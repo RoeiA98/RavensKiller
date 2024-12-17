@@ -12,6 +12,8 @@ class Level3(Game):
         self.spawns.ground_raven_hp = 170
         self.collisions.fly_raven_damage = 30
         self.collisions.ground_raven_damage = 25
+        
+        self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
 
     def play(self):
         """
@@ -28,9 +30,13 @@ class Level3(Game):
             for gr_raven in self.ground_raven_group:
                 gr_raven.kill()
 
-        self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
-        self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
-
+        if self.game_score.fly_ravens_kills < 3:
+            self.spawns.fly_raven_spawn = set_spawn_rate(1000, 2000)
+        else:
+            self.spawns.fly_raven_spawn = 0
+            for fl_raven in self.fly_raven_group:
+                fl_raven.kill()
+        
         self.events_handler()
 
         """Level display:"""

@@ -14,6 +14,9 @@ class Handler(Game):
 
     def __init__(self):
         super().__init__()
+        # game attributes
+        self.current_level = 1
+        # game flags
         self.game_active_status = False
         self.continue_screen = False
         self.game_running = False
@@ -25,6 +28,7 @@ class Handler(Game):
         self.levels[self.current_level].load_settings(self)
         # set current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
+        # timer
         self.start_time = 0
         self.paused_time = 0
         self.elapsed_time = 0
@@ -102,7 +106,6 @@ class Handler(Game):
         self.current_level = 1
         self.levels[self.current_level].load_settings(self)
         
-
     def game_restart(self):
         for intro_event in pygame.event.get():
             if intro_event.type == pygame.QUIT:

@@ -77,7 +77,7 @@ class GameScenes(pygame.sprite.Sprite):
         continue_text_rect = continue_text.get_rect(center=(500, 250))
         
         return_to_menu_text = self.game_font.render(
-            "Return To Menu",
+            "Quit To Menu",
             True,
             'Black').convert_alpha()
         return_to_menu_text_rect = return_to_menu_text.get_rect(center=self.return_to_menu_rect.center)

@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.player_shoot_index = 0
         self.gravity = 0
         self.player_speed = 3
-        self.shooting_speed = 0.5
+        self.shooting_speed = 1
         self.player_damage = 50
         self.player_current_direction = 0  # 0 = right, 1 = left
         self.player_run_right = None

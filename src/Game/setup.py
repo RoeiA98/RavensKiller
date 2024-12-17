@@ -19,11 +19,6 @@ class Game(pygame.sprite.Sprite):
         self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
         
         """ ------------------------------------------------- """
-
-        """ Game Attributes """
-        self.current_level = 1
-        
-        """ ------------------------------------------------- """
         
         """ Draw UI """
         self.fps = FPS()
