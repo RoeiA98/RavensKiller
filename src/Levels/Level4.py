@@ -32,6 +32,25 @@ class Level4(Game):
 
         if self.game_score.fly_ravens_kills == 5:
             self.stop_level()
+    
+    def display_objective(self, screen):
+        # Text
+        level_text = self.game_font.render(
+            "Level 4 Objective:",
+            True,
+            'Black'
+        ).convert_alpha()
+        level_text_rect = level_text.get_rect(center=(500, 115))
+
+        objective_text = self.game_font.render(
+            f"- Kill 5 Fly Ravens Without Taking Damage",
+            True,
+            'Black').convert_alpha()
+        objective_text_rect = objective_text.get_rect(center=(500, 185))
+
+        # Draw
+        screen.blit(level_text, level_text_rect)
+        screen.blit(objective_text, objective_text_rect)
         
         
     def display_level(self, screen):

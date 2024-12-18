@@ -24,21 +24,20 @@ class GameScenes(pygame.sprite.Sprite):
         self.refresh_leaderboard_rect = pygame.Rect(400, 360, 200, 65)
         self.back_leaderboard_rect = pygame.Rect(400, 450, 200, 65)
         
-
     def game_active(self):
         pygame.display.set_caption("Ravens Killer")
         self.game_screen.blit(self.image, (0, 0))
 
-    def next_level(self, current_level, num_of_levels):
+    def next_level(self, current_level, num_of_levels, levels):
 
-        pygame.display.set_caption("Next Level")
+        pygame.display.set_caption(f"Level {current_level} Objective")
         pygame.display.update()
         
         congrats_text = self.game_font.render(
             f"Great Job!",
             True,
             'Black').convert_alpha()
-        congrats_text_rect = congrats_text.get_rect(center=(500, 200))
+        congrats_text_rect = congrats_text.get_rect(center=(500, 35))
 
         if current_level == num_of_levels - 1:
             continue_text = self.game_font.render(
@@ -53,11 +52,13 @@ class GameScenes(pygame.sprite.Sprite):
             'Black'
         ).convert_alpha()
         
-        continue_text_rect = continue_text.get_rect(center=(500, 250))
+        continue_text_rect = continue_text.get_rect(center=(500, 420))
 
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
+        
+        levels[current_level].display_objective(self, self.game_screen)
 
     def pause_screen(self):
 
@@ -101,6 +102,7 @@ class GameScenes(pygame.sprite.Sprite):
     def game_over_scene(self, final_score, final_time):
 
         pygame.display.set_caption("Game Over")
+        pygame.display.update()
 
         gameover_text = self.game_font.render(
             f"GAME OVER!",
@@ -151,4 +153,44 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
-        self.game_screen.blit(restart_text, restart_text_rect)
+        self.game_screen.blit(restart_text, restart_text_rect)  
+        
+    def display_level1_objective(self):
+        pygame.display.set_caption("Level 1 Objective")
+        pygame.display.update()
+        
+        # Text
+        header_text = self.game_font.render(
+            f"GET READY!",
+            True,
+            'Black').convert_alpha()
+        header_text_rect = header_text.get_rect(center=(500, 35))
+        
+        level_text = self.game_font.render(
+            "Level 1 Objective:",
+            True,
+            'Black'
+        ).convert_alpha()
+        level_text_rect = level_text.get_rect(center=(500, 115))
+
+        objective_text = self.game_font.render(
+            f"- Kill 5 Ground Ravens",
+            True,
+            'Black').convert_alpha()
+        objective_text_rect = objective_text.get_rect(center=(500, 185))
+        
+        continue_text = self.game_font.render(
+            f"Press Enter to start playing!",
+            True,
+            'Black'
+        ).convert_alpha()
+        
+        continue_text_rect = continue_text.get_rect(center=(500, 420))
+
+        # Draw
+        self.game_screen.blit(self.image, (0, 0))
+        self.game_screen.blit(level_text, level_text_rect)
+        self.game_screen.blit(objective_text, objective_text_rect)
+        self.game_screen.blit(header_text, header_text_rect)
+        self.game_screen.blit(continue_text, continue_text_rect)
+            

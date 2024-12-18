@@ -45,13 +45,12 @@ class EnemiesTests(Handler):
 
         while self.game_running:
             if self.game_active_status:
-                self.handler()
+                self.game_handler()
                 self.display_active_enemies()
             elif self.continue_screen:
                 self.load_next_level()
             else:
-                self.game_over()
-                self.game_restart()
+                self.game_stop()
 
             pygame.display.update()
             self.fps.clock.tick(self.MAX_FPS)

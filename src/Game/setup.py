@@ -17,6 +17,7 @@ class Game(pygame.sprite.Sprite):
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 40)
+        self.image = pygame.image.load('assets/gameBG3.png').convert()
         
         """ ------------------------------------------------- """
         

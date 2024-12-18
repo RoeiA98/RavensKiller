@@ -21,12 +21,9 @@ class GameRun(Handler):
             
             while self.game_running:
                 if self.game_active_status:
-                    self.handler()
-                elif self.continue_screen:
-                    self.load_next_level()
+                    self.game_handler()
                 else:
-                    self.game_over()
-                    self.game_restart()
+                    self.game_stop()
 
                 pygame.display.update()
                 self.fps.clock.tick(self.MAX_FPS)

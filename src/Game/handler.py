@@ -22,6 +22,7 @@ class Handler(Game):
         self.game_running = False
         self.final_level = False
         self.game_pause = False
+        self.display_objective = False
         # import and sort levels
         self.levels = [None] + [getattr(module, name) for name, module in sorted(import_levels("Levels").items())]
         self.game_level_scenes = self.levels[0:]
@@ -35,7 +36,7 @@ class Handler(Game):
         self.last_pause_time = 0
         self.elapsed_time_ms = 0 
 
-    def handler(self):
+    def game_handler(self):
         self.levels[self.current_level].play(self)
         
     def events_handler(self):
@@ -106,36 +107,34 @@ class Handler(Game):
         self.current_level = 1
         self.levels[self.current_level].load_settings(self)
         
-    def game_restart(self):
-        for intro_event in pygame.event.get():
-            if intro_event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
-                self.save_to_db()
-                self.game_level_reset()
-                self.game_score.current_score = 0
-                self.game_active_status = True
-                self.game_round_reset()
-                self.reset_timer()
-
-    def game_over(self):
-        # Reset score
-        self.game_score.ground_ravens_kills = 0
-        self.game_score.fly_ravens_kills = 0
-        # Deleting enemies
-        self.fly_raven_group.empty()
-        self.ground_raven_group.empty()
-        self.deadly_raven_group.empty()
-        self.all_enemies.empty()
-        self.bullet.empty()
-        # Resetting player position
-        self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
-        # Game over scene
-        self.game_scenes.game_over_scene(self.game_score.current_score, str(self.elapsed_time))
-        self.game_current_level_scene = self.game_level_scenes[self.current_level]
-        self.game_active_status = False
+    def game_stop(self):
+        
+        if self.continue_screen:
+            self.load_next_level()
+        else:
+            if self.display_objective:
+                self.game_scenes.display_level1_objective()
+            else:
+                self.game_scenes.game_over_scene(self.game_score.current_score, str(self.elapsed_time))
+                
+            for intro_event in pygame.event.get():
+                if intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN:
+                    if not self.display_objective:
+                        self.display_objective = True
+                        self.game_over()
+                    elif self.display_objective:
+                        self.display_objective = False
+                        self.reset_timer()
+                        self.game_active_status = True
     
+    def game_over(self):
+        self.save_to_db()
+        self.game_level_reset()
+        self.game_score.current_score = 0
+        self.game_current_level_scene = self.game_level_scenes[self.current_level]
+        self.player.sprite.rect = self.player.sprite.image.get_rect(midbottom=(500, 450))
+        self.game_round_reset()
+        
     def save_to_db(self):
         # saving to database
         with app.app_context():
@@ -192,28 +191,37 @@ class Handler(Game):
         self.current_level += 1
         if self.current_level < len(self.game_level_scenes):
             self.levels[self.current_level].load_settings(self)
+        else:
+            self.final_level = True
 
     def load_next_level(self):
         self.game_round_reset()
-        if self.current_level >= len(self.game_level_scenes):
-            self.final_scene = True
+        
+        if self.final_level:
             self.game_scenes.final_scene(self.game_score.current_score, str(self.elapsed_time))
+        elif self.display_objective:
+            self.game_scenes.display_level1_objective()
         else:
-            self.game_scenes.next_level(self.current_level, len(self.game_level_scenes))
-
-        for event in pygame.event.get():
+            self.game_scenes.next_level(self.current_level, len(self.game_level_scenes), self.levels)
+        
+        for event in pygame.event.get():    
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                
+                if self.final_level:
+                    self.final_level = False
+                    self.display_objective = True
                 # restarting to level 1 if user beat the game
-                if self.current_level >= len(self.game_level_scenes):
-                    self.save_to_db()
-                    self.game_score.current_score = 0
-                    self.game_level_reset()
-                    self.final_scene = False
-                    self.reset_timer()
                 else:
-                    self.paused_time += pygame.time.get_ticks() - self.last_pause_time
+                    if self.current_level >= len(self.game_level_scenes):
+                        self.save_to_db()
+                        self.game_score.current_score = 0
+                        self.game_level_reset()
+                        self.reset_timer()
+                    else:
+                        self.paused_time += pygame.time.get_ticks() - self.last_pause_time
 
-                self.continue_screen = False
-                self.game_current_level_scene = self.game_level_scenes[self.current_level]
-                self.game_active_status = True
+                    self.display_objective = False
+                    self.game_current_level_scene = self.game_level_scenes[self.current_level]
+                    self.continue_screen = False
+                    self.game_active_status = True
             

@@ -10,6 +10,7 @@ class GameIntro(GameScenes):
         self.user_display_font = pygame.font.SysFont("Verdana", 25)
         self.intro_screen_status = True
         self.leaderboard_screen_status = False
+        self.first_level_objective_staus = False
         self.game_leaderboard = GameLeaderboard()
         
     def intro_screen_menu(self):
@@ -17,6 +18,9 @@ class GameIntro(GameScenes):
             self.display_intro()
         elif self.leaderboard_screen_status:
             self.game_leaderboard.display_leaderboard()
+        elif self.first_level_objective_staus:
+            self.display_level1_objective()
+            
     
     def display_intro(self):
         pygame.display.set_caption("Welcome")
@@ -110,8 +114,8 @@ class GameIntro(GameScenes):
                     and self.start_button_rect.collidepoint(event.pos)) or (event.type == pygame.KEYDOWN 
                                                                             and event.key == pygame.K_RETURN):
                     if name_input_validate(self.name_input):
-                        pygame.time.delay(100)
-                        return True
+                        self.intro_screen_status = False
+                        self.first_level_objective_staus = True
                     else:
                         self.invalid_name = True
                         
@@ -124,3 +128,8 @@ class GameIntro(GameScenes):
                 if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.quit_button_rect.collidepoint(event.pos)):  # Quit Game
                     pygame.quit()
                     exit()
+            
+            elif self.first_level_objective_staus:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    pygame.time.delay(100)
+                    return True

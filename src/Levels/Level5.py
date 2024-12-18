@@ -48,6 +48,32 @@ class Level5(Game):
 
         if self.game_score.ground_ravens_kills == 10:
             self.stop_level()
+    
+    def display_objective(self, screen):
+        # Text
+        level_text = self.game_font.render(
+            "Level 5 Objective:",
+            True,
+            'Black'
+        ).convert_alpha()
+        level_text_rect = level_text.get_rect(center=(500, 115))
+
+        objective_text = self.game_font.render(
+            f"- Kill 10 Ground Ravens",
+            True,
+            'Black').convert_alpha()
+        objective_text_rect = objective_text.get_rect(center=(500, 185))
+        
+        objective2_text = self.game_font.render(
+            f"- DON'T GET HIT!",
+            True,
+            (183, 15, 15)).convert_alpha()
+        objective2_text_rect = objective2_text.get_rect(center=(445, 255))
+
+        # Draw
+        screen.blit(level_text, level_text_rect)
+        screen.blit(objective_text, objective_text_rect)
+        screen.blit(objective2_text, objective2_text_rect)
             
     def display_level(self, screen):
         pygame.display.set_caption("Level 5")
