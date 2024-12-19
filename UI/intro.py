@@ -20,7 +20,6 @@ class GameIntro(GameScenes):
             self.game_leaderboard.display_leaderboard()
         elif self.first_level_objective_staus:
             self.display_level1_objective()
-            
     
     def display_intro(self):
         pygame.display.set_caption("Welcome")
