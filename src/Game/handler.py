@@ -61,7 +61,6 @@ class Handler(Game):
                         self.game_pause = True
                         self.last_pause_time = pygame.time.get_ticks()
                         self.game_scenes.pause_screen()
-                        
                         self.timer.display_timer(self.game_screen, self.elapsed_time, 'Gray')
                 
                 if (self.game_pause and event.type == pygame.MOUSEBUTTONDOWN 
@@ -211,7 +210,6 @@ class Handler(Game):
         
         for event in pygame.event.get():    
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                
                 if self.final_level:
                     self.final_level = False
                     self.display_objective = True
@@ -229,4 +227,7 @@ class Handler(Game):
                     self.game_current_level_scene = self.game_level_scenes[self.current_level]
                     self.continue_screen = False
                     self.game_active_status = True
+            if (self.final_level and event.type == pygame.MOUSEBUTTONDOWN 
+                and event.button == 1 and self.game_scenes.return_to_menu_rect.collidepoint(event.pos)):
+                self.game_quit_to_menu()
             

@@ -149,11 +149,20 @@ class GameScenes(pygame.sprite.Sprite):
             True,
             'Black').convert_alpha()
         restart_text_rect = restart_text.get_rect(center=(500, 250))
+        
+        return_to_menu_text = self.game_font.render(
+            "Quit To Menu",
+            True,
+            'Black').convert_alpha()
+        return_to_menu_text_rect = return_to_menu_text.get_rect(center=self.return_to_menu_rect.center)
 
         self.game_screen.blit(self.image, (0, 0))
         self.game_screen.blit(congrats_text, congrats_text_rect)
         self.game_screen.blit(continue_text, continue_text_rect)
         self.game_screen.blit(restart_text, restart_text_rect)  
+        # return to menu button
+        pygame.draw.rect(self.game_screen, 'Grey', self.return_to_menu_rect)
+        self.game_screen.blit(return_to_menu_text, return_to_menu_text_rect)
         
     def display_level1_objective(self):
         pygame.display.set_caption("Level 1 Objective")
