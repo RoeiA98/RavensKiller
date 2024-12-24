@@ -24,7 +24,7 @@ class Level5(Game):
                         
             increasing Ground Raven speed
         """
-        self.events_handler()
+        self.active_game_events_handler()
 
         """Level display:"""
         self.game_active()

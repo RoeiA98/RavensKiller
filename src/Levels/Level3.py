@@ -37,7 +37,7 @@ class Level3(Game):
             for fl_raven in self.fly_raven_group:
                 fl_raven.kill()
         
-        self.events_handler()
+        self.active_game_events_handler()
 
         """Level display:"""
         self.game_active()

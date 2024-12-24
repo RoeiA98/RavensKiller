@@ -21,7 +21,7 @@ class Level4(Game):
             Objective:  - Kill 5 fly ravens without taking damage
 
         """
-        self.events_handler()
+        self.active_game_events_handler()
 
         """Level display:"""
         self.game_active()

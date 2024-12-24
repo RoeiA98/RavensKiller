@@ -22,7 +22,7 @@ class Level1(Game):
             Objective: Kill 5 ground ravens
 
         """
-        self.events_handler()
+        self.active_game_events_handler()
 
         """Level display:"""
         self.game_active()

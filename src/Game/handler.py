@@ -39,7 +39,7 @@ class Handler(Game):
     def game_handler(self):
         self.levels[self.current_level].play(self)
         
-    def events_handler(self):        
+    def active_game_events_handler(self):        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -54,23 +54,14 @@ class Handler(Game):
 
                 # pause logic
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    if self.game_pause:
-                        self.game_pause = False
-                        self.paused_time += pygame.time.get_ticks() - self.last_pause_time
-                    else:
-                        self.game_pause = True
-                        self.last_pause_time = pygame.time.get_ticks()
-                        self.game_scenes.pause_screen()
-                        self.timer.display_timer(self.game_screen, self.elapsed_time, 'Gray')
+                    self.toggle_pause()
                 
-                if (self.game_pause and event.type == pygame.MOUSEBUTTONDOWN 
-                    and event.button == 1 and self.game_scenes.return_to_menu_rect.collidepoint(event.pos)):
-                    self.game_quit_to_menu()
-                
-                if (self.game_pause and event.type == pygame.MOUSEBUTTONDOWN 
-                    and event.button == 1 and self.game_scenes.pause_quit_rect.collidepoint(event.pos)):
-                    pygame.quit()
-                    exit()
+                if self.game_pause and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    if self.game_scenes.return_to_menu_rect.collidepoint(event.pos):
+                        self.game_quit_to_menu()
+                    if self.game_scenes.pause_quit_rect.collidepoint(event.pos):
+                        pygame.quit()
+                        exit()
                 
     def game_quit_to_menu(self):
         self.game_pause = False
@@ -84,6 +75,16 @@ class Handler(Game):
         self.game_intro.intro_screen_status = True
         self.game_active_status = False  
         self.game_running = False
+    
+    def toggle_pause(self):
+        if self.game_pause:
+            self.game_pause = False
+            self.paused_time += pygame.time.get_ticks() - self.last_pause_time
+        else:
+            self.game_pause = True
+            self.last_pause_time = pygame.time.get_ticks()
+            self.game_scenes.pause_screen()
+            self.timer.display_timer(self.game_screen, self.elapsed_time, 'Gray')
         
     def reset_timer(self):
         self.elapsed_time = 0
@@ -160,6 +161,7 @@ class Handler(Game):
             # Timer
             self.elapsed_time_ms = pygame.time.get_ticks() - self.start_time - self.paused_time
             self.elapsed_time = timedelta(milliseconds=self.elapsed_time_ms)
+            self.spawns.elapsed_time = self.elapsed_time_ms
             self.timer.display_timer(self.game_screen, self.elapsed_time, 'White')
         
             # Score
