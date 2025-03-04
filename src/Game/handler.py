@@ -94,11 +94,12 @@ class Handler(Game):
         self.start_time = pygame.time.get_ticks()
 
     def game_round_reset(self):
-        # Deleting enemies
+        # Deleting enemies and resetting their spawns
         self.fly_raven_group.empty()
         self.ground_raven_group.empty()
         self.deadly_raven_group.empty()
         self.all_enemies.empty()
+        self.spawns.reset_all_last_spawns()
         # Resetting player
         self.player.sprite.player_reset_pos()
         self.player_health.hp = 100
@@ -149,7 +150,6 @@ class Handler(Game):
             )
 
     def game_active(self):
-
         if not self.game_pause and self.game_active_status:
             # Display game
             self.game_scenes.game_active()
@@ -201,7 +201,6 @@ class Handler(Game):
 
     def load_next_level(self):
         self.game_round_reset()
-        
         if self.final_level:
             self.game_scenes.final_scene(self.game_score.current_score, str(self.elapsed_time))
         elif self.display_objective:

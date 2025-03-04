@@ -34,6 +34,11 @@ class Spawns:
         self.deadly_raven_group = deadly_raven_group
         self.deadly_raven_spawn = 0
         self.last_deadly_raven_spawn_time = 0
+    
+    def reset_all_last_spawns(self):
+        self.last_fly_raven_spawn_time = 0
+        self.last_ground_raven_spawn_time = 0
+        self.last_deadly_raven_spawn_time = 0
 
     def spawn_fly_raven(self):
         if self.fly_raven_spawn:

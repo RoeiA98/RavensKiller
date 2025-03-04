@@ -1,5 +1,5 @@
 import asyncio
-import pygame # type: ignore
+import pygame
 from src.Game.run import GameRun
 
 if __name__ == "__main__":

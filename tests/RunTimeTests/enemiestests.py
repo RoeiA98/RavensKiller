@@ -25,10 +25,20 @@ class EnemiesTests(Handler):
         self.game_screen.blit(all_enemies, (200, 180))
     
     def print_current_enemies(self):
+        print(f"current level: {self.current_level}")
+        # Deadly ravens
         print(f"\nActive Deadly Ravens: {len(self.deadly_raven_group)}")
-        print(f"Active Ground Ravens: {len(self.ground_raven_group)}")
-        print(f"Active Fly Ravens: {len(self.fly_raven_group)}")
-        
+        print(f"Active Deadly Ravens Spawn Time: {self.spawns.deadly_raven_spawn}")
+        print(f"Active Deadly Ravens Last Spawn Time: {self.spawns.last_deadly_raven_spawn_time}")
+        # Ground ravens
+        print(f"\nActive Ground Ravens: {len(self.ground_raven_group)}")
+        print(f"Active Deadly Ravens Spawn Time: {self.spawns.ground_raven_spawn}")
+        print(f"Active Deadly Ravens Last Spawn Time: {self.spawns.last_ground_raven_spawn_time}")
+        # Fly ravens
+        print(f"\nActive Fly Ravens: {len(self.fly_raven_group)}")
+        print(f"Active Deadly Ravens Spawn Time: {self.spawns.fly_raven_spawn}")
+        print(f"Active Deadly Ravens Last Spawn Time: {self.spawns.last_fly_raven_spawn_time}")
+        print("-------------------------------------------")
         # ground_raven_count = sum(1 for enemy in self.all_enemies.sprites() if isinstance(enemy, GroundRaven))
 
     async def run_game(self):
