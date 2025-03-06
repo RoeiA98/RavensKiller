@@ -1,6 +1,7 @@
 import pygame
 from UI.scenes import GameScenes
 from backend.database.db_handler import create_connection
+from utils.utils import convert_to_timedelta
 
 class GameLeaderboard(GameScenes):
     def __init__(self):
@@ -11,18 +12,26 @@ class GameLeaderboard(GameScenes):
         db = create_connection()
         if db is not None:
             collection = db['game_scores']
-            leaderboard_data = collection.find().sort("highest_score", -1).limit(10)  # Get top 10 scores
+            # leaderboard only includes players who beat the game
+            leaderboard_data = list(collection.find({"beat_game": {"$eq": True}}).sort({'best_time': 1}).limit(3))
 
-            y_offset = 150
+            y_offset = 125
             for rank, player in enumerate(leaderboard_data, start=1):
                 player_text = self.game_font.render(
-                    f"{rank}. {player['username']} - Score: {player['highest_score']}, Level: {player['highest_level']}, Best Time: {player.get('best_time', {player['best_time']})}",
+                    f"{rank}. {player['username']} - Score: {player['highest_score']}, Best Time: {player.get('best_time', {player['best_time']})}",
                     True,
                     'Black'
                 ).convert_alpha()
+                player_divider = self.game_font.render(
+                    f"{'-' * int((player_text.get_width() / self.game_font.size('-')[0]))}",
+                    True,
+                    'Black'
+                )
                 player_text_rect = player_text.get_rect(center=(500, y_offset))
+                player_divider_rect = player_text.get_rect(center=(500, y_offset+30))
                 self.game_screen.blit(player_text, player_text_rect)
-                y_offset += 40
+                self.game_screen.blit(player_divider, player_divider_rect)
+                y_offset += 60
     
     def display_leaderboard(self):
         pygame.display.set_caption("Leaderboard")

@@ -73,7 +73,8 @@ def save_score(username, score, best_time, highest_level, beat_game):
                     "username": username,
                     "highest_score": score,
                     "highest_level": highest_level,
-                    "best_time": "N/A"
+                    "best_time": "N/A",
+                    "beat_game": False
                 }
                 if beat_game:
                     new_record["best_time"] = best_time_str
