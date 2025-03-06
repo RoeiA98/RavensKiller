@@ -3,7 +3,7 @@ import unittest
 import sys
 import os
 import asyncio
-import pygame  # type: ignore
+import pygame
 from unittest.mock import patch, AsyncMock
 # Set work directory to the root directory of the project
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

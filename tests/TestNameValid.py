@@ -3,7 +3,7 @@ import unittest
 import sys
 import os
 import asyncio
-import pygame  # type: ignore
+import pygame
 # Set work directory to the root directory of the project
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Add the root directory to the Python path

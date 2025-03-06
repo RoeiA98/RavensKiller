@@ -1,4 +1,4 @@
-import pygame  # type: ignore
+import pygame
 import asyncio
 from src.Game.handler import Handler
 

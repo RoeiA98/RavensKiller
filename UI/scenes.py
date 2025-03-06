@@ -1,4 +1,4 @@
-import pygame  # type: ignore
+import pygame
 from src.Sprites.enemy import *
 
 class GameScenes(pygame.sprite.Sprite):

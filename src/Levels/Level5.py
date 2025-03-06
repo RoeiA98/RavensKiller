@@ -1,4 +1,4 @@
-import pygame # type: ignore
+import pygame
 from src.Game.setup import *
 from utils.utils import set_spawn_rate
 

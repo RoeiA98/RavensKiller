@@ -1,5 +1,5 @@
 from datetime import timedelta
-import pygame  # type: ignore
+import pygame
 from src.Sprites.player import Player
 from src.Game.setup import *
 from UI.scenes import *
@@ -8,7 +8,7 @@ from src.Sprites.player import *
 from sys import exit
 from UI.score import *
 from utils.utils import import_levels
-from database.db_handler import app, save_score
+from database.db_handler import save_score
 
 class Handler(Game):
 
@@ -141,13 +141,12 @@ class Handler(Game):
         
     def save_to_db(self):
         # saving to database
-        with app.app_context():
-            save_score(self.game_intro.name_input, 
-                        self.game_score.current_score, 
-                        str(self.elapsed_time)[:-4], 
-                        self.current_level - 1 if self.current_level >= len(self.game_level_scenes) else self.current_level,
-                        True if self.current_level >= len(self.game_level_scenes) else False
-            )
+        save_score(self.game_intro.name_input, 
+                   self.game_score.current_score, 
+                   str(self.elapsed_time)[:-4], 
+                   self.current_level - 1 if self.current_level >= len(self.game_level_scenes) else self.current_level,
+                   True if self.current_level >= len(self.game_level_scenes) else False
+        )
 
     def game_active(self):
         if not self.game_pause and self.game_active_status:
@@ -231,4 +230,3 @@ class Handler(Game):
             if (self.final_level and event.type == pygame.MOUSEBUTTONDOWN 
                 and event.button == 1 and self.game_scenes.return_to_menu_rect.collidepoint(event.pos)):
                 self.game_quit_to_menu()
-            

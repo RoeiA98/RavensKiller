@@ -4,7 +4,7 @@ import os
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 # Add the root directory to the Python path
 sys.path.append(os.getcwd())
-import pygame # type: ignore
+import pygame
 import asyncio
 from src.Game.handler import Handler
 

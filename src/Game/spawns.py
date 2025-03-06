@@ -1,4 +1,4 @@
-import pygame # type: ignore
+import pygame
 from src.Sprites.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
 from src.Sprites.Enemies.FlyRavens import FlyRaven
 from src.Sprites.Enemies.GroundRavens import GroundRaven

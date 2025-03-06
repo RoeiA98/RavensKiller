@@ -1,4 +1,4 @@
-import pygame # type: ignore
+import pygame
 
 class FPS:
     def __init__(self):

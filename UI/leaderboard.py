@@ -1,4 +1,4 @@
-import pygame  # type: ignore
+import pygame
 from UI.scenes import GameScenes
 
 class GameLeaderboard(GameScenes):

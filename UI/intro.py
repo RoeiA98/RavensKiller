@@ -1,4 +1,4 @@
-import pygame  # type: ignore
+import pygame
 from UI.scenes import GameScenes
 from utils.utils import name_input_validate
 from UI.leaderboard import GameLeaderboard

@@ -1,4 +1,4 @@
-import pygame.sprite # type: ignore
+import pygame.sprite
 
 class Health(pygame.sprite.Sprite):
     def __init__(self):
