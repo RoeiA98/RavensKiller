@@ -53,11 +53,14 @@ def save_score(username, score, best_time, highest_level, beat_game):
                     update_fields["highest_level"] = highest_level
                 
                 if beat_game:
-                    if best_time < result.get("best_time", best_time_str):
+                    stored_best_time = result.get("best_time", "N/A")
+                    if stored_best_time == "N/A":
                         update_fields["best_time"] = best_time_str
                         update_fields["beat_game"] = beat_game
                     else:
-                        update_fields["beat_game"] = beat_game
+                        stored_best_time = convert_to_timedelta(stored_best_time)
+                        if best_time < stored_best_time:
+                            update_fields["best_time"] = best_time_str
                 
                 if score > result.get("highest_score", 0):
                     update_fields["highest_score"] = score
@@ -69,7 +72,8 @@ def save_score(username, score, best_time, highest_level, beat_game):
                 new_record = {
                     "username": username,
                     "highest_score": score,
-                    "highest_level": highest_level
+                    "highest_level": highest_level,
+                    "best_time": "N/A"
                 }
                 if beat_game:
                     new_record["best_time"] = best_time_str

@@ -64,6 +64,7 @@ class Handler(Game):
                         exit()
                 
     def game_quit_to_menu(self):
+        self.save_to_db()
         self.game_pause = False
         self.game_intro.name_input = "" 
         self.game_score.current_score = 0
