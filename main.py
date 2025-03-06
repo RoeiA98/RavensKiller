@@ -1,9 +1,17 @@
 import asyncio
 import pygame
 from src.Game.run import GameRun
+from backend.server.server import start_server
 
-if __name__ == "__main__":
+async def main():
     pygame.init()
     game = GameRun()
 
-    asyncio.run(game.run_game())
+    # running game and server concurrently
+    await asyncio.gather(
+        game.run_game(),
+        start_server()
+    )
+
+if __name__ == "__main__":
+    asyncio.run(main())

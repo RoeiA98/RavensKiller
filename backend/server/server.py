@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import os
-from database.db_handler import save_score  # Import the save_score function
+from backend.database.db_handler import save_score  # Import the save_score function
+import uvicorn
 
 # Load environment variables from .env file
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.venv', '.env'))
@@ -31,6 +32,7 @@ async def save_score_api(score_request: ScoreRequest):
     else:
         raise HTTPException(status_code=status_code, detail=response["error"])
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=5000, log_level="debug")
+async def start_server():
+    config = uvicorn.Config(app, host="127.0.0.1", port=5000, log_level="debug")
+    server = uvicorn.Server(config)
+    await server.serve()
