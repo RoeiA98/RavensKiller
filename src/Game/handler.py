@@ -8,7 +8,7 @@ from src.Sprites.player import *
 from sys import exit
 from UI.score import *
 from utils.utils import import_levels
-from database.db_handler import save_score
+from backend.database.db_handler import save_score
 
 class Handler(Game):
 

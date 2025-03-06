@@ -4,7 +4,7 @@ import os
 from utils.utils import convert_to_timedelta
 
 # Load environment variables from .env file
-load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.venv', '.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.venv', '.env'))
 
 # Database connection
 def create_connection():
@@ -76,7 +76,8 @@ def save_score(username, score, best_time, highest_level, beat_game):
                     new_record["beat_game"] = beat_game
                 
                 collection.insert_one(new_record)
-                
+            
+            print("Score saved successfully!")
             return {"message": "Score saved successfully!"}, 200
         
         except errors.PyMongoError as e:
@@ -84,4 +85,5 @@ def save_score(username, score, best_time, highest_level, beat_game):
             return {"error": "Database error"}, 500
         
     else:
+        print("Database connection failed")
         return {"error": "Database connection failed"}, 500

@@ -5,7 +5,7 @@ import os
 from database.db_handler import save_score  # Import the save_score function
 
 # Load environment variables from .env file
-load_dotenv(os.path.join(os.path.dirname(__file__), '..', 'venv', '.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.venv', '.env'))
 
 app = FastAPI()
 
