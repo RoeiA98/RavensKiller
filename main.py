@@ -1,5 +1,5 @@
-import asyncio
 import pygame
+import asyncio
 from src.Game.run import GameRun
 from backend.server.server import start_server
 
