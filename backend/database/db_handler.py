@@ -1,3 +1,4 @@
+import logging
 from pymongo import MongoClient, errors
 from dotenv import load_dotenv
 import os
@@ -87,8 +88,10 @@ def save_score(username, score, best_time, highest_level, beat_game):
         
         except errors.PyMongoError as e:
             print(f"Error: {e}")
+            logging.error(f"Database error: {e}")
             return {"error": "Database error"}, 500
         
     else:
         print("Database connection failed")
+        logging.error("Database connection failed")
         return {"error": "Database connection failed"}, 500
