@@ -22,8 +22,9 @@ class GameLeaderboard(GameScenes):
                     True,
                     'Black'
                 ).convert_alpha()
+                
                 player_divider = self.game_font.render(
-                    f"{'-' * int((player_text.get_width() / self.game_font.size('-')[0]))}",
+                    f"{'-' * round(player_text.get_width() / self.game_font.size('-')[0])}",
                     True,
                     'Black'
                 )
