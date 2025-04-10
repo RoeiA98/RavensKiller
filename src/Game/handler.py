@@ -10,6 +10,7 @@ from UI.score import *
 from utils.utils import import_levels
 from backend.database.db_handler import save_score
 
+
 class Handler(Game):
 
     def __init__(self):

@@ -33,14 +33,9 @@ def create_connection():
         return None
 
 def save_score(username, score, best_time, highest_level, beat_game):
-    """Save player score and best time to the database."""
-    # If best_time is a string, convert it to timedelta
     best_time = convert_to_timedelta(best_time)
+    best_time_str = str(best_time)[:-4] # converting to format 'HH:MM:SS'
 
-    # Convert best_time to a string format 'HH:MM:SS' before saving it
-    best_time_str = str(best_time)[:-4]
-
-    # Connect to the database
     db = create_connection()
     if db is not None:
         try:
