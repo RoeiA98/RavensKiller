@@ -1,5 +1,5 @@
 import pygame
-from Sprites.enemy import Enemy
+from src.Sprites.enemy import Enemy
 from UI.enemyhealh import EnemyHealth
 
 

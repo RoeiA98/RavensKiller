@@ -9,7 +9,7 @@ from unittest.mock import patch, AsyncMock
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Add the root directory to the Python path
 sys.path.append(os.getcwd())
-from Game.handler import Handler
+from src.Game.handler import Handler
 
 class TestLevelsHandler(unittest.TestCase):
 
