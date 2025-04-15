@@ -6,6 +6,10 @@ class GameScenes(pygame.sprite.Sprite):
         super().__init__()
         self.continue_screen = None
         self.final_screen = None
+        
+        self.leaderboard_screen_status = False
+        self.intro_screen_status = True
+        
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
         self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.game_font = pygame.font.Font('fonts/Amatic-Bold.ttf', 50)

@@ -1,13 +1,6 @@
-# /// script
-# dependencies = [
-#   "pymongo"
-# ]
-# ///
-
-import pymongo
-from Sprites.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
-from Sprites.Enemies.FlyRavens import FlyRaven
-from Sprites.Enemies.GroundRavens import GroundRaven
+from src.Sprites.Enemies.DeadlyFlyRavens import DeadlyFlyRaven
+from src.Sprites.Enemies.FlyRavens import FlyRaven
+from src.Sprites.Enemies.GroundRavens import GroundRaven
 
 
 class Spawns:
