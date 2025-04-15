@@ -1,15 +1,17 @@
+# /// script
+# dependencies = [
+#   "pymongo"
+# ]
+# ///
+
 from datetime import timedelta
-import pygame
-from src.Sprites.player import Player
-from src.Game.setup import *
-from UI.scenes import *
-from UI.intro import *
-from src.Sprites.player import *
+from game.setup import *
+from Sprites.player import *
 from sys import exit
 from UI.score import *
 from utils.utils import import_levels
 from backend.database.db_handler import save_score
-
+import pymongo
 
 class Handler(Game):
 

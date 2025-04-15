@@ -1,7 +1,13 @@
+# /// script
+# dependencies = [
+#     "pymongo"
+# ]
+# ///
+
 import pygame
 import asyncio
-from src.Game.handler import Handler
-
+from game.handler import Handler
+import pymongo
 
 class GameRun(Handler):
     
@@ -9,7 +15,9 @@ class GameRun(Handler):
         super().__init__()
     
     async def run_game(self):
+        print("test outside")
         while True:
+            print("test inside")
             while not self.game_running:
                 self.game_intro.intro_screen_menu()
                 self.game_running = self.game_intro.handle_game_intro_events()

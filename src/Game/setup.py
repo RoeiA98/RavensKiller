@@ -1,12 +1,20 @@
-from src.Game.spawns import *
-from src.Sprites.collision import CollisionsHandler
+# /// script
+# dependencies = [
+#   "pymongo"
+# ]
+# ///
+
+import pygame
+import pymongo
+from game.spawns import *
+from Sprites.collision import CollisionsHandler
 from UI.scenes import GameScenes
 from UI.intro import GameIntro
 from UI.playerhealth import PlayerHealth
 from UI.score import Score
 from UI.FPS import FPS
 from UI.timer import Timer
-from src.Sprites.player import Player
+from Sprites.player import Player
 
 
 class Game(pygame.sprite.Sprite):

@@ -1,6 +1,6 @@
 from random import randint
 import pygame
-from src.Sprites.enemy import Enemy
+from Sprites.enemy import Enemy
 
 
 class FlyRaven(Enemy):
