@@ -2,10 +2,10 @@ import os
 from dotenv import load_dotenv
 import logging
 from backend.server.requests import RequestHandler
-from config.config import DREAMLO_PUBLIC_KEY
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".venv", ".env"))
 DREAMLO_PRIVATE_KEY = os.getenv("DREAMLO_PRIVATE_KEY")
+DREAMLO_PUBLIC_KEY = os.getenv("DREAMLO_PUBLIC_KEY")
 
 
 async def save_score(

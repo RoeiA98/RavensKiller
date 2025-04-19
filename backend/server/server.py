@@ -5,12 +5,13 @@ from pydantic import BaseModel
 import logging
 from backend.server.requests import RequestHandler
 from utils.utils import time_to_centiseconds
-from config.config import DREAMLO_PUBLIC_KEY, DREAMLO_API_URL
+from config.config import DREAMLO_API_URL
 from dotenv import load_dotenv
 import os
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".venv", ".env"))
 DREAMLO_PRIVATE_KEY = os.getenv("DREAMLO_PRIVATE_KEY")
+DREAMLO_PUBLIC_KEY = os.getenv("DREAMLO_PUBLIC_KEY")
 
 app = FastAPI()
 
