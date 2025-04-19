@@ -5,11 +5,13 @@ import os
 import asyncio
 import pygame
 from unittest.mock import patch, AsyncMock
+
 # Set work directory to the root directory of the project
-os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # Add the root directory to the Python path
 sys.path.append(os.getcwd())
 from src.Game.handler import Handler
+
 
 class TestLevelsHandler(unittest.TestCase):
 
@@ -25,7 +27,9 @@ class TestLevelsHandler(unittest.TestCase):
         self.assertIsInstance(self.game, Handler)
 
     def test_run_game(self):
-        with patch('Game.LevelsHandler.LevelsHandler.run_game', new_callable=AsyncMock) as mock_run_game:
+        with patch(
+            "Game.LevelsHandler.LevelsHandler.run_game", new_callable=AsyncMock
+        ) as mock_run_game:
             asyncio.run(self.game.run_game())
             mock_run_game.assert_called_once_with()
 
@@ -41,5 +45,6 @@ class TestLevelsHandler(unittest.TestCase):
     #         self.game.handle_player_movement()
     #         mock_handle_player_movement.assert_called_once()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
