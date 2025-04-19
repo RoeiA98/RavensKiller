@@ -26,9 +26,15 @@ class Player(pygame.sprite.Sprite):
 
         # Sprites
         self.player_load_sprites()
-        self.image = pygame.image.load('assets/Player/PlayerIdleRight.png').convert_alpha()
-        self.idle_right = pygame.image.load('assets/Player/PlayerIdleRight.png').convert_alpha()
-        self.idle_left = pygame.image.load('assets/Player/PlayerIdleLeft.png').convert_alpha()
+        self.image = pygame.image.load(
+            "assets/Player/PlayerIdleRight.png"
+        ).convert_alpha()
+        self.idle_right = pygame.image.load(
+            "assets/Player/PlayerIdleRight.png"
+        ).convert_alpha()
+        self.idle_left = pygame.image.load(
+            "assets/Player/PlayerIdleLeft.png"
+        ).convert_alpha()
         self.rect = self.image.get_rect(midbottom=(500, self.PLAYER_GROUND_POS))
 
     def player_reset_pos(self):
@@ -38,20 +44,28 @@ class Player(pygame.sprite.Sprite):
             self.image = self.idle_left
         else:
             self.image = self.idle_right
-    
+
     def player_shoot_bullet(self, player_x, player_y, direction):
         if direction:
-            return Bullet(player_x, player_y+15, direction)
-        return Bullet(player_x+50, player_y+15, direction)
+            return Bullet(player_x, player_y + 15, direction)
+        return Bullet(player_x + 50, player_y + 15, direction)
 
     def player_load_sprites(self):
         # player running sprites
-        self.player_run_right = [pygame.image.load(f'assets/Player/RunRightF{i}.png') for i in range(1, 9)]
-        self.player_run_left = [pygame.image.load(f'assets/Player/RunLeftF{i}.png') for i in range(1, 9)]
+        self.player_run_right = [
+            pygame.image.load(f"assets/Player/RunRightF{i}.png") for i in range(1, 9)
+        ]
+        self.player_run_left = [
+            pygame.image.load(f"assets/Player/RunLeftF{i}.png") for i in range(1, 9)
+        ]
 
         # player shooting sprites
-        self.player_shoot_right = [pygame.image.load(f'assets/Player/ShootRight{i}.png') for i in range(1, 7)]
-        self.player_shoot_left = [pygame.image.load(f'assets/Player/ShootLeft{i}.png') for i in range(1, 7)]
+        self.player_shoot_right = [
+            pygame.image.load(f"assets/Player/ShootRight{i}.png") for i in range(1, 7)
+        ]
+        self.player_shoot_left = [
+            pygame.image.load(f"assets/Player/ShootLeft{i}.png") for i in range(1, 7)
+        ]
 
     def player_running_animation(self):
         keys = pygame.key.get_pressed()

@@ -1,11 +1,12 @@
 from utils.utils import set_spawn_rate
 from src.Game.setup import *
 
+
 class Level1(Game):
 
     def __init__(self):
         super().__init__()
-        
+
     def load_settings(self):
         """Level settings:"""
         self.spawns.ground_raven_hp = 100
@@ -14,7 +15,7 @@ class Level1(Game):
         self.spawns.ground_raven_spawn = set_spawn_rate(1300, 2100)
         self.spawns.fly_raven_spawn = set_spawn_rate(2400, 3000)
         self.spawns.deadly_raven_spawn = set_spawn_rate(4000, 15000)
-        
+
     def play(self):
         """
         Level logic:
@@ -42,52 +43,45 @@ class Level1(Game):
 
         if self.game_score.ground_ravens_kills == 5:
             self.stop_level()
-            
+
     def display_objective(self, screen):
         # Text
         level_text = self.game_font.render(
-            "Level 1 Objective:",
-            True,
-            'Black'
+            "Level 1 Objective:", True, "Black"
         ).convert_alpha()
         level_text_rect = level_text.get_rect(center=(500, 115))
 
         objective_text = self.game_font.render(
-            f"- Kill 5 Ground Ravens",
-            True,
-            'Black').convert_alpha()
+            f"- Kill 5 Ground Ravens", True, "Black"
+        ).convert_alpha()
         objective_text_rect = objective_text.get_rect(center=(500, 185))
 
         # Draw
         screen.blit(level_text, level_text_rect)
         screen.blit(objective_text, objective_text_rect)
-            
+
     def display_level(self, screen):
         pygame.display.set_caption("Level 1")
         # Text
-        level_text = self.game_font.render(
-            "Level 1",
-            True,
-            'Black'
-        ).convert_alpha()
+        level_text = self.game_font.render("Level 1", True, "Black").convert_alpha()
         level_text_rect = level_text.get_rect(center=(800, 50))
 
         objective_text = self.game_font.render(
-            f"- Kill 5 Ground Ravens",
-            True,
-            'Black').convert_alpha()
+            f"- Kill 5 Ground Ravens", True, "Black"
+        ).convert_alpha()
         objective_text_rect = objective_text.get_rect(center=(780, 100))
 
         progress_text = self.game_font.render(
             f"Ground Ravens Killed: {self.game_score.ground_ravens_kills}",
             True,
-            'Black').convert_alpha()
+            "Black",
+        ).convert_alpha()
         progress_text_rect = progress_text.get_rect(center=(800, 150))
 
         # Text BG
         bg = pygame.Surface((300, 100))  # the size of your rect
         bg.set_alpha(128)  # alpha level
-        bg.fill('black')  # this fills the entire surface
+        bg.fill("black")  # this fills the entire surface
         screen.blit(bg, (650, 30))  # coordinates
 
         # Draw

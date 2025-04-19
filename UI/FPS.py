@@ -1,5 +1,6 @@
 import pygame
 
+
 class FPS:
     def __init__(self):
         self.clock = pygame.time.Clock()

@@ -3,13 +3,15 @@ import pygame
 
 class CollisionsHandler:
 
-    def __init__(self,
-                 player,
-                 player_health,
-                 fly_raven_group,
-                 ground_raven_group,
-                 deadly_raven_group,
-                 all_enemies):
+    def __init__(
+        self,
+        player,
+        player_health,
+        fly_raven_group,
+        ground_raven_group,
+        deadly_raven_group,
+        all_enemies,
+    ):
 
         self.player = player
         self.player_health = player_health
@@ -29,14 +31,18 @@ class CollisionsHandler:
                 return False
 
         # Ground raven hit
-        if pygame.sprite.spritecollide(self.player.sprite, self.ground_raven_group, True):
+        if pygame.sprite.spritecollide(
+            self.player.sprite, self.ground_raven_group, True
+        ):
             self.player_health.hp -= self.ground_raven_damage
             if self.player_health.hp <= 0:
                 self.all_enemies.empty()
                 return False
 
         # Deadly raven hit
-        if pygame.sprite.spritecollide(self.player.sprite, self.deadly_raven_group, True):
+        if pygame.sprite.spritecollide(
+            self.player.sprite, self.deadly_raven_group, True
+        ):
             self.all_enemies.empty()
             return False
 
