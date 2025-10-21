@@ -1,7 +1,7 @@
 import pygame.sprite
 
 
-class Health(pygame.sprite.Sprite):
+class HealthBar(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 

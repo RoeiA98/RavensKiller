@@ -1,5 +1,5 @@
-from utils.utils import set_spawn_rate
 from src.Game.setup import *
+from utils.Utils import set_spawn_rate
 
 
 class Level1(Game):

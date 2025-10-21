@@ -1,8 +1,8 @@
 import pygame.sprite
-from UI.health import Health
+from UI.HealthBar import HealthBar
 
 
-class EnemyHealth(Health):
+class EnemyHealth(HealthBar):
     def __init__(self, current_health, max_health, pos_x, pos_y):
         super().__init__()
 

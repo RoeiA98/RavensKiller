@@ -1,10 +1,11 @@
+import asyncio
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from pydantic import BaseModel
 import logging
 from backend.server.requests import RequestHandler
-from utils.utils import time_to_centiseconds
+from backend.models.score import ScoreRequest
+from utils.Utils import time_to_centiseconds
 from config.config import DREAMLO_API_URL
 from dotenv import load_dotenv
 import os
@@ -22,15 +23,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-class ScoreRequest(BaseModel):
-    username: str
-    score: int
-    best_time: str
-    highest_level: int
-    beat_game: bool
-
 
 @app.post("/submit")
 async def submit_score(data: ScoreRequest):
@@ -65,3 +57,9 @@ async def start_server():
     config = uvicorn.Config(app, host="127.0.0.1", port=8001, log_level="debug")
     server = uvicorn.Server(config)
     await server.serve()
+
+
+if "__main__" == __name__:
+    async def main():
+        await start_server()
+    asyncio.run(main())

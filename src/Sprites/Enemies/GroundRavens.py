@@ -1,6 +1,6 @@
 import pygame
 from src.Sprites.enemy import Enemy
-from UI.enemyhealh import EnemyHealth
+from UI.EnemyHealth import EnemyHealth
 
 
 class GroundRaven(Enemy):

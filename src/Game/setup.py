@@ -1,12 +1,12 @@
 import pygame
 from src.Game.spawns import *
 from src.Sprites.collision import CollisionsHandler
-from UI.scenes import GameScenes
-from UI.intro import GameIntro
-from UI.playerhealth import PlayerHealth
-from UI.score import Score
+from UI.GameScenes import GameScenes
+from UI.GameIntro import GameIntro
+from UI.PlayerHealth import PlayerHealth
+from UI.GameScore import GameScore
 from UI.FPS import FPS
-from UI.timer import Timer
+from UI.Timer import Timer
 from src.Sprites.player import Player
 
 
@@ -28,7 +28,7 @@ class Game(pygame.sprite.Sprite):
         self.fps = FPS()
         self.timer = Timer()
         self.player_health = PlayerHealth()
-        self.game_score = Score()
+        self.game_score = GameScore()
 
         """ ------------------------------------------------- """
 

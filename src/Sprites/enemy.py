@@ -1,5 +1,5 @@
 from random import randint
-from UI.health import *
+from UI.HealthBar import *
 
 
 class Enemy(pygame.sprite.Sprite):

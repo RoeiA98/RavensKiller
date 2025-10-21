@@ -37,7 +37,7 @@ class DeadlyFlyRaven(Enemy):
         ]
         self.enemy_frames_left = [
             pygame.image.load(
-                f"assets/Deadly Raven Bird/DeadlyFlyleft{i}.png"
+                f"assets/Deadly Raven Bird/DeadlyFlyLeft{i}.png"
             ).convert_alpha()
             for i in range(1, 7)
         ]

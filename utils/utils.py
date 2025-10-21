@@ -92,3 +92,12 @@ def time_str_to_seconds(time_str: str) -> float:
         return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
     except Exception:
         return float("inf")
+
+
+def load_env_file(env_path):
+    if os.path.exists(env_path):
+        with open(env_path) as f:
+            for line in f:
+                if line.strip() and not line.startswith("#"):
+                    key, value = line.strip().split("=", 1)
+                    os.environ[key] = value

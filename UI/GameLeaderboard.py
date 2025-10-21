@@ -1,15 +1,22 @@
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import logging
 import pygame
-from UI.scenes import GameScenes
-from utils.utils import time_str_to_seconds, centiseconds_to_time
+from UI.GameScenes import GameScenes
+from utils.Utils import time_str_to_seconds, centiseconds_to_time
 from backend.server.requests import RequestHandler
 import json
 from config.config import DREAMLO_API_URL
+from utils.Utils import load_env_file
 
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".venv", ".env"))
-DREAMLO_PUBLIC_KEY = os.getenv("DREAMLO_PUBLIC_KEY")
+env_path = os.path.join(os.path.dirname(__file__), "..", ".venv", ".env")
+load_env_file(env_path)
+
+DREAMLO_PRIVATE_KEY = os.environ.get("DREAMLO_PRIVATE_KEY")
+DREAMLO_PUBLIC_KEY = os.environ.get("DREAMLO_PUBLIC_KEY")
+
+# DREAMLO_PUBLIC_KEY="67fe4d868f40bb05a0d24049"
+# DREAMLO_PRIVATE_KEY="WMVQQa__VEy2fNLcWUWhfAL_MNAPmzUk-dVqKWiw3drg"
 
 class GameLeaderboard(GameScenes):
     def __init__(self):
