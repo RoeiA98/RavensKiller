@@ -12,9 +12,7 @@ class GameScenes(pygame.sprite.Sprite):
         self.intro_screen_status = True
 
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = 1000, 550
-        self.game_screen = pygame.display.set_mode(
-            (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
-        )
+        self.game_screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.game_font = pygame.font.Font("fonts/Amatic-Bold.ttf", 50)
         self.image = pygame.image.load("assets/gameBG3.png").convert()
         self.rect = None
@@ -36,7 +34,6 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(self.image, (0, 0))
 
     def next_level(self, current_level, num_of_levels, levels):
-
         pygame.display.set_caption(f"Level {current_level} Objective")
         pygame.display.update()
 
@@ -63,7 +60,6 @@ class GameScenes(pygame.sprite.Sprite):
         levels[current_level].display_objective(self, self.game_screen)
 
     def pause_screen(self):
-
         pygame.display.set_caption("Pause")
         pygame.display.update()
 
@@ -100,7 +96,6 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(quit_menu_text, quit_menu_text_rect)
 
     def game_over_scene(self, final_score, final_time):
-
         pygame.display.set_caption("Game Over")
         pygame.display.update()
 
@@ -125,7 +120,6 @@ class GameScenes(pygame.sprite.Sprite):
         self.game_screen.blit(restart_text, restart_text_rect)
 
     def final_scene(self, final_score, final_time):
-
         pygame.display.set_caption("Final")
         pygame.display.update()
 

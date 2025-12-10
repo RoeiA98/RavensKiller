@@ -1,7 +1,7 @@
 import pygame
-from UI.GameScenes import GameScenes
+from UI.scenes import GameScenes
 from utils.Utils import name_input_validate
-from UI.GameLeaderboard import GameLeaderboard
+from UI.leaderboard import GameLeaderboard
 
 
 class GameIntro(GameScenes):

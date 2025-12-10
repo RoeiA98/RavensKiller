@@ -1,5 +1,5 @@
 import pygame.sprite
-from UI.HealthBar import HealthBar
+from UI.health_bar import HealthBar
 
 
 class PlayerHealth(HealthBar):

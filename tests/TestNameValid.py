@@ -9,7 +9,7 @@ import pygame
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # Add the root directory to the Python path
 sys.path.append(os.getcwd())
-from UI.GameIntro import name_input_validate
+from UI.intro import name_input_validate
 
 
 class TestNameValidation(unittest.TestCase):
