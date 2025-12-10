@@ -5,8 +5,8 @@ from UI.scenes import GameScenes
 from UI.intro import GameIntro
 from UI.player_health import PlayerHealth
 from UI.score import GameScore
-from UI.FPS import FPS
-from UI.Timer import Timer
+from UI.fps import FPS
+from UI.timer import Timer
 from src.Sprites.player import Player
 
 
