@@ -1,8 +1,9 @@
-from src.Game.setup import *
+from src.Game.game import *
 from utils.Utils import set_spawn_rate
+from src.Game.base_level import BaseLevel
 
 
-class Level3(Game):
+class Level3(BaseLevel):
 
     def __init__(self):
         super().__init__()
@@ -42,9 +43,7 @@ class Level3(Game):
         """Level display:"""
         self.game_active()
 
-        self.hits = pygame.sprite.groupcollide(
-            self.bullet, self.ground_raven_group, True, False
-        )
+        self.hits = pygame.sprite.groupcollide(self.bullet, self.ground_raven_group, True, False)
         for bullet, hit_enemies in self.hits.items():
             for enemy in hit_enemies:
                 enemy.health -= self.player.sprite.player_damage

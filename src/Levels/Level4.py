@@ -1,8 +1,9 @@
-from src.Game.setup import *
+from src.Game.game import *
 from utils.Utils import set_spawn_rate
+from src.Game.base_level import BaseLevel
 
 
-class Level4(Game):
+class Level4(BaseLevel):
 
     def __init__(self):
         super().__init__()
