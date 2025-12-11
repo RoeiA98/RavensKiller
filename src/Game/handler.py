@@ -1,4 +1,3 @@
-from datetime import timedelta
 import pygame
 from src.Sprites.player import Player
 from src.Game.game import *
@@ -11,6 +10,7 @@ from utils.Utils import import_levels
 from backend.database.db_handler import save_score
 import asyncio
 from src.Game.game_state import GameStateManager, GameState
+from src.Game.timer import GameTimer
 
 
 class Handler(Game):
@@ -19,12 +19,10 @@ class Handler(Game):
         super().__init__()
         # game state manager
         self.state_manager = GameStateManager()
-        
         # game attributes
         self.current_level = 1
         # game flags
         self.final_level = False
-        
         # import and sort levels
         self.levels = [None] + [getattr(module, name) for name, module in sorted(import_levels("Levels").items())]
         self.game_level_scenes = self.levels[0:]
@@ -32,11 +30,7 @@ class Handler(Game):
         # set current level
         self.game_current_level_scene = self.game_level_scenes[self.current_level]
         # timer
-        self.start_time = 0
-        self.paused_time = 0
-        self.elapsed_time = 0
-        self.last_pause_time = 0
-        self.elapsed_time_ms = 0
+        self.game_timer = GameTimer()
         
 
     def game_handler(self):
@@ -52,14 +46,7 @@ class Handler(Game):
                 # bullets shoot
                 if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
                     self.bullet.add(
-                        Player.player_shoot_bullet(
-                            self,
-                            self.player.sprite.rect.x,
-                            self.player.sprite.rect.y,
-                            self.player.sprite.player_current_direction,
-                        )
-                    )
-
+                        Player.player_shoot_bullet(self, self.player.sprite.rect.x, self.player.sprite.rect.y, self.player.sprite.player_current_direction))
                 # pause logic
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     self.toggle_pause()
@@ -86,15 +73,15 @@ class Handler(Game):
     def toggle_pause(self):
         if self.state_manager.is_state(GameState.PAUSED):
             self.state_manager.change_state(GameState.PLAYING)
-            self.paused_time += pygame.time.get_ticks() - self.last_pause_time
+            self.game_timer.resume()
         else:
             self.state_manager.change_state(GameState.PAUSED)
-            self.last_pause_time = pygame.time.get_ticks()
+            self.game_timer.pause()
 
     def handle_pause_state(self):
         """Handle pause state rendering and events"""
         self.game_scenes.pause_screen()
-        self.timer.display_timer(self.game_screen, self.elapsed_time, "Gray")
+        self.timer.display_timer(self.game_screen, self.game_timer.get_elapsed_time(), "Gray")
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -112,11 +99,8 @@ class Handler(Game):
                     exit()
 
     def reset_timer(self):
-        self.elapsed_time = 0
-        self.paused_time = 0
-        self.last_pause_time = 0
-        self.elapsed_time_ms = 0
-        self.start_time = pygame.time.get_ticks()
+        self.game_timer.reset()
+        self.game_timer.start()
 
     def game_round_reset(self):
         # Deleting enemies and resetting their spawns
@@ -144,7 +128,8 @@ class Handler(Game):
             if self.state_manager.is_state(GameState.DISPLAY_OBJECTIVE):
                 self.game_scenes.display_level1_objective()
             else:
-                self.game_scenes.game_over_scene(self.game_score.current_score, str(self.elapsed_time))
+                self.game_timer.pause()
+                self.game_scenes.game_over_scene(self.game_score.current_score, str(self.game_timer.get_elapsed_time()))
 
             for intro_event in pygame.event.get():
                 if (intro_event.type == pygame.KEYDOWN and intro_event.key == pygame.K_RETURN):
@@ -164,17 +149,14 @@ class Handler(Game):
         self.game_round_reset()
 
     def save_to_db_sync(self):
-        print(f"elapsed_time before SENDING!!: {str(self.elapsed_time)[:-4]}")
+        elapsed_time_str = str(self.game_timer.get_elapsed_time())[:-4]
+        print(f"elapsed_time before SENDING!!: {elapsed_time_str}")
         asyncio.create_task(
             save_score(
                 self.game_intro.name_input,
                 self.game_score.current_score,
-                str(self.elapsed_time)[:-4],
-                (
-                    self.current_level - 1
-                    if self.current_level >= len(self.game_level_scenes)
-                    else self.current_level
-                ),
+                elapsed_time_str,
+                (self.current_level - 1 if self.current_level >= len(self.game_level_scenes) else self.current_level),
                 True if self.current_level >= len(self.game_level_scenes) else False,
             )
         )
@@ -187,34 +169,27 @@ class Handler(Game):
             self.game_current_level_scene.update(self, self.game_screen)
             self.fps.render(self.game_screen)
             self.game_intro.display_user_name()
-
             # Timer
-            self.elapsed_time_ms = (pygame.time.get_ticks() - self.start_time - self.paused_time)
-            self.elapsed_time = timedelta(milliseconds=self.elapsed_time_ms)
-            self.spawns.elapsed_time = self.elapsed_time_ms
-            self.timer.display_timer(self.game_screen, self.elapsed_time, "White")
-
+            elapsed_time_ms = self.game_timer.get_elapsed_time_ms()
+            elapsed_time = self.game_timer.get_elapsed_time()
+            self.spawns.elapsed_time = elapsed_time_ms
+            self.timer.display_timer(self.game_screen, elapsed_time, "White")
             # Score
             self.game_score.update(self.game_screen)
-
             # Player
             self.player.draw(self.game_screen)
             self.player.update()
             self.player_health.draw(self.game_screen)
             self.player_health.draw_hp_text(self.game_screen)
-
             # Enemy
             self.all_enemies.update()
             self.all_enemies.draw(self.game_screen)
-
             self.spawns.spawn_fly_raven()
             self.spawns.spawn_deadly_raven()
             self.spawns.spawn_ground_raven()
-
             # Bullet
             self.bullet.draw(self.game_screen)
             self.bullet.update()
-
             # Collision
             collision_result = self.collisions.detect_collision()
             if not collision_result:
@@ -223,7 +198,7 @@ class Handler(Game):
 
     def stop_level(self):
         self.state_manager.change_state(GameState.NEXT_LEVEL)
-        self.last_pause_time = pygame.time.get_ticks()
+        self.game_timer.pause()
         self.current_level += 1
         if self.current_level < len(self.game_level_scenes):
             self.levels[self.current_level].load_settings(self)
@@ -233,10 +208,10 @@ class Handler(Game):
     def load_next_level(self):
         self.game_round_reset()
         if self.final_level:
-            self.game_scenes.final_scene(self.game_score.current_score, str(self.elapsed_time))
+            self.game_scenes.final_scene(self.game_score.current_score, str(self.game_timer.get_elapsed_time()))
         else:
             self.game_scenes.next_level(self.current_level, len(self.game_level_scenes), self.levels)
-            self.timer.display_timer(self.game_screen, self.elapsed_time, "Gray")
+            self.timer.display_timer(self.game_screen, self.game_timer.get_elapsed_time(), "Gray")
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
@@ -251,14 +226,9 @@ class Handler(Game):
                     self.game_current_level_scene = self.game_level_scenes[self.current_level]
                 else:
                     # Normal level progression
-                    self.paused_time += (pygame.time.get_ticks() - self.last_pause_time)
+                    self.game_timer.resume()
                     self.state_manager.change_state(GameState.PLAYING)
                     self.game_current_level_scene = self.game_level_scenes[self.current_level]
                     
-            if (
-                self.final_level
-                and event.type == pygame.MOUSEBUTTONDOWN
-                and event.button == 1
-                and self.game_scenes.return_to_menu_rect.collidepoint(event.pos)
-            ):
+            if (self.final_level and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.game_scenes.return_to_menu_rect.collidepoint(event.pos)):
                 self.game_quit_to_menu()

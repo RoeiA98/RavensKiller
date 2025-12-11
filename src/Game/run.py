@@ -21,7 +21,8 @@ class GameRun(Handler):
                 pygame.display.update()
                 await asyncio.sleep(0)
 
-            self.start_time = pygame.time.get_ticks()
+            # self.start_time = pygame.time.get_ticks()
+            self.game_timer.start()
 
             while not self.state_manager.is_state(GameState.INTRO):
                 print(self.state_manager.current_state)
